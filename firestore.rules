@@ -1,0 +1,188 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/Users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/Users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Helper function to check if user is owner of the document
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // Protection for suspended/blocked users
+    function isNotRestricted() {
+      // Robust check: allow if document doesn't exist yet, otherwise check status field with safe default
+      return request.auth != null && (
+        !exists(/databases/$(database)/documents/Users/$(request.auth.uid)) ||
+        !(get(/databases/$(database)/documents/Users/$(request.auth.uid)).data.get('status', 'approved') in ['suspended', 'blocked'])
+      );
+    }
+
+    // APP CONFIGURATION PROTOCOL (Global Branding)
+    match /AppConfig/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /Users/{userId} {
+      allow read: if true;
+      allow create: if (request.auth != null && request.auth.uid == userId) || isAdmin();
+      allow update: if isAdmin() || (
+        isOwner(userId) && 
+        // Use resource.data for status check to avoid recursive get() issues during update
+        !(resource.data.get('status', 'approved') in ['suspended', 'blocked']) &&
+        (
+          // Case 1: Permitted profile updates for established users
+          // Prevent changing role, uid, createdAt
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'uid', 'createdAt']) &&
+          // Allow updating status ONLY if the new value is 'pending' (requesting verification)
+          (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['status']) || request.resource.data.status == 'pending')
+        ) &&
+        (
+          // Case 2: One-time identity setup during onboarding or Seeker/Employer specific logic
+          resource.data.get('onboarded', false) == false ||
+          // Case 3: Industrial identity protection for seekers (Employers can update their professional title/dept)
+          (resource.data.role == 'employer' || !request.resource.data.diff(resource.data).affectedKeys().hasAny(['category', 'department', 'designation']))
+        )
+      );
+      allow delete: if isAdmin();
+    }
+
+    match /Jobs/{jobId} {
+      // GET: Individual document access
+      allow get: if true;
+      
+      // LIST: Combined logic for public browsing, employer management, and admin oversight
+      allow list: if isAdmin() || 
+                  resource.data.status == 'approved' || 
+                  (request.auth != null && resource.data.employerId == request.auth.uid) ||
+                  (request.auth != null && isNotRestricted());
+      
+      allow create: if request.auth != null && isNotRestricted() && get(/databases/$(database)/documents/Users/$(request.auth.uid)).data.role == 'employer';
+      
+      // UPDATE: Admin/Owner or views-only for hits
+      allow update: if isAdmin() || 
+                    (request.auth != null && resource.data.employerId == request.auth.uid && isNotRestricted()) ||
+                    (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views']));
+      
+      allow delete: if isAdmin() || (request.auth != null && resource.data.employerId == request.auth.uid && isNotRestricted());
+      
+      match /Views/{userId} {
+        allow read: if isAdmin() || (request.auth != null && get(/databases/$(database)/documents/Jobs/$(jobId)).data.employerId == request.auth.uid);
+        allow write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    match /DepartmentAssets/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /Applications/{appId} {
+      allow get: if request.auth != null && (
+        isAdmin() ||
+        request.auth.uid == resource.data.jobSeekerId || 
+        request.auth.uid == resource.data.employerId
+      );
+      
+      // Separate list paths for admin, seeker and employer dashboards
+      allow list: if isAdmin();
+      allow list: if request.auth != null && request.auth.uid == resource.data.jobSeekerId;
+      allow list: if request.auth != null && request.auth.uid == resource.data.employerId;
+
+      allow create: if request.auth != null && 
+                    request.resource.data.jobSeekerId == request.auth.uid &&
+                    isNotRestricted();
+
+      allow update: if request.auth != null && (
+        isAdmin() ||
+        request.auth.uid == resource.data.employerId ||
+        request.auth.uid == resource.data.jobSeekerId
+      );
+      allow delete: if isAdmin();
+    }
+
+    match /CompanyEntranceProfile/{userId} {
+      allow read: if true;
+      allow write: if (isOwner(userId) && isNotRestricted()) || isAdmin();
+    }
+
+    match /CompanyLogos/{userId} {
+      allow read: if true;
+      allow write: if (isOwner(userId) && isNotRestricted()) || isAdmin();
+    }
+
+    match /Designations/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /AdminNotifications/{id} {
+      allow read: if isAdmin();
+      allow create: if true; 
+      allow update, delete: if isAdmin();
+    }
+
+    match /UserNotifications/{id} {
+      allow get: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow list: if isAdmin();
+      allow list: if request.auth != null && request.auth.uid == resource.data.userId;
+      
+      allow create: if true; 
+      allow update, delete: if isAdmin() || (request.auth != null && request.auth.uid == resource.data.userId);
+    }
+
+    match /Reports/{id} {
+      allow get: if isAdmin() || (
+        request.auth != null && (
+          resource.data.reportedByUserId == request.auth.uid || 
+          resource.data.targetOwnerId == request.auth.uid
+        )
+      );
+      allow list: if isAdmin();
+      allow list: if request.auth != null && (resource.data.reportedByUserId == request.auth.uid || resource.data.targetOwnerId == request.auth.uid);
+      
+      allow create: if request.auth != null && isNotRestricted();
+      allow update, delete: if isAdmin();
+    }
+
+    match /Payments/{id} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /LocationHistory/{id} {
+      allow read: if isAdmin() || (request.auth != null && request.auth.uid == resource.data.uid);
+      allow create: if isAdmin();
+    }
+
+    match /AuditLogs/{id} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /WhatsAppLogs/{id} {
+      allow get: if request.auth != null && (isAdmin() || resource.data.employerId == request.auth.uid);
+      allow list: if isAdmin();
+      allow list: if request.auth != null && resource.data.employerId == request.auth.uid;
+      allow create: if request.auth != null && isNotRestricted();
+      allow delete: if isAdmin();
+    }
+
+    match /CompanyNameChangeRequests/{id} {
+      allow get, list: if isAdmin() || (request.auth != null && request.auth.uid == resource.data.uid);
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid && isNotRestricted();
+      allow update: if isAdmin();
+    }
+
+    match /DesignationChangeRequests/{id} {
+      allow get, list: if isAdmin() || (request.auth != null && request.auth.uid == resource.data.uid);
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid && isNotRestricted();
+      allow update: if isAdmin();
+    }
+  }
+}

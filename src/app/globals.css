@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* Pure White */
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 45%; /* Professional Deep Blue */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%; /* Very Light Blue-Grey */
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 199 89% 48%; /* Vibrant Sky Blue */
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 45%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 32% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 224 71% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar,
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  .no-scrollbar,
+  .scrollbar-hide {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+
+  /* Professional Document Frame for Resume/Profile */
+  .resume-document-frame {
+    border: 1px solid #e2e8f0;
+    padding: 2.5rem;
+    background-color: white;
+    margin: 1rem 0;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+    border-radius: 0.5rem;
+  }
+}
+
+@media print {
+  @page {
+    margin: 10mm !important;
+    size: auto;
+  }
+
+  /* REFINED PRINT ISOLATION PROTOCOL */
+  /* Hide the entire app UI structure to prevent blank pages and artifacts */
+  header, 
+  footer, 
+  nav, 
+  aside, 
+  .print-hidden, 
+  .print\:hidden, 
+  .no-print,
+  [data-radix-popper-content-wrapper],
+  [role="dialog"]:not(.print-area) {
+    display: none !important;
+  }
+
+  /* Reset layout containers for natural flow */
+  html, body, main {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: white !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    width: 100% !important;
+    display: block !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Isolate print areas and allow them to take standard flow */
+  .print-area,
+  .print-container {
+    position: static !important;
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    background-color: white !important;
+    z-index: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: black !important;
+  }
+  
+  .print-area *,
+  .print-container * {
+    visibility: visible !important;
+  }
+
+  /* Standard formatting for dossiers */
+  .resume-document-frame {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+  }
+
+  /* Table and Layout Optimization */
+  .print-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 8pt !important;
+  }
+  
+  .print-table td, 
+  .print-table th {
+    border: 0.5pt solid #ddd !important;
+    padding: 4pt 6pt !important;
+    text-align: left !important;
+    vertical-align: top !important;
+  }
+
+  .print-grid-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  /* Prevent page breaks inside logical units */
+  section, tr, .resume-document-frame {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+}
+
+/* Mobile-first enhancements */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  h1 {
+    @apply text-2xl leading-tight;
+  }
+  
+  .job-card-grid {
+    @apply gap-4;
+  }
+}
+
+/* Hover Enhancement */
+.hover-blue:hover {
+  @apply text-primary transition-colors;
+}
+

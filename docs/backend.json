@@ -1,0 +1,124 @@
+
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Base user profile for all roles.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["job_seeker", "employer", "admin"] },
+        "name": { "type": "string" },
+        "dob": { "type": "string", "format": "date" },
+        "onboarded": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string" },
+        "photo": { "type": "string" },
+        "gst": { "type": "string" },
+        "category": { "type": "string" },
+        "department": { "type": "string" },
+        "designation": { "type": "string" },
+        "companyLogoUrl": { "type": "string", "description": "Base64 or URL for the company brand logo" }
+      },
+      "required": ["uid", "role"]
+    },
+    "Job": {
+      "title": "Job Listing",
+      "description": "A job posted by an employer.",
+      "type": "object",
+      "properties": {
+        "jobId": { "type": "string" },
+        "employerId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "companyLogoUrl": { "type": "string" },
+        "jobTitle": { "type": "string" },
+        "category": { "type": "string" },
+        "department": { "type": "string" },
+        "designation": { "type": "string" },
+        "salaryMin": { "type": "number" },
+        "salaryMax": { "type": "number" },
+        "location": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "status": { "type": "string", "enum": ["draft", "pending", "approved", "rejected", "closed", "archived"] },
+        "views": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Application": {
+      "title": "Job Application",
+      "description": "A record of a seeker applying to a job.",
+      "type": "object",
+      "properties": {
+        "jobId": { "type": "string" },
+        "jobSeekerId": { "type": "string" },
+        "employerId": { "type": "string" },
+        "status": { "type": "string", "enum": ["applied", "shortlisted", "rejected", "hired"] },
+        "appliedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "CompanyNameChangeRequest": {
+      "title": "Company Name Change Request",
+      "description": "Formal request by an employer to update their verified business identity.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "uid": { "type": "string" },
+        "currentName": { "type": "string" },
+        "requestedName": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "DesignationChangeRequest": {
+      "title": "Designation Change Request",
+      "description": "Formal request by a seeker to update their professional industrial role.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "uid": { "type": "string" },
+        "currentDesignation": { "type": "string" },
+        "requestedDesignation": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["phone", "password"]
+  },
+  "firestore": {
+    "/Users/{userId}": {
+      "schema": "#/entities/User",
+      "description": "User profiles"
+    },
+    "/Jobs/{jobId}": {
+      "schema": "#/entities/Job",
+      "description": "Job listings"
+    },
+    "/CompanyNameChangeRequests/{id}": {
+      "schema": "#/entities/CompanyNameChangeRequest",
+      "description": "Employer re-branding requests"
+    },
+    "/DesignationChangeRequests/{id}": {
+      "schema": "#/entities/DesignationChangeRequest",
+      "description": "Seeker role update requests"
+    },
+    "/DepartmentAssets/{id}": {
+      "schema": { "type": "object" },
+      "description": "Admin managed department logos"
+    },
+    "/Applications/{id}": {
+      "schema": "#/entities/Application",
+      "description": "Job application records"
+    },
+    "/AppConfig/{id}": {
+      "schema": { "type": "object" },
+      "description": "Global app configuration settings"
+    }
+  }
+}
