@@ -142,45 +142,7 @@ import { getAuth, createUserWithEmailAndPassword, EmailAuthProvider, reauthentic
 import { firebaseConfig } from "@/firebase/config";
 import { JobListing } from "@/lib/types";
 
-const CLASSIFICATION = {
-  "Technical": {
-    departments: ["DEVELOPMENT", "DESIGN", "MARKETING", "IT SUPPORT", "MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
-    designations: {
-            DEVELOPMENT: ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
-      DESIGN: ["UI/UX Designer", "Graphic Designer"],
-      MARKETING: ["Digital Marketing", "SEO Specialist"],
-      "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
-      MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
-      FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager"],
-      "PRINT & EMBROIDERY": ["Print/Embroidery Followup", "Printing Followup"],
-      PRODUCTION: ["Cutting Incharge", "Cutting Manager", "Line Supervisor", "Production Incharge", "Production Manager", "Factory Manager", "Finishing Incharge", "Checking Incharge", "Ironing Incharge", "Packing Incharge", "Cutter Machine Operator", "Spreader Operator", "Feeding Incharge", "Industrial Engineer", "Cutting Supervisor"],
-      QUALITY: ["Quality Manager", "Quality Controller", "Quality Executive", "Lab Incharge", "Lab Assistant", "Lab Technician", "Quality Incharge", "Line QC", "Fabric QC", "Knitting QC", "Finishing QC", "Dyeing Lab Manager", "Cutting QC", "AQL QC"],
-      "HR & ADMIN": ["HR Manager", "HR Executive", "HR Assistant", "Admin Manager", "Admin Officer", "Recruitment Officer"],
-      "ACCOUNTS & DOCS": ["Accounts cum Documentation Manager", "Accounts Manager", "Documentation Manager", "Documentation Incharge", "Accounts Assistant", "Accounts Executive"],
-      "CAD & SAMPLING": ["CAD MASTER", "SAMPLING INCHARGE", "SAMPLE FOLLOWUP", "PATTERN MASTER", "DESIGNER", "Graphic Designer"],
-      "ERP/EDP": ["ERP Manager", "ERP Incharge", "EDP Incharge", "Data Entry Operator"],
-      STORE: ["Store Incharge", "Store Asst", "Store Keeper", "Trims Follow-Up"],
-      OTHERS: ["DevOps Engineer", "Data Scientist", "Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager", "Graphic Designer"]
-    }
-  },
-  "Non-Technical": {
-    departments: ["SALES & BIZ DEV", "HR & ADMIN", "MARKETING", "CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
-    designations: {
-            "SALES & BIZ DEV": ["Business Development Executive", "Sales Executive"],
-      "HR & ADMIN": ["HR Manager", "Customer Support", "Operations Manager"],
-      MARKETING: ["Marketing Executive", "Content Writer"],
-      CUTTING: ["Cutting Master", "Cutting Helper", "Cutting Operator", "Spreader Operator", "Stickering Helper", "Cutting Contractor"],
-      STITCHING: ["Overlock Tailor", "Flatlock Tailor", "Singer Tailor", "Multi Tailor", "Sample Tailor", "Sewing Helper", "Singer Contractor", "Powertable Contractor"],
-      CHECKING: ["Trimmer", "Checker", "Sain Remove Operator", "Checking Contractor"],
-      "IRONING & PACKING": ["Ironing Master", "Ironing Contractor", "Packer", "Packing Helper", "Packing Contractor", "Needle Detector Operator"],
-      KNITTING: ["Knitting Foreman", "Knitting Operator"],
-      DYEING: ["Dyeing Operator"],
-      COMPACTING: ["Compacting Operator"],
-      "PRINT / EMBROIDERY": ["Embroidery Operator", "Embroidery Framer", "Printing Master", "MHM Operator"],
-      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others", "Receptionist", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
-    }
-  }
-};
+import { CLASSIFICATION } from "@/lib/constants";
 
 const LOGO_SECTIONS = [
   { id: 'header', name: 'Home Page & Header', description: 'Primary brand identity visible across all public navigation bars.' },
@@ -3298,7 +3260,7 @@ export default function AdminDashboard() {
                   ) : filteredLifecycleJobs.length === 0 ? (
                     <TableRow><TableCell colSpan={5} className="h-40 text-center text-muted-foreground font-bold italic">No listings found matching "{lifecycleSearchQuery}".</TableCell></TableRow>
                   ) : (
-                    filteredLifecycleJobs.map(job => {
+                    filteredLifecycleJobs.map((job: any) => {
                       const jobApps = (rawAdminApps || []).filter(a => a.jobId === job.id);
                       const shortlisted = jobApps.filter(a => a.status === 'shortlisted' || a.status === 'hired').length;
                       
@@ -3974,7 +3936,7 @@ export default function AdminDashboard() {
                                <Select value={editedJob?.department} onValueChange={v => handleEditJobField('department', v)}>
                                   <SelectTrigger className="h-8 text-xs font-bold border-none bg-white/50"><SelectValue /></SelectTrigger>
                                   <SelectContent className="font-bold max-h-60">
-                                    {(CLASSIFICATION[editedJob?.category as "Technical" | "Non-Technical"] || CLASSIFICATION.Staff).departments.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
+                                    {(CLASSIFICATION[editedJob?.category as "Technical" | "Non-Technical"] || CLASSIFICATION.Technical).departments.map((d: any) => <SelectItem key={d} value={d}>{d}</SelectItem>)}
                                   </SelectContent>
                                </Select>
                              ) : <p className="font-bold text-sm">{selectedJob?.department}</p>}
