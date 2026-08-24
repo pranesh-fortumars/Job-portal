@@ -35,9 +35,13 @@ import { isBefore, startOfDay, subDays, isAfter, addDays } from "date-fns";
 import { DepartmentLogo } from "@/components/shared/DepartmentLogo";
 
 const CLASSIFICATION = {
-  Staff: {
-    departments: ["MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
+  "Technical": {
+    departments: ["DEVELOPMENT", "DESIGN", "MARKETING", "IT SUPPORT", "MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
     designations: {
+            DEVELOPMENT: ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
+      DESIGN: ["UI/UX Designer", "Graphic Designer"],
+      MARKETING: ["Digital Marketing", "SEO Specialist"],
+      "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
       MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
       FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager"],
       "PRINT & EMBROIDERY": ["Print/Embroidery Followup", "Printing Followup"],
@@ -48,12 +52,15 @@ const CLASSIFICATION = {
       "CAD & SAMPLING": ["CAD MASTER", "SAMPLING INCHARGE", "SAMPLE FOLLOWUP", "PATTERN MASTER", "DESIGNER", "Graphic Designer"],
       "ERP/EDP": ["ERP Manager", "ERP Incharge", "EDP Incharge", "Data Entry Operator"],
       STORE: ["Store Incharge", "Store Asst", "Store Keeper", "Trims Follow-Up"],
-      OTHERS: ["Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager", "Graphic Designer"]
+      OTHERS: ["DevOps Engineer", "Data Scientist", "Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager", "Graphic Designer"]
     }
   },
-  Worker: {
-    departments: ["CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
+  "Non-Technical": {
+    departments: ["SALES & BIZ DEV", "HR & ADMIN", "MARKETING", "CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
     designations: {
+            "SALES & BIZ DEV": ["Business Development Executive", "Sales Executive"],
+      "HR & ADMIN": ["HR Manager", "Customer Support", "Operations Manager"],
+      MARKETING: ["Marketing Executive", "Content Writer"],
       CUTTING: ["Cutting Master", "Cutting Helper", "Cutting Operator", "Spreader Operator", "Stickering Helper", "Cutting Contractor"],
       STITCHING: ["Overlock Tailor", "Flatlock Tailor", "Singer Tailor", "Multi Tailor", "Sample Tailor", "Sewing Helper", "Singer Contractor", "Powertable Contractor"],
       CHECKING: ["Trimmer", "Checker", "Sain Remove Operator", "Checking Contractor"],
@@ -62,7 +69,7 @@ const CLASSIFICATION = {
       DYEING: ["Dyeing Operator"],
       COMPACTING: ["Compacting Operator"],
       "PRINT / EMBROIDERY": ["Embroidery Operator", "Embroidery Framer", "Printing Master", "MHM Operator"],
-      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
+      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others", "Receptionist", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
     }
   }
 };
@@ -152,8 +159,8 @@ export default function JobsPage({
   }, [employersList]);
 
   const availableDepartments = useMemo(() => {
-    if (filters.type === 'Staff') return CLASSIFICATION.Staff.departments;
-    if (filters.type === 'Worker') return CLASSIFICATION.Worker.departments;
+    if (filters.type === 'Technical') return CLASSIFICATION.Staff.departments;
+    if (filters.type === 'Non-Technical') return CLASSIFICATION.Worker.departments;
     return [];
   }, [filters.type]);
 
@@ -312,8 +319,8 @@ export default function JobsPage({
                   </SelectTrigger>
                   <SelectContent className="rounded-xl">
                     <SelectItem value="all" className="font-medium">All Types</SelectItem>
-                    <SelectItem value="Staff" className="font-medium">{t.staff}</SelectItem>
-                    <SelectItem value="Worker" className="font-medium">{t.worker}</SelectItem>
+                    <SelectItem value="Technical" className="font-medium">{t.staff}</SelectItem>
+                    <SelectItem value="Non-Technical" className="font-medium">{t.worker}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

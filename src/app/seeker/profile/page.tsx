@@ -55,9 +55,13 @@ import { format, isValid } from "date-fns";
 import { DatePickerDropdown } from "@/components/ui/date-picker-dropdown";
 
 const CLASSIFICATION = {
-  Staff: {
-    departments: ["MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
+  "Technical": {
+    departments: ["DEVELOPMENT", "DESIGN", "MARKETING", "IT SUPPORT", "MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
     designations: {
+            DEVELOPMENT: ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
+      DESIGN: ["UI/UX Designer", "Graphic Designer"],
+      MARKETING: ["Digital Marketing", "SEO Specialist"],
+      "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
       MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
       FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager", "Trims Follow-Up"],
       "PRINT & EMBROIDERY": ["Print/Embroidery Followup", "Printing Followup", "Graphic Designer"],
@@ -68,12 +72,15 @@ const CLASSIFICATION = {
       "CAD & SAMPLING": ["CAD MASTER", "SAMPLING INCHARGE", "SAMPLE FOLLOWUP", "PATTERN MASTER", "DESIGNER", "Graphic Designer"],
       "ERP/EDP": ["ERP Manager", "ERP Incharge", "EDP Incharge", "Data Entry Operator"],
       STORE: ["Store Incharge", "Store Asst", "Store Keeper"],
-      OTHERS: ["Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager"]
+      OTHERS: ["DevOps Engineer", "Data Scientist", "Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager"]
     }
   },
-  Worker: {
-    departments: ["CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
+  "Non-Technical": {
+    departments: ["SALES & BIZ DEV", "HR & ADMIN", "MARKETING", "CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
     designations: {
+            "SALES & BIZ DEV": ["Business Development Executive", "Sales Executive"],
+      "HR & ADMIN": ["HR Manager", "Customer Support", "Operations Manager"],
+      MARKETING: ["Marketing Executive", "Content Writer"],
       CUTTING: ["Cutting Master", "Cutting Helper", "Cutting Operator", "Spreader Operator", "Stickering Helper", "Cutting Contractor"],
       STITCHING: ["Overlock Tailor", "Flatlock Tailor", "Singer Tailor", "Multi Tailor", "Sample Tailor", "Sewing Helper", "Singer Contractor", "Powertable Contractor"],
       CHECKING: ["Trimmer", "Checker", "Sain Remove Operator", "Checking Contractor"],
@@ -82,7 +89,7 @@ const CLASSIFICATION = {
       DYEING: ["Dyeing Operator"],
       COMPACTING: ["Compacting Operator"],
       "PRINT / EMBROIDERY": ["Embroidery Operator", "Embroidery Framer", "Printing Master", "MHM Operator"],
-      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
+      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others", "Receptionist", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
     }
   }
 };
@@ -139,7 +146,7 @@ const PrintResume = ({ userData, formData, resumeData, t }: any) => {
                 <th>Gender</th><td>{formData.gender || "Not Specified"}</td>
                 <th>Verified Identity</th><td>{userData?.onboarded ? "Yes" : "No"}</td>
               </tr>
-              {formData.category === 'Staff' && (
+              {formData.category === 'Technical' && (
                 <>
                   <tr>
                     <th>Buyers Handled</th><td colSpan={3}>{resumeData.professional.buyersHandled || "N/A"}</td>
@@ -159,7 +166,7 @@ const PrintResume = ({ userData, formData, resumeData, t }: any) => {
           </table>
         </section>
 
-        {formData.category === 'Staff' && resumeData.academic?.length > 0 && (
+        {formData.category === 'Technical' && resumeData.academic?.length > 0 && (
           <section className="mb-6">
             <h2 className="text-lg font-black uppercase border-b-2 border-black mb-3">Academic Records</h2>
             <table className="print-grid-table">
@@ -185,7 +192,7 @@ const PrintResume = ({ userData, formData, resumeData, t }: any) => {
           </section>
         )}
 
-        {formData.category === 'Staff' && resumeData.recentCompany?.length > 0 && (
+        {formData.category === 'Technical' && resumeData.recentCompany?.length > 0 && (
           <section className="mb-6">
             <h2 className="text-lg font-black uppercase border-b-2 border-black mb-3">Employment History</h2>
             <table className="print-grid-table">
@@ -212,7 +219,7 @@ const PrintResume = ({ userData, formData, resumeData, t }: any) => {
           </section>
         )}
 
-        {formData.category === 'Staff' && resumeData.references?.length > 0 && (
+        {formData.category === 'Technical' && resumeData.references?.length > 0 && (
           <section className="mb-6">
             <h2 className="text-lg font-black uppercase border-b-2 border-black mb-3">Professional References</h2>
             <table className="print-grid-table">
@@ -275,7 +282,7 @@ export default function SeekerProfilePage() {
     name: "",
     location: "",
     gender: "",
-    category: "Worker" as 'Staff' | 'Worker',
+    category: "Non-Technical" as 'Technical' | 'Non-Technical',
     department: "",
     designation: "",
     experience: "0",
@@ -313,7 +320,7 @@ export default function SeekerProfilePage() {
         name: userData.name || "",
         location: translateLocation(userData.location || "", t),
         gender: userData.gender || "",
-        category: userData.category || "Worker",
+        category: userData.category || "Non-Technical",
         department: userData.department || "",
         designation: userData.designation || "",
         experience: userData.experience || "0",
@@ -454,7 +461,7 @@ export default function SeekerProfilePage() {
     if (!formData.declarationAccepted) return toast({ variant: "destructive", title: "Declaration Required" });
     if (!auth?.currentUser || !userRef || !db) return;
 
-    if (formData.category === 'Staff') {
+    if (formData.category === 'Technical') {
       const hasCompleteEdu = resumeData.academic.every((edu: any) => edu.education && edu.degree && edu.institute && edu.year);
       if (!hasCompleteEdu) {
         return toast({ 
@@ -478,7 +485,7 @@ export default function SeekerProfilePage() {
       email: formData.email,
       photo: formData.photo,
       declarationAccepted: formData.declarationAccepted,
-      digitalResume: formData.category === 'Staff' ? resumeData : null,
+      digitalResume: formData.category === 'Technical' ? resumeData : null,
       category: formData.category,
       department: formData.department,
       designation: formData.designation,
@@ -779,8 +786,8 @@ export default function SeekerProfilePage() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="font-bold rounded-xl">
-                            <SelectItem value="Staff">{t.staff}</SelectItem>
-                            <SelectItem value="Worker">{t.worker}</SelectItem>
+                            <SelectItem value="Technical">{t.staff}</SelectItem>
+                            <SelectItem value="Non-Technical">{t.worker}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -823,7 +830,7 @@ export default function SeekerProfilePage() {
                    </div>
                  </div>
 
-                 {formData.category === 'Staff' && (
+                 {formData.category === 'Technical' && (
                    <>
                      <div className="space-y-8 resume-document-frame m-4">
                        <div className="flex justify-between items-center border-b-2 border-primary/10 pb-2">

@@ -40,7 +40,7 @@ export async function seedFirestoreMockData(db: Firestore, currentUids?: { emplo
 
     for (const app of DEMO_APPLICATIONS_LIST) {
       const appDocRef = doc(db, "Applications", app.applicationId!);
-      const seekerId = app.jobCategory === 'Worker' ? workerUid : staffUid;
+      const seekerId = app.jobCategory === 'Non-Technical' ? workerUid : staffUid;
       batch.set(appDocRef, {
         ...app,
         jobSeekerId: seekerId,

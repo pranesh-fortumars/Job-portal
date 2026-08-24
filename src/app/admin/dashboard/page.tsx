@@ -143,9 +143,13 @@ import { firebaseConfig } from "@/firebase/config";
 import { JobListing } from "@/lib/types";
 
 const CLASSIFICATION = {
-  Staff: {
-    departments: ["MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
+  "Technical": {
+    departments: ["DEVELOPMENT", "DESIGN", "MARKETING", "IT SUPPORT", "MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
     designations: {
+            DEVELOPMENT: ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
+      DESIGN: ["UI/UX Designer", "Graphic Designer"],
+      MARKETING: ["Digital Marketing", "SEO Specialist"],
+      "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
       MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
       FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager"],
       "PRINT & EMBROIDERY": ["Print/Embroidery Followup", "Printing Followup"],
@@ -156,12 +160,15 @@ const CLASSIFICATION = {
       "CAD & SAMPLING": ["CAD MASTER", "SAMPLING INCHARGE", "SAMPLE FOLLOWUP", "PATTERN MASTER", "DESIGNER", "Graphic Designer"],
       "ERP/EDP": ["ERP Manager", "ERP Incharge", "EDP Incharge", "Data Entry Operator"],
       STORE: ["Store Incharge", "Store Asst", "Store Keeper", "Trims Follow-Up"],
-      OTHERS: ["Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager", "Graphic Designer"]
+      OTHERS: ["DevOps Engineer", "Data Scientist", "Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager", "Graphic Designer"]
     }
   },
-  Worker: {
-    departments: ["CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
+  "Non-Technical": {
+    departments: ["SALES & BIZ DEV", "HR & ADMIN", "MARKETING", "CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
     designations: {
+            "SALES & BIZ DEV": ["Business Development Executive", "Sales Executive"],
+      "HR & ADMIN": ["HR Manager", "Customer Support", "Operations Manager"],
+      MARKETING: ["Marketing Executive", "Content Writer"],
       CUTTING: ["Cutting Master", "Cutting Helper", "Cutting Operator", "Spreader Operator", "Stickering Helper", "Cutting Contractor"],
       STITCHING: ["Overlock Tailor", "Flatlock Tailor", "Singer Tailor", "Multi Tailor", "Sample Tailor", "Sewing Helper", "Singer Contractor", "Powertable Contractor"],
       CHECKING: ["Trimmer", "Checker", "Sain Remove Operator", "Checking Contractor"],
@@ -170,7 +177,7 @@ const CLASSIFICATION = {
       DYEING: ["Dyeing Operator"],
       COMPACTING: ["Compacting Operator"],
       "PRINT / EMBROIDERY": ["Embroidery Operator", "Embroidery Framer", "Printing Master", "MHM Operator"],
-      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
+      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others", "Receptionist", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
     }
   }
 };
@@ -230,7 +237,7 @@ const PrintProfile = ({ user }: { user: any }) => {
                 <th className="bg-gray-50 p-2 border border-gray-300 text-left font-medium uppercase text-[8pt]">Date of Birth</th>
                 <td className="p-2 border border-gray-300">{user.dob || "N/A"}</td>
               </tr>
-              {user.category === 'Staff' && (
+              {user.category === 'Technical' && (
                 <>
                   <tr>
                     <th className="bg-gray-50 p-2 border border-gray-300 text-left font-medium uppercase text-[8pt]">Buyers Handled</th>
@@ -254,7 +261,7 @@ const PrintProfile = ({ user }: { user: any }) => {
           </table>
         </section>
 
-        {user.category === 'Staff' && resume.academic?.length > 0 && (
+        {user.category === 'Technical' && resume.academic?.length > 0 && (
           <section className="mb-6">
             <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Academic Records</h2>
             <table className="print-grid-table w-full border-collapse">
@@ -280,7 +287,7 @@ const PrintProfile = ({ user }: { user: any }) => {
           </section>
         )}
 
-        {user.category === 'Staff' && resume.recentCompany?.length > 0 && (
+        {user.category === 'Technical' && resume.recentCompany?.length > 0 && (
           <section className="mb-6">
             <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Employment History</h2>
             <table className="print-grid-table w-full border-collapse">
@@ -307,7 +314,7 @@ const PrintProfile = ({ user }: { user: any }) => {
           </section>
         )}
 
-        {user.category === 'Staff' && resume.references?.length > 0 && (
+        {user.category === 'Technical' && resume.references?.length > 0 && (
           <section className="mb-6">
             <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Professional References</h2>
             <table className="print-grid-table w-full border-collapse">
@@ -882,7 +889,7 @@ function DesignationRegistry({ db }: { db: any }) {
     name: "",
     nameTamil: "",
     nameHindi: "",
-    category: "Staff" as 'Staff' | 'Worker',
+    category: "Technical" as 'Technical' | 'Non-Technical',
     department: "MERCHANDISING",
     status: "active" as 'active' | 'inactive'
   });
@@ -902,7 +909,7 @@ function DesignationRegistry({ db }: { db: any }) {
         name: "",
         nameTamil: "",
         nameHindi: "",
-        category: "Staff",
+        category: "Technical",
         department: "MERCHANDISING",
         status: "active"
       });
@@ -1224,7 +1231,7 @@ function DesignationRegistry({ db }: { db: any }) {
                     <Label className="font-medium text-xs uppercase text-muted-foreground tracking-widest ml-1">Global Category</Label>
                     <Select value={form.category} onValueChange={(v: any) => setForm({...form, category: v})}>
                        <SelectTrigger className="h-11 rounded-xl font-bold bg-muted/20 border-none"><SelectValue /></SelectTrigger>
-                       <SelectContent className="font-bold rounded-xl"><SelectItem value="Staff">Staff</SelectItem><SelectItem value="Worker">Worker</SelectItem></SelectContent>
+                       <SelectContent className="font-bold rounded-xl"><SelectItem value="Technical">Staff</SelectItem><SelectItem value="Non-Technical">Worker</SelectItem></SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
@@ -1293,7 +1300,7 @@ function DepartmentAssetManager({ db }: { db: any }) {
 
   // New Department Dialog state
   const [isAddOpen, setIsAddOpen] = useState(false);
-  const [addCategory, setAddCategory] = useState<'Staff' | 'Worker'>('Staff');
+  const [addCategory, setAddCategory] = useState<'Technical' | 'Non-Technical'>('Technical');
   const [newDeptName, setNewDeptName] = useState('');
 
   // Default departmental lists
@@ -1388,8 +1395,8 @@ function DepartmentAssetManager({ db }: { db: any }) {
     if (!newDeptName.trim() || !db || !registryRef) return;
     const name = newDeptName.trim().toUpperCase();
     try {
-      const field = addCategory === 'Staff' ? 'customStaffDepts' : 'customWorkerDepts';
-      const removedField = addCategory === 'Staff' ? 'removedStaffDepts' : 'removedWorkerDepts';
+      const field = addCategory === 'Technical' ? 'customStaffDepts' : 'customWorkerDepts';
+      const removedField = addCategory === 'Technical' ? 'removedStaffDepts' : 'removedWorkerDepts';
       const currentCustom = (registry?.[field] || []) as string[];
       const currentRemoved = (registry?.[removedField] || []) as string[];
       
@@ -1399,7 +1406,7 @@ function DepartmentAssetManager({ db }: { db: any }) {
         updatedAt: serverTimestamp()
       }, { merge: true });
 
-      toast({ title: "Department Added", description: `Added ${name} to ${addCategory === 'Staff' ? 'IT, Tech & Internships' : 'Skilled Trades & Wages'}.` });
+      toast({ title: "Department Added", description: `Added ${name} to ${addCategory === 'Technical' ? 'IT, Tech & Internships' : 'Skilled Trades & Wages'}.` });
       setNewDeptName('');
       setIsAddOpen(false);
     } catch (e) {
@@ -1407,11 +1414,11 @@ function DepartmentAssetManager({ db }: { db: any }) {
     }
   };
 
-  const handleRemoveDepartment = async (category: 'Staff' | 'Worker', deptName: string) => {
+  const handleRemoveDepartment = async (category: 'Technical' | 'Non-Technical', deptName: string) => {
     if (!db || !registryRef) return;
     try {
-      const field = category === 'Staff' ? 'customStaffDepts' : 'customWorkerDepts';
-      const removedField = category === 'Staff' ? 'removedStaffDepts' : 'removedWorkerDepts';
+      const field = category === 'Technical' ? 'customStaffDepts' : 'customWorkerDepts';
+      const removedField = category === 'Technical' ? 'removedStaffDepts' : 'removedWorkerDepts';
       const currentCustom = ((registry?.[field] || []) as string[]).filter((d: string) => d !== deptName);
       const currentRemoved = Array.from(new Set([...((registry?.[removedField] || []) as string[]), deptName]));
       
@@ -1427,11 +1434,11 @@ function DepartmentAssetManager({ db }: { db: any }) {
     }
   };
 
-  const handleResetDefaults = async (category: 'Staff' | 'Worker') => {
+  const handleResetDefaults = async (category: 'Technical' | 'Non-Technical') => {
     if (!db || !registryRef) return;
     try {
-      const field = category === 'Staff' ? 'customStaffDepts' : 'customWorkerDepts';
-      const removedField = category === 'Staff' ? 'removedStaffDepts' : 'removedWorkerDepts';
+      const field = category === 'Technical' ? 'customStaffDepts' : 'customWorkerDepts';
+      const removedField = category === 'Technical' ? 'removedStaffDepts' : 'removedWorkerDepts';
       await setDoc(registryRef, {
         [field]: [],
         [removedField]: [],
@@ -1467,7 +1474,7 @@ function DepartmentAssetManager({ db }: { db: any }) {
               <p className="text-xs font-normal text-muted-foreground">Merchandising, ERP/EDP, Software, Data, Design, Accounts & Corporate roles</p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" onClick={() => handleResetDefaults('Staff')} className="text-xs text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="sm" onClick={() => handleResetDefaults('Technical')} className="text-xs text-muted-foreground hover:text-foreground">
             <RefreshCw className="w-3.5 h-3.5 mr-1" /> Reset Defaults
           </Button>
         </div>
@@ -1476,17 +1483,17 @@ function DepartmentAssetManager({ db }: { db: any }) {
             <Card key={dept} className="rounded-2xl border border-muted/60 shadow-sm hover:shadow-md transition-shadow overflow-hidden bg-card group">
               <CardContent className="p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <DepartmentLogo category="Staff" department={dept} className="w-12 h-12 rounded-xl border shrink-0" />
+                  <DepartmentLogo category="Technical" department={dept} className="w-12 h-12 rounded-xl border shrink-0" />
                   <div>
                     <p className="font-medium text-sm text-foreground truncate max-w-[130px]">{dept}</p>
                     <p className="text-[10px] text-muted-foreground font-normal">IT & Corporate</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" title="Upload Logo" className="rounded-xl text-primary hover:bg-primary/5 h-8 w-8" onClick={() => { setSelectedDept({ category: 'Staff', name: dept }); setTimeout(() => fileInputRef.current?.click(), 10); }}>
+                  <Button variant="ghost" size="icon" title="Upload Logo" className="rounded-xl text-primary hover:bg-primary/5 h-8 w-8" onClick={() => { setSelectedDept({ category: 'Technical', name: dept }); setTimeout(() => fileInputRef.current?.click(), 10); }}>
                     <Upload className="w-4 h-4" />
                   </Button>
-                  <Button variant="ghost" size="icon" title="Remove Department" className="rounded-xl text-muted-foreground hover:text-destructive hover:bg-destructive/5 h-8 w-8" onClick={() => handleRemoveDepartment('Staff', dept)}>
+                  <Button variant="ghost" size="icon" title="Remove Department" className="rounded-xl text-muted-foreground hover:text-destructive hover:bg-destructive/5 h-8 w-8" onClick={() => handleRemoveDepartment('Technical', dept)}>
                     <Trash2 className="w-4 h-4" />
                   </Button>
                 </div>
@@ -1506,7 +1513,7 @@ function DepartmentAssetManager({ db }: { db: any }) {
               <p className="text-xs font-normal text-muted-foreground">Cutting, Stitching, Checking, Ironing, Packing, Dyeing, Knitting & Trades</p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" onClick={() => handleResetDefaults('Worker')} className="text-xs text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="sm" onClick={() => handleResetDefaults('Non-Technical')} className="text-xs text-muted-foreground hover:text-foreground">
             <RefreshCw className="w-3.5 h-3.5 mr-1" /> Reset Defaults
           </Button>
         </div>
@@ -1515,17 +1522,17 @@ function DepartmentAssetManager({ db }: { db: any }) {
             <Card key={dept} className="rounded-2xl border border-muted/60 shadow-sm hover:shadow-md transition-shadow overflow-hidden bg-card group">
               <CardContent className="p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <DepartmentLogo category="Worker" department={dept} className="w-12 h-12 rounded-xl border shrink-0" />
+                  <DepartmentLogo category="Non-Technical" department={dept} className="w-12 h-12 rounded-xl border shrink-0" />
                   <div>
                     <p className="font-medium text-sm text-foreground truncate max-w-[130px]">{dept}</p>
                     <p className="text-[10px] text-muted-foreground font-normal">Skilled Trades</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" title="Upload Logo" className="rounded-xl text-accent hover:bg-accent/5 h-8 w-8" onClick={() => { setSelectedDept({ category: 'Worker', name: dept }); setTimeout(() => fileInputRef.current?.click(), 10); }}>
+                  <Button variant="ghost" size="icon" title="Upload Logo" className="rounded-xl text-accent hover:bg-accent/5 h-8 w-8" onClick={() => { setSelectedDept({ category: 'Non-Technical', name: dept }); setTimeout(() => fileInputRef.current?.click(), 10); }}>
                     <Upload className="w-4 h-4" />
                   </Button>
-                  <Button variant="ghost" size="icon" title="Remove Department" className="rounded-xl text-muted-foreground hover:text-destructive hover:bg-destructive/5 h-8 w-8" onClick={() => handleRemoveDepartment('Worker', dept)}>
+                  <Button variant="ghost" size="icon" title="Remove Department" className="rounded-xl text-muted-foreground hover:text-destructive hover:bg-destructive/5 h-8 w-8" onClick={() => handleRemoveDepartment('Non-Technical', dept)}>
                     <Trash2 className="w-4 h-4" />
                   </Button>
                 </div>
@@ -1550,17 +1557,17 @@ function DepartmentAssetManager({ db }: { db: any }) {
               <div className="grid grid-cols-2 gap-2">
                 <Button 
                   type="button" 
-                  variant={addCategory === 'Staff' ? 'default' : 'outline'} 
+                  variant={addCategory === 'Technical' ? 'default' : 'outline'} 
                   className="rounded-xl text-xs font-medium h-11"
-                  onClick={() => setAddCategory('Staff')}
+                  onClick={() => setAddCategory('Technical')}
                 >
                   <Briefcase className="w-4 h-4 mr-1.5" /> IT, Tech & Interns
                 </Button>
                 <Button 
                   type="button" 
-                  variant={addCategory === 'Worker' ? 'default' : 'outline'} 
+                  variant={addCategory === 'Non-Technical' ? 'default' : 'outline'} 
                   className="rounded-xl text-xs font-medium h-11"
-                  onClick={() => setAddCategory('Worker')}
+                  onClick={() => setAddCategory('Non-Technical')}
                 >
                   <Users className="w-4 h-4 mr-1.5" /> Skilled Trades
                 </Button>
@@ -1991,7 +1998,7 @@ export default function AdminDashboard() {
 
   const editedDesignations = useMemo(() => {
     if (!editedJob?.category || !editedJob?.department) return [];
-    const cat = editedJob.category as "Staff" | "Worker";
+    const cat = editedJob.category as "Technical" | "Non-Technical";
     const std = (CLASSIFICATION[cat] as any).designations[editedJob.department] || [];
     const masters = (customDesignations || [])
       .filter((d: any) => d.category === cat && d.department === editedJob.department && d.status !== 'inactive')
@@ -2278,8 +2285,8 @@ export default function AdminDashboard() {
     rejectedCompanies: companies.filter(c => c.status === 'rejected').length,
     suspendedCompanies: companies.filter(c => c.status === 'suspended').length,
     locationRequests: companies.filter(c => c.locationRequestStatus === 'change_requested').length,
-    workers: liveUsers.filter(u => u.role === 'job_seeker' && u.category === 'Worker').length,
-    staff: liveUsers.filter(u => u.role === 'job_seeker' && u.category === 'Staff').length,
+    workers: liveUsers.filter(u => u.role === 'job_seeker' && u.category === 'Non-Technical').length,
+    staff: liveUsers.filter(u => u.role === 'job_seeker' && u.category === 'Technical').length,
     pendingJobs: liveJobs.filter(j => j.status === 'pending').length,
     approvedJobs: liveJobs.filter(j => ['approved', 'live', 'open'].includes(j.status)).length,
     completedDrives: categorizedJobs.archived.length + categorizedJobs.closed.length,
@@ -3782,7 +3789,7 @@ export default function AdminDashboard() {
                       </div>
                     </section>
 
-                    {selectedUser?.category === 'Staff' && (
+                    {selectedUser?.category === 'Technical' && (
                       <section className="space-y-6 break-inside-avoid pt-6 border-t-2 border-dashed">
                         <h4 className="text-xs font-medium uppercase text-primary border-b-2 border-primary/10 pb-1 flex items-center gap-2"><Zap className="w-4 h-4" /> Technical Assets</h4>
                         <div className="grid grid-cols-1 gap-6">
@@ -3957,7 +3964,7 @@ export default function AdminDashboard() {
                              {isEditingJob ? (
                                <Select value={editedJob?.category} onValueChange={v => handleEditJobField('category', v)}>
                                   <SelectTrigger className="h-8 text-xs font-bold border-none bg-white/50"><SelectValue /></SelectTrigger>
-                                  <SelectContent className="font-bold"><SelectItem value="Staff">Staff</SelectItem><SelectItem value="Worker">Worker</SelectItem></SelectContent>
+                                  <SelectContent className="font-bold"><SelectItem value="Technical">Staff</SelectItem><SelectItem value="Non-Technical">Worker</SelectItem></SelectContent>
                                </Select>
                              ) : <p className="font-bold text-sm">{selectedJob?.category}</p>}
                           </div>
@@ -3967,7 +3974,7 @@ export default function AdminDashboard() {
                                <Select value={editedJob?.department} onValueChange={v => handleEditJobField('department', v)}>
                                   <SelectTrigger className="h-8 text-xs font-bold border-none bg-white/50"><SelectValue /></SelectTrigger>
                                   <SelectContent className="font-bold max-h-60">
-                                    {(CLASSIFICATION[editedJob?.category as "Staff" | "Worker"] || CLASSIFICATION.Staff).departments.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
+                                    {(CLASSIFICATION[editedJob?.category as "Technical" | "Non-Technical"] || CLASSIFICATION.Staff).departments.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
                                   </SelectContent>
                                </Select>
                              ) : <p className="font-bold text-sm">{selectedJob?.department}</p>}

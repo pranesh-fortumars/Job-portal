@@ -24,9 +24,13 @@ import { BRANDING } from "@/lib/branding";
 import { AppLogo } from "@/components/shared/AppLogo";
 
 const CLASSIFICATION = {
-  Staff: {
-    departments: ["MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
+  "Technical": {
+    departments: ["DEVELOPMENT", "DESIGN", "MARKETING", "IT SUPPORT", "MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
     designations: {
+            DEVELOPMENT: ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
+      DESIGN: ["UI/UX Designer", "Graphic Designer"],
+      MARKETING: ["Digital Marketing", "SEO Specialist"],
+      "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
       MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
       FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager", "Trims Follow-Up"],
       "PRINT & EMBROIDERY": ["Print/Embroidery Followup", "Printing Followup", "Graphic Designer"],
@@ -37,12 +41,15 @@ const CLASSIFICATION = {
       "CAD & SAMPLING": ["CAD MASTER", "SAMPLING INCHARGE", "SAMPLE FOLLOWUP", "PATTERN MASTER", "DESIGNER", "Graphic Designer"],
       "ERP/EDP": ["ERP Manager", "ERP Incharge", "EDP Incharge", "Data Entry Operator"],
       STORE: ["Store Incharge", "Store Asst", "Store Keeper"],
-      OTHERS: ["Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager"]
+      OTHERS: ["DevOps Engineer", "Data Scientist", "Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager"]
     }
   },
-  Worker: {
-    departments: ["CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
+  "Non-Technical": {
+    departments: ["SALES & BIZ DEV", "HR & ADMIN", "MARKETING", "CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
     designations: {
+            "SALES & BIZ DEV": ["Business Development Executive", "Sales Executive"],
+      "HR & ADMIN": ["HR Manager", "Customer Support", "Operations Manager"],
+      MARKETING: ["Marketing Executive", "Content Writer"],
       CUTTING: ["Cutting Master", "Cutting Helper", "Cutting Operator", "Spreader Operator", "Stickering Helper", "Cutting Contractor"],
       STITCHING: ["Overlock Tailor", "Flatlock Tailor", "Singer Tailor", "Multi Tailor", "Sample Tailor", "Sewing Helper", "Singer Contractor", "Powertable Contractor"],
       CHECKING: ["Trimmer", "Checker", "Sain Remove Operator", "Checking Contractor"],
@@ -51,7 +58,7 @@ const CLASSIFICATION = {
       DYEING: ["Dyeing Operator"],
       COMPACTING: ["Compacting Operator"],
       "PRINT / EMBROIDERY": ["Embroidery Operator", "Embroidery Framer", "Printing Master", "MHM Operator"],
-      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
+      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others", "Receptionist", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
     }
   }
 };
@@ -76,7 +83,7 @@ export default function SeekerOnboarding() {
     name: "",
     location: "avinashi",
     gender: "",
-    category: "Worker" as 'Staff' | 'Worker',
+    category: "Non-Technical" as 'Technical' | 'Non-Technical',
     department: "",
     designation: "",
     experience: "0",
@@ -105,12 +112,12 @@ export default function SeekerOnboarding() {
   const isSubmittingRef = useRef(false);
 
   useEffect(() => {
-    const savedCategory = localStorage.getItem('sim_job_seeker_category') as 'Staff' | 'Worker';
+    const savedCategory = localStorage.getItem('sim_job_seeker_category') as 'Technical' | 'Non-Technical';
     if (savedCategory) {
       setFormData(prev => ({ 
         ...prev, 
         category: savedCategory,
-        academic: savedCategory === 'Staff' ? [{ education: "", degree: "", institute: "", year: "" }] : []
+        academic: savedCategory === 'Technical' ? [{ education: "", degree: "", institute: "", year: "" }] : []
       }));
     }
     if (auth?.currentUser && db && !hasResumed.current) {
@@ -134,7 +141,7 @@ export default function SeekerOnboarding() {
             auditExperience: data.digitalResume?.professional?.auditExperience || prev.auditExperience,
             certifications: data.digitalResume?.professional?.certifications || prev.certifications,
             coreSkills: data.digitalResume?.professional?.coreSkills || prev.coreSkills,
-            academic: data.digitalResume?.academic || (data.category === 'Staff' ? [{ education: "", degree: "", institute: "", year: "" }] : [])
+            academic: data.digitalResume?.academic || (data.category === 'Technical' ? [{ education: "", degree: "", institute: "", year: "" }] : [])
           }));
           if (data.digitalResume) {
             if (data.digitalResume.recentCompany) setRecentCompany(data.digitalResume.recentCompany);
@@ -283,7 +290,7 @@ export default function SeekerOnboarding() {
       if (!formData.gender) return toast({ variant: "destructive", title: "Gender Required" });
     }
     
-    if (step === 2 && formData.category === 'Staff') {
+    if (step === 2 && formData.category === 'Technical') {
       const hasCompleteEdu = formData.academic.every(edu => edu.education && edu.degree && edu.institute && edu.year);
       if (!hasCompleteEdu) return toast({ variant: "destructive", title: "Education Details Required", description: "Staff profiles must include institution, degree, and passing year." });
     }
@@ -309,7 +316,7 @@ export default function SeekerOnboarding() {
       phone: phoneWithPrefix,
       onboarded: true,
       updatedAt: serverTimestamp(),
-      digitalResume: formData.category === 'Staff' ? {
+      digitalResume: formData.category === 'Technical' ? {
         academic: formData.academic,
         recentCompany,
         references,
@@ -378,7 +385,7 @@ export default function SeekerOnboarding() {
   };
 
   const isRoleLocked = !!initialData?.onboarded;
-  const totalSteps = formData.category === 'Staff' ? 4 : 3;
+  const totalSteps = formData.category === 'Technical' ? 4 : 3;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -398,8 +405,8 @@ export default function SeekerOnboarding() {
             </div>
             <CardTitle className="text-3xl font-extrabold font-headline text-primary uppercase tracking-tight">
               {step === 1 ? t.personalInfo : 
-               (step === 2 && formData.category === 'Staff') ? "Academic Excellence" : 
-               (step === (formData.category === 'Staff' ? 3 : 2)) ? t.jobPrefs : "Final Confirmation"}
+               (step === 2 && formData.category === 'Technical') ? "Academic Excellence" : 
+               (step === (formData.category === 'Technical' ? 3 : 2)) ? t.jobPrefs : "Final Confirmation"}
             </CardTitle>
           </CardHeader>
           
@@ -472,7 +479,7 @@ export default function SeekerOnboarding() {
               </div>
             )}
 
-            {step === 2 && formData.category === 'Staff' && (
+            {step === 2 && formData.category === 'Technical' && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="flex justify-between items-center border-b pb-2">
                    <h3 className="text-xl font-black text-primary flex items-center gap-2">
@@ -520,7 +527,7 @@ export default function SeekerOnboarding() {
               </div>
             )}
 
-            {step === (formData.category === 'Staff' ? 3 : 2) && (
+            {step === (formData.category === 'Technical' ? 3 : 2) && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="bg-primary/5 p-6 rounded-[2.5rem] border-2 border-dashed border-primary/20 relative mb-6">
                    <Badge className="absolute -top-3 left-8 bg-primary text-white border-none font-black uppercase text-[10px] tracking-widest gap-1.5 px-4 py-1.5 shadow-lg">
@@ -534,7 +541,7 @@ export default function SeekerOnboarding() {
                       <Label className="font-black text-xs uppercase text-muted-foreground tracking-widest ml-1">Account Category</Label>
                       <Select disabled={isRoleLocked} value={formData.category} onValueChange={(v: any) => setFormData({...formData, category: v, department: "", designation: ""})}>
                         <SelectTrigger className="h-12 rounded-xl font-black bg-white border-none shadow-sm"><SelectValue /></SelectTrigger>
-                        <SelectContent className="font-bold rounded-xl"><SelectItem value="Staff">{t.staff}</SelectItem><SelectItem value="Worker">{t.worker}</SelectItem></SelectContent>
+                        <SelectContent className="font-bold rounded-xl"><SelectItem value="Technical">{t.staff}</SelectItem><SelectItem value="Non-Technical">{t.worker}</SelectItem></SelectContent>
                       </Select>
                     </div>
                     <div className="space-y-2">
@@ -561,7 +568,7 @@ export default function SeekerOnboarding() {
                   </div>
                 </div>
 
-                {formData.category === 'Staff' && (
+                {formData.category === 'Technical' && (
                   <div className="space-y-8 pt-6 border-t-2 border-dashed border-primary/10">
                     <h3 className="text-xl font-black text-primary flex items-center gap-2">
                       <Zap className="w-6 h-6" /> Core Assets & Skills

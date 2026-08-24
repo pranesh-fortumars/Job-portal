@@ -1,5 +1,5 @@
 export type UserRole = 'job_seeker' | 'employer' | 'admin';
-export type JobCategory = 'Staff' | 'Worker';
+export type JobCategory = 'Technical' | 'Non-Technical';
 export type WorkType = 'Shift' | 'Piece Rate' | 'Full-time' | 'Part-time';
 
 export interface User {

@@ -86,7 +86,7 @@ const ApplicationFormInputs = ({
   minPickerDate, 
   job 
 }: any) => {
-  if (job.category !== 'Staff') return null;
+  if (job.category !== 'Technical') return null;
 
   return (
     <div className="p-5 bg-primary/5 rounded-[1.5rem] border-2 border-dashed border-primary/20 animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-5 w-full shadow-inner">
@@ -287,7 +287,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
       return;
     }
 
-    if (job.category === 'Staff') {
+    if (job.category === 'Technical') {
       if (!expectedSalary) {
         toast({ variant: "destructive", title: "Salary Required", description: "Please enter your expected salary." });
         return;
@@ -316,7 +316,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
       location: currentUserProfile.location || "Tirupur Hub",
     };
 
-    if (job.category === 'Staff') {
+    if (job.category === 'Technical') {
       appData.preferredInterviewDate = preferredInterviewDate || null;
       appData.expectedSalary = expectedSalary || null;
     }
@@ -328,7 +328,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
         toast({ title: t.applyNow });
         
         // TRIGGER: worker_applicant
-        if (job.category === 'Worker' && employerData?.phone) {
+        if (job.category === 'Non-Technical' && employerData?.phone) {
            const payload = {
               phone: employerData.phone,
               companyName: employerData.companyName || job.companyName,
@@ -355,7 +355,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
         }
 
         // TRIGGER: staff_new_applicants
-        if (job.category === 'Staff' && employerData?.phone) {
+        if (job.category === 'Technical' && employerData?.phone) {
            const payload = {
               phone: employerData.phone,
               companyName: employerData.companyName || job.companyName,
@@ -381,7 +381,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
            });
         }
 
-        if (job.category === 'Staff') {
+        if (job.category === 'Technical') {
           sendAuthkeyNotification({
             candidateName: appData.seekerName,
             designation: appData.jobTitle || "Industrial Role",

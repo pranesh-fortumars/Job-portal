@@ -72,7 +72,7 @@ export default function SignupPage() {
   const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
   
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<'Staff' | 'Worker' | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<'Technical' | 'Non-Technical' | null>(null);
 
   const [timer, setTimer] = useState(0);
   const [canResend, setCanResend] = useState(false);
@@ -186,7 +186,7 @@ export default function SignupPage() {
     };
   }, [auth, mounted]);
 
-  const handleRoleSelection = (role: Exclude<UserRole, 'admin'>, category?: 'Staff' | 'Worker') => {
+  const handleRoleSelection = (role: Exclude<UserRole, 'admin'>, category?: 'Technical' | 'Non-Technical') => {
     setSelectedRole(role);
     setSelectedCategory(category || null);
     setStep("details");
@@ -512,14 +512,14 @@ export default function SignupPage() {
             {step === "role-select" ? (
               <div className="grid gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Button variant="outline" className="h-32 flex flex-col items-center justify-center gap-2 border-2 border-primary/10 hover:border-primary hover:bg-primary/5 rounded-[2rem] transition-all p-4 text-center group" onClick={() => handleRoleSelection('job_seeker', 'Staff')} disabled={loading}>
+                  <Button variant="outline" className="h-32 flex flex-col items-center justify-center gap-2 border-2 border-primary/10 hover:border-primary hover:bg-primary/5 rounded-[2rem] transition-all p-4 text-center group" onClick={() => handleRoleSelection('job_seeker', 'Technical')} disabled={loading}>
                     <Briefcase className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
                     <div>
                       <p className="font-semibold text-sm text-foreground">IT, Tech & Internships</p>
                       <p className="text-[11px] text-muted-foreground font-normal">Developers, Interns, Corporate</p>
                     </div>
                   </Button>
-                  <Button variant="outline" className="h-32 flex flex-col items-center justify-center gap-2 border-2 border-primary/10 hover:border-primary hover:bg-primary/5 rounded-[2rem] transition-all p-4 text-center group" onClick={() => handleRoleSelection('job_seeker', 'Worker')} disabled={loading}>
+                  <Button variant="outline" className="h-32 flex flex-col items-center justify-center gap-2 border-2 border-primary/10 hover:border-primary hover:bg-primary/5 rounded-[2rem] transition-all p-4 text-center group" onClick={() => handleRoleSelection('job_seeker', 'Non-Technical')} disabled={loading}>
                     <UserCircle className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
                     <div>
                       <p className="font-semibold text-sm text-foreground">Skilled Trades & Wages</p>

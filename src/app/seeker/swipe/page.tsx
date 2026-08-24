@@ -90,7 +90,7 @@ export default function SeekerSwipePage() {
 
           {/* Category Pills */}
           <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
-            {['all', 'Worker', 'Staff'].map((cat) => (
+            {['all', 'Non-Technical', 'Technical'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}

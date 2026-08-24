@@ -8,7 +8,7 @@ import { Building2, Users, Briefcase, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface DepartmentLogoProps {
-  category: "Staff" | "Worker" | string;
+  category: "Technical" | "Non-Technical" | string;
   department: string;
   className?: string;
   fallbackIconClassName?: string;
@@ -54,7 +54,7 @@ export function DepartmentLogo({
   }
 
   // Fallback Icon System if no custom logo is uploaded
-  const FallbackIcon = category === 'Staff' ? Briefcase : Users;
+  const FallbackIcon = category === 'Technical' ? Briefcase : Users;
 
   return (
     <div className={cn("flex items-center justify-center bg-muted/30", className)}>

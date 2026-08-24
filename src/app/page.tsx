@@ -55,6 +55,9 @@ import { DepartmentLogo } from "@/components/shared/DepartmentLogo";
 import { AppLogo } from "@/components/shared/AppLogo";
 
 const WORKER_CLASSIFICATION = {
+  "SALES & BIZ DEV": ["Business Development Executive", "Sales Executive"],
+  "HR & ADMIN": ["HR Manager", "Customer Support", "Operations Manager"],
+  "MARKETING": ["Marketing Executive", "Content Writer"],
   STITCHING: ["Overlock Tailor", "Flatlock Tailor", "Singer Tailor", "Multi Tailor", "Sample Tailor", "Sewing Helper", "Singer Contractor", "Powertable Contractor"],
   CUTTING: ["Cutting Master", "Cutting Helper", "Cutting Operator", "Spreader Operator", "Stickering Helper", "Cutting Contractor"],
   CHECKING: ["Trimmer", "Checker", "Sain Remove Operator", "Checking Contractor"],
@@ -63,10 +66,14 @@ const WORKER_CLASSIFICATION = {
   DYEING: ["Dyeing Operator"],
   COMPACTING: ["Compacting Operator"],
   "PRINT / EMBROIDERY": ["Embroidery Operator", "Embroidery Framer"],
-  OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook"]
+  "OTHERS": ["Receptionist", "Driver", "Security Guard", "Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Watchman", "Loadman", "Cook"]
 };
 
 const STAFF_CLASSIFICATION = {
+  "DEVELOPMENT": ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
+  "DESIGN": ["UI/UX Designer", "Graphic Designer"],
+  "MARKETING": ["Digital Marketing", "SEO Specialist"],
+  "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
   MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
   FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager"],
   "PRINT & EMBROIDERY": ["Print/Embroidery Followup", "Printing Followup", "Graphic Designer"],
@@ -77,10 +84,13 @@ const STAFF_CLASSIFICATION = {
   "CAD & SAMPLING": ["CAD MASTER", "SAMPLING INCHARGE", "SAMPLE FOLLOWUP", "PATTERN MASTER", "DESIGNER", "Graphic Designer"],
   "ERP/EDP": ["ERP Manager", "ERP Incharge", "EDP Incharge", "Data Entry Operator"],
   STORE: ["Store Incharge", "Store Asst", "Store Keeper"],
-  OTHERS: ["Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "ECOM Manager", "Graphic Designer"]
+  "OTHERS": ["DevOps Engineer", "Data Scientist", "Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "ECOM Manager", "Graphic Designer"]
 };
 
 const WORKER_CATEGORIES_BASE = [
+  { name: "Sales & Biz Dev", id: "SALES & BIZ DEV", icon: "📈" },
+  { name: "HR & Admin", id: "HR & ADMIN", icon: "📁" },
+  { name: "Marketing", id: "MARKETING", icon: "📢" },
   { name: "Stitching", id: "STITCHING", icon: "✂️" },
   { name: "Cutting", id: "CUTTING", icon: "📐" },
   { name: "Checking", id: "CHECKING", icon: "✅" },
@@ -93,6 +103,10 @@ const WORKER_CATEGORIES_BASE = [
 ];
 
 const STAFF_CATEGORIES_BASE = [
+  { name: "Development", id: "DEVELOPMENT", icon: "💻" },
+  { name: "Design", id: "DESIGN", icon: "🎨" },
+  { name: "Marketing", id: "MARKETING", icon: "🚀" },
+  { name: "IT Support", id: "IT SUPPORT", icon: "🖥️" },
   { name: "Merchandising", id: "MERCHANDISING", icon: "👔" },
   { name: "Fabric", id: "FABRIC", icon: "🧵" },
   { name: "Print & Embroidery", id: "PRINT & EMBROIDERY", icon: "🎨" },
@@ -103,7 +117,7 @@ const STAFF_CATEGORIES_BASE = [
   { name: "CAD/Sampling", id: "CAD & SAMPLING", icon: "📐" },
   { name: "ERP/EDP", id: "ERP/EDP", icon: "💻" },
   { name: "Store", id: "STORE", icon: "📦" },
-  { name: "Others", id: "OTHERS", icon: "🛠️" },
+  { name: "Others", id: "OTHERS", icon: "🛠️" }
 ];
 
 export default function Home() {
@@ -115,7 +129,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("nearby");
   const [activeDept, setActiveDept] = useState<string | null>(null);
-  const [mainCategory, setMainCategory] = useState<'Worker' | 'Staff'>('Worker');
+  const [mainCategory, setMainCategory] = useState<'Non-Technical' | 'Technical'>('Non-Technical');
   const [userCoords, setUserCoords] = useState<{lat: number, lng: number} | null>(null);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -160,7 +174,7 @@ export default function Home() {
   }, [employersList]);
 
   useEffect(() => {
-    const saved = localStorage.getItem('sim_job_seeker_category') as 'Worker' | 'Staff';
+    const saved = localStorage.getItem('sim_job_seeker_category') as 'Non-Technical' | 'Technical';
     if (saved) setMainCategory(saved);
   }, []);
 
@@ -263,7 +277,7 @@ export default function Home() {
   }, [liveJobs, mainCategory, employerStatusMap]);
 
   const categoriesToDisplay = useMemo(() => {
-    const base = mainCategory === 'Worker' ? WORKER_CATEGORIES_BASE : STAFF_CATEGORIES_BASE;
+    const base = mainCategory === 'Non-Technical' ? WORKER_CATEGORIES_BASE : STAFF_CATEGORIES_BASE;
     return base.map(cat => {
       const liveCount = categoryCounts[`${mainCategory}_${cat.id}`] || 0;
       return {
@@ -275,7 +289,7 @@ export default function Home() {
 
   const availableDesignations = useMemo(() => {
     if (!activeDept) return [];
-    const classification = mainCategory === 'Worker' ? WORKER_CLASSIFICATION : STAFF_CLASSIFICATION;
+    const classification = mainCategory === 'Non-Technical' ? WORKER_CLASSIFICATION : STAFF_CLASSIFICATION;
     const std = (classification as any)[activeDept] || [];
     const masters = (masterDesignations || [])
       .filter((d: any) => d.category === mainCategory && d.department === activeDept && d.status !== 'inactive')
@@ -301,7 +315,7 @@ export default function Home() {
 
   const handleDeptClick = (deptId: string) => {
     setSelectedCategory(deptId); 
-    const classification = mainCategory === 'Worker' ? WORKER_CLASSIFICATION : STAFF_CLASSIFICATION;
+    const classification = mainCategory === 'Non-Technical' ? WORKER_CLASSIFICATION : STAFF_CLASSIFICATION;
     if ((classification as any)[deptId]) {
       setActiveDept(deptId);
     } else {
@@ -354,8 +368,8 @@ export default function Home() {
                     </div>
                   </SelectTrigger>
                   <SelectContent className="rounded-2xl">
-                    <SelectItem value="Staff" className="font-medium">{t.staff}</SelectItem>
-                    <SelectItem value="Worker" className="font-medium">{t.worker}</SelectItem>
+                    <SelectItem value="Technical" className="font-medium">{t.staff}</SelectItem>
+                    <SelectItem value="Non-Technical" className="font-medium">{t.worker}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -420,8 +434,8 @@ export default function Home() {
               </div>
               <Tabs value={mainCategory} onValueChange={(v: any) => { setMainCategory(v); setSelectedCategory('all'); }} className="w-full md:w-auto">
                 <TabsList className="bg-muted p-1 h-14 w-full md:w-auto rounded-2xl">
-                  <TabsTrigger value="Staff" className="flex-1 md:flex-none font-medium px-6 data-[state=active]:bg-white rounded-xl text-sm md:text-base"><Building2 className="w-4 h-4 mr-2" /> {t.staff}</TabsTrigger>
-                  <TabsTrigger value="Worker" className="flex-1 md:flex-none font-medium px-6 data-[state=active]:bg-white rounded-xl text-sm md:text-base"><User className="w-4 h-4 mr-2" /> {t.worker}</TabsTrigger>
+                  <TabsTrigger value="Technical" className="flex-1 md:flex-none font-medium px-6 data-[state=active]:bg-white rounded-xl text-sm md:text-base"><Building2 className="w-4 h-4 mr-2" /> {t.staff}</TabsTrigger>
+                  <TabsTrigger value="Non-Technical" className="flex-1 md:flex-none font-medium px-6 data-[state=active]:bg-white rounded-xl text-sm md:text-base"><User className="w-4 h-4 mr-2" /> {t.worker}</TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
@@ -431,7 +445,7 @@ export default function Home() {
               <div ref={scrollContainerRef} className="flex gap-6 overflow-x-auto scrollbar-hide pb-6 px-1 w-full snap-x">
                 {categoriesToDisplay.map((cat) => (
                   <button key={cat.id} onClick={() => handleDeptClick(cat.id)} className="shrink-0 w-[180px] md:w-[220px] snap-start group">
-                    <div className={cn("flex flex-col items-center justify-center p-6 md:p-8 rounded-[2.5rem] border-2 bg-white hover:border-primary hover:bg-primary/5 transition-all shadow-md h-[220px] w-full", (selectedCategory === cat.id || ((mainCategory === 'Worker' ? WORKER_CLASSIFICATION : STAFF_CLASSIFICATION) as any)[cat.id]?.includes(selectedCategory)) && "border-primary bg-primary/5 shadow-inner")}>
+                    <div className={cn("flex flex-col items-center justify-center p-6 md:p-8 rounded-[2.5rem] border-2 bg-white hover:border-primary hover:bg-primary/5 transition-all shadow-md h-[220px] w-full", (selectedCategory === cat.id || ((mainCategory === 'Non-Technical' ? WORKER_CLASSIFICATION : STAFF_CLASSIFICATION) as any)[cat.id]?.includes(selectedCategory)) && "border-primary bg-primary/5 shadow-inner")}>
                       <DepartmentLogo category={mainCategory} department={cat.id} className="w-14 h-14 md:w-16 md:h-16 mb-4 rounded-2xl group-hover:scale-110 transition-transform shadow-sm" />
                       <span className="font-medium text-sm md:text-base text-center leading-tight group-hover:text-primary transition-colors px-2">
                         {(t.categories as any)[cat.id] || (t.departments as any)[cat.id] || cat.name}
@@ -450,15 +464,15 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
             <div>
               <h2 className="text-3xl md:text-4xl font-semibold font-headline tracking-tight">
-                {mainCategory === 'Staff' ? "Latest IT, Tech & Internship Jobs" : "Latest Skilled Trades & Daily Wage Jobs"}
+                {mainCategory === 'Technical' ? "Latest IT, Tech & Internship Jobs" : "Latest Skilled Trades & Daily Wage Jobs"}
               </h2>
               <p className="text-sm md:text-base text-muted-foreground font-normal mt-1">
-                {mainCategory === 'Staff' ? "Explore newly verified IT, developer, intern and corporate roles" : "Explore newly verified stitching, cutting, machine and trade positions"}
+                {mainCategory === 'Technical' ? "Explore newly verified IT, developer, intern and corporate roles" : "Explore newly verified stitching, cutting, machine and trade positions"}
               </p>
             </div>
             <Link href={`/jobs?type=${mainCategory}`} className="w-full md:auto">
               <Button variant="outline" className="w-full md:w-auto h-12 px-8 rounded-2xl font-medium border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all text-sm md:text-base">
-                View All {mainCategory === 'Staff' ? "IT & Tech" : "Skilled Trade"} Vacancies
+                View All {mainCategory === 'Technical' ? "IT & Tech" : "Skilled Trade"} Vacancies
               </Button>
             </Link>
           </div>
@@ -476,7 +490,7 @@ export default function Home() {
             ) : (
               <div className="col-span-full py-20 text-center bg-muted/20 rounded-[3rem] border-2 border-dashed border-primary/10">
                 <p className="font-medium text-xl text-muted-foreground">
-                  No {mainCategory === 'Staff' ? "IT, Tech or Internship" : "Skilled Trade or Daily Wage"} opportunities found today. Check back soon!
+                  No {mainCategory === 'Technical' ? "IT, Tech or Internship" : "Skilled Trade or Daily Wage"} opportunities found today. Check back soon!
                 </p>
               </div>
             )}
@@ -486,7 +500,7 @@ export default function Home() {
                 <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform"><PlusCircle className="w-10 h-10 text-primary" /></div>
                 <h3 className="text-2xl font-semibold text-primary font-headline mb-3">{t.exploreMore}</h3>
                 <p className="text-sm text-muted-foreground font-normal mb-8">
-                  {mainCategory === 'Staff' ? "Explore hundreds of verified software, college internships and tech openings." : "Explore hundreds of verified daily wage, stitching, and factory opportunities."}
+                  {mainCategory === 'Technical' ? "Explore hundreds of verified software, college internships and tech openings." : "Explore hundreds of verified daily wage, stitching, and factory opportunities."}
                 </p>
                 <Button className="rounded-[1.5rem] bg-primary text-white font-medium px-8 h-12 shadow-xl shadow-primary/20 text-base">Browse All <ArrowRight className="ml-2 w-5 h-5" /></Button>
               </Card>

@@ -321,7 +321,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleRoleSelection = async (role: Exclude<UserRole, 'admin'>, category?: 'Staff' | 'Worker') => {
+  const handleRoleSelection = async (role: Exclude<UserRole, 'admin'>, category?: 'Technical' | 'Non-Technical') => {
     const user = auth.currentUser;
     if (!user || !db) return;
 
@@ -513,12 +513,12 @@ export default function LoginPage() {
             ) : step === "role-select" ? (
               <div className="grid gap-3">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <Button variant="outline" className="h-28 flex flex-col items-center justify-center gap-1.5 border-2 hover:border-primary hover:bg-primary/5 rounded-2xl transition-all p-3 text-center" onClick={() => handleRoleSelection('job_seeker', 'Staff')} disabled={loading}>
+                  <Button variant="outline" className="h-28 flex flex-col items-center justify-center gap-1.5 border-2 hover:border-primary hover:bg-primary/5 rounded-2xl transition-all p-3 text-center" onClick={() => handleRoleSelection('job_seeker', 'Technical')} disabled={loading}>
                     <Briefcase className="w-6 h-6 text-primary" />
                     <span className="font-semibold text-sm">IT, Tech & Internships</span>
                     <span className="text-[10px] text-muted-foreground font-normal">Developers, College Interns, Office</span>
                   </Button>
-                  <Button variant="outline" className="h-28 flex flex-col items-center justify-center gap-1.5 border-2 hover:border-primary hover:bg-primary/5 rounded-2xl transition-all p-3 text-center" onClick={() => handleRoleSelection('job_seeker', 'Worker')} disabled={loading}>
+                  <Button variant="outline" className="h-28 flex flex-col items-center justify-center gap-1.5 border-2 hover:border-primary hover:bg-primary/5 rounded-2xl transition-all p-3 text-center" onClick={() => handleRoleSelection('job_seeker', 'Non-Technical')} disabled={loading}>
                     <Scissors className="w-6 h-6 text-primary" />
                     <span className="font-semibold text-sm">Skilled Trades & Wages</span>
                     <span className="text-[10px] text-muted-foreground font-normal">Stitching, Cutting, Machine Operators</span>

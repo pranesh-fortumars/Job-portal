@@ -248,7 +248,7 @@ const PrintProfile = ({ user, app, t }: { user: any, app: any, t: any }) => {
           </table>
         </section>
 
-        {(resume?.professional || user.category === 'Staff') && (
+        {(resume?.professional || user.category === 'Technical') && (
           <section className="mb-6">
             <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Technical Assets & Skills</h2>
             <table className="print-table w-full border-collapse border border-gray-400">
@@ -588,7 +588,7 @@ export default function EmployerDashboard() {
     
     const monthStart = startOfToday();
     const welfareJobs = spentJobs.filter(j => 
-      j.category === 'Worker' && 
+      j.category === 'Non-Technical' && 
       isAfter(new Date(j.createdAt), monthStart) && 
       !welcomeJobs.find(wj => wj.id === j.id)
     ).slice(0, 3);
@@ -603,8 +603,8 @@ export default function EmployerDashboard() {
     const purchasedUsed = otherJobs.length;
     const purchasedRemaining = Math.max(0, purchasedAllocated - purchasedUsed);
 
-    const workerSpent = spentJobs.filter(j => j.category === 'Worker').length;
-    const staffSpent = spentJobs.filter(j => j.category === 'Staff').length;
+    const workerSpent = spentJobs.filter(j => j.category === 'Non-Technical').length;
+    const staffSpent = spentJobs.filter(j => j.category === 'Technical').length;
 
     return {
       welcome: { used: welcomeUsed, remaining: welcomeRemaining, total: 3, expiry: welcomeExpiry, isExpired: isWelcomeExpired, daysLeft: Math.max(0, differenceInDays(welcomeExpiry, now)) },
@@ -1055,7 +1055,7 @@ export default function EmployerDashboard() {
                           <p className="font-medium text-accent text-sm">₹{parseInt(app.expectedSalary).toLocaleString()}</p>
                         ) : (
                           <p className="text-[10px] text-muted-foreground font-bold uppercase">
-                            {(app.jobCategory === 'Staff' || (!app.jobCategory && (rawJobs || []).find((j: any) => j.id === app.jobId)?.category === 'Staff')) 
+                            {(app.jobCategory === 'Technical' || (!app.jobCategory && (rawJobs || []).find((j: any) => j.id === app.jobId)?.category === 'Technical')) 
                               ? "Not Entered" 
                               : "N/A (Worker)"}
                           </p>

@@ -131,7 +131,7 @@ export default function SeekerDashboard() {
   const db = useFirestore();
   
   const [openNotifications, setOpenNotifications] = useState(false);
-  const [userCategory, setUserCategory] = useState<'Worker' | 'Staff'>('Worker');
+  const [userCategory, setUserCategory] = useState<'Non-Technical' | 'Technical'>('Non-Technical');
 
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
   const [reportReason, setReportReason] = useState("");
@@ -294,7 +294,7 @@ export default function SeekerDashboard() {
   const { data: notifications, loading: notifLoading } = useCollection<any>(notificationsQuery);
 
   useEffect(() => {
-    const saved = localStorage.getItem('sim_job_seeker_category') as 'Worker' | 'Staff';
+    const saved = localStorage.getItem('sim_job_seeker_category') as 'Non-Technical' | 'Technical';
     if (saved) setUserCategory(saved);
   }, []);
 

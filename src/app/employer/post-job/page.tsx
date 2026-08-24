@@ -67,9 +67,13 @@ import {
 } from "@/components/ui/dialog";
 
 const CLASSIFICATION = {
-  Staff: {
-    departments: ["MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
+  "Technical": {
+    departments: ["DEVELOPMENT", "DESIGN", "MARKETING", "IT SUPPORT", "MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
     designations: {
+            DEVELOPMENT: ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
+      DESIGN: ["UI/UX Designer", "Graphic Designer"],
+      MARKETING: ["Digital Marketing", "SEO Specialist"],
+      "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
       MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
       FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager", "Trims Follow-Up"],
       "PRINT & EMBROIDERY": ["Print/Embroidery Followup", "Printing Followup", "Graphic Designer"],
@@ -80,12 +84,15 @@ const CLASSIFICATION = {
       "CAD & SAMPLING": ["CAD MASTER", "SAMPLING INCHARGE", "SAMPLE FOLLOWUP", "PATTERN MASTER", "DESIGNER", "Graphic Designer"],
       "ERP/EDP": ["ERP Manager", "ERP Incharge", "EDP Incharge", "Data Entry Operator"],
       STORE: ["Store Incharge", "Store Asst", "Store Keeper"],
-      OTHERS: ["Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager"]
+      OTHERS: ["DevOps Engineer", "Data Scientist", "Fresher", "Receptionist", "Mechanic", "Warden", "Electrician", "Cook", "Loadman", "Others", "ECOM Manager"]
     }
   },
-  Worker: {
-    departments: ["CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
+  "Non-Technical": {
+    departments: ["SALES & BIZ DEV", "HR & ADMIN", "MARKETING", "CUTTING", "STITCHING", "CHECKING", "IRONING & PACKING", "KNITTING", "DYEING", "COMPACTING", "PRINT / EMBROIDERY", "OTHERS"],
     designations: {
+            "SALES & BIZ DEV": ["Business Development Executive", "Sales Executive"],
+      "HR & ADMIN": ["HR Manager", "Customer Support", "Operations Manager"],
+      MARKETING: ["Marketing Executive", "Content Writer"],
       CUTTING: ["Cutting Master", "Cutting Helper", "Cutting Operator", "Spreader Operator", "Stickering Helper", "Cutting Contractor"],
       STITCHING: ["Overlock Tailor", "Flatlock Tailor", "Singer Tailor", "Multi Tailor", "Sample Tailor", "Sewing Helper", "Singer Contractor", "Powertable Contractor"],
       CHECKING: ["Trimmer", "Checker", "Stain Remove Operator", "Checking Contractor"],
@@ -94,7 +101,7 @@ const CLASSIFICATION = {
       DYEING: ["Dyeing Operator"],
       COMPACTING: ["Compacting Operator"],
       "PRINT / EMBROIDERY": ["Embroidery Operator", "Embroidery Framer", "Printing Master", "MHM Operator"],
-      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
+      OTHERS: ["Fusing Operator", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others", "Receptionist", "Snap Button Operator", "Fusing Contractor", "Driver", "Security Guard", "Watchman", "Loadman", "Cook", "Others"]
     }
   }
 };
@@ -155,7 +162,7 @@ export default function PostJobPage() {
     
     const monthStart = startOfMonth(now);
     const welfareJobs = spentJobs.filter((j: any) => 
-      j.category === 'Worker' && 
+      j.category === 'Non-Technical' && 
       isAfter(new Date(j.createdAt), monthStart) && 
       !welcomeJobs.find(wj => wj.id === j.id)
     ).slice(0, 3);
@@ -170,8 +177,8 @@ export default function PostJobPage() {
     const purchasedUsed = otherJobs.length;
     const purchasedRemaining = Math.max(0, purchasedAllocated - purchasedUsed);
 
-    const workerSpent = spentJobs.filter((j: any) => j.category === 'Worker').length;
-    const staffSpent = spentJobs.filter((j: any) => j.category === 'Staff').length;
+    const workerSpent = spentJobs.filter((j: any) => j.category === 'Non-Technical').length;
+    const staffSpent = spentJobs.filter((j: any) => j.category === 'Technical').length;
 
     return {
       welcome: { used: welcomeUsed, remaining: welcomeRemaining, total: 3, expiry: welcomeExpiry, daysLeft: Math.max(0, differenceInDays(welcomeExpiry, now)) },
@@ -186,7 +193,7 @@ export default function PostJobPage() {
 
   const availableCredits = useMemo(() => offerStats?.totalAvailable || 0, [offerStats]);
 
-  const [category, setCategory] = useState<'Staff' | 'Worker'>('Worker');
+  const [category, setCategory] = useState<'Technical' | 'Non-Technical'>('Non-Technical');
   const [department, setDepartment] = useState("");
   const [designation, setDesignation] = useState("");
   const [workType, setWorkType] = useState<string>("Full-time");
@@ -267,7 +274,7 @@ export default function PostJobPage() {
       getDoc(doc(db, "Jobs", draftId)).then(snap => {
         if (snap.exists()) {
           const data = snap.data();
-          setCategory(data.category || 'Worker');
+          setCategory(data.category || 'Non-Technical');
           setDepartment(data.department || "");
           setTimeout(() => { setDesignation(data.designation || ""); }, 0);
           setWorkType(data.workType || "Full-time");
@@ -289,7 +296,7 @@ export default function PostJobPage() {
           setShiftTiming(data.shiftTiming || data.interviewTimings || "");
           setAutoCloseDate(data.autoCloseDate || null);
           if (data.benefits) setBenefits({ ...benefits, ...data.benefits });
-          if (data.category === 'Staff') {
+          if (data.category === 'Technical') {
             setCoreSkills(data.coreSkills || []);
             setBuyersHandled(data.buyersHandled || "");
             setAuditExperience(data.auditExperience || "");
@@ -357,7 +364,7 @@ export default function PostJobPage() {
     autoCloseDate, benefits,
     isEmployerVerified: userData?.status === 'approved',
     status, createdAt: new Date().toISOString(),
-    ...(category === 'Staff' ? { coreSkills, buyersHandled, auditExperience, certifications } : {})
+    ...(category === 'Technical' ? { coreSkills, buyersHandled, auditExperience, certifications } : {})
   });
 
   const handleSaveDraft = async () => {
@@ -443,7 +450,7 @@ export default function PostJobPage() {
                              <Label className="text-xs font-black uppercase text-muted-foreground tracking-widest">Category</Label>
                              <Select value={category} onValueChange={(v: any) => setCategory(v)}>
                                 <SelectTrigger className="h-12 rounded-xl font-black bg-muted/20 border-none"><SelectValue /></SelectTrigger>
-                                <SelectContent className="font-bold rounded-xl"><SelectItem value="Worker">{t.worker}</SelectItem><SelectItem value="Staff">{t.staff}</SelectItem></SelectContent>
+                                <SelectContent className="font-bold rounded-xl"><SelectItem value="Non-Technical">{t.worker}</SelectItem><SelectItem value="Technical">{t.staff}</SelectItem></SelectContent>
                              </Select>
                           </div>
                           <div className="space-y-2">

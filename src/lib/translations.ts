@@ -508,8 +508,8 @@ export const TRANSLATIONS = {
     },
     categories: {
       all: "All Jobs",
-      Staff: "Staff",
-      Worker: "Worker",
+      "Technical": "Technical",
+      "Non-Technical": "Non-Technical",
       Tailor: "Tailor",
       Helper: "Helper",
       Checker: "Checker",
@@ -541,6 +541,12 @@ export const TRANSLATIONS = {
       STORE: "Store"
     },
     departments: {
+      "SALES & BIZ DEV": "Sales & Business Development",
+      "DEVELOPMENT": "Development",
+      "DESIGN": "Design",
+      "MARKETING": "Marketing",
+      "IT SUPPORT": "IT Support",
+
       MERCHANDISING: "MERCHANDISING",
       FABRIC: "FABRIC",
       "PRINT & EMBROIDERY": "PRINT & EMBROIDERY",
@@ -562,6 +568,24 @@ export const TRANSLATIONS = {
       COMPACTING: "COMPACTING"
     },
     designations: {
+      "Business Development Executive": "Business Development Executive",
+      "Sales Executive": "Sales Executive",
+      "Technical Developer": "Technical Developer",
+      "Frontend Developer": "Frontend Developer",
+      "Backend Developer": "Backend Developer",
+      "Fullstack Developer": "Fullstack Developer",
+      "UI/UX Designer": "UI/UX Designer",
+      "Digital Marketing": "Digital Marketing",
+      "SEO Specialist": "SEO Specialist",
+      "IT Support Engineer": "IT Support Engineer",
+      "System Administrator": "System Administrator",
+      "DevOps Engineer": "DevOps Engineer",
+      "Data Scientist": "Data Scientist",
+      "Operations Manager": "Operations Manager",
+      "Customer Support": "Customer Support",
+      "Marketing Executive": "Marketing Executive",
+      "Content Writer": "Content Writer",
+
       "Merchandiser": "Merchandiser",
       "Junior Merchandiser": "Junior Merchandiser",
       "Senior Merchandiser": "Senior Merchandiser",
@@ -1178,8 +1202,8 @@ export const TRANSLATIONS = {
     },
     categories: {
       all: "அனைத்து வேலைகள்",
-      Staff: "நிர்வாகம் (Staff)",
-      Worker: "தொழிலாளர் (Worker)",
+      "Technical": "நிர்வாகம் (Staff)",
+      "Non-Technical": "தொழிலாளர் (Worker)",
       Tailor: "டெய்லர்",
       Helper: "ஹெல்பர்",
       Checker: "செக்கர்",
@@ -1211,6 +1235,12 @@ export const TRANSLATIONS = {
       STORE: "ஸ்டோர்"
     },
     departments: {
+      "SALES & BIZ DEV": "Sales & Business Development",
+      "DEVELOPMENT": "Development",
+      "DESIGN": "Design",
+      "MARKETING": "Marketing",
+      "IT SUPPORT": "IT Support",
+
       MERCHANDISING: "மெர்ச்சண்டைசிங்",
       FABRIC: "பேப்ரிக்",
       "PRINT & EMBROIDERY": "பிரிண்ட் & எம்பிராய்டரி",
@@ -1232,6 +1262,24 @@ export const TRANSLATIONS = {
       COMPACTING: "காம்பேக்டிங்"
     },
     designations: {
+      "Business Development Executive": "Business Development Executive",
+      "Sales Executive": "Sales Executive",
+      "Technical Developer": "Technical Developer",
+      "Frontend Developer": "Frontend Developer",
+      "Backend Developer": "Backend Developer",
+      "Fullstack Developer": "Fullstack Developer",
+      "UI/UX Designer": "UI/UX Designer",
+      "Digital Marketing": "Digital Marketing",
+      "SEO Specialist": "SEO Specialist",
+      "IT Support Engineer": "IT Support Engineer",
+      "System Administrator": "System Administrator",
+      "DevOps Engineer": "DevOps Engineer",
+      "Data Scientist": "Data Scientist",
+      "Operations Manager": "Operations Manager",
+      "Customer Support": "Customer Support",
+      "Marketing Executive": "Marketing Executive",
+      "Content Writer": "Content Writer",
+
       "Merchandiser": "மெர்ச்சண்டைசர்",
       "Junior Merchandiser": "ஜூனியர் மெர்ச்சண்டைசர்",
       "Senior Merchandiser": "சீனியர் மெர்ச்சண்டைசர்",
@@ -1848,8 +1896,8 @@ export const TRANSLATIONS = {
     },
     categories: {
       all: "सभी नौकरियां",
-      Staff: "स्टाफ",
-      Worker: "वर्कर",
+      "Technical": "स्टाफ",
+      "Non-Technical": "वर्कर",
       Tailor: "टेलर",
       Helper: "हेल्पर",
       Checker: "चेकर",
@@ -1881,6 +1929,12 @@ export const TRANSLATIONS = {
       STORE: "स्टोर"
     },
     departments: {
+      "SALES & BIZ DEV": "Sales & Business Development",
+      "DEVELOPMENT": "Development",
+      "DESIGN": "Design",
+      "MARKETING": "Marketing",
+      "IT SUPPORT": "IT Support",
+
       MERCHANDISING: "मर्चेंडाइजिंग",
       FABRIC: "फैब्रिक",
       "PRINT & EMBROIDERY": "प्रिंट और एम्ब्रॉयडरी",
@@ -1902,6 +1956,24 @@ export const TRANSLATIONS = {
       COMPACTING: "कॉम्पैक्टिंग"
     },
     designations: {
+      "Business Development Executive": "Business Development Executive",
+      "Sales Executive": "Sales Executive",
+      "Technical Developer": "Technical Developer",
+      "Frontend Developer": "Frontend Developer",
+      "Backend Developer": "Backend Developer",
+      "Fullstack Developer": "Fullstack Developer",
+      "UI/UX Designer": "UI/UX Designer",
+      "Digital Marketing": "Digital Marketing",
+      "SEO Specialist": "SEO Specialist",
+      "IT Support Engineer": "IT Support Engineer",
+      "System Administrator": "System Administrator",
+      "DevOps Engineer": "DevOps Engineer",
+      "Data Scientist": "Data Scientist",
+      "Operations Manager": "Operations Manager",
+      "Customer Support": "Customer Support",
+      "Marketing Executive": "Marketing Executive",
+      "Content Writer": "Content Writer",
+
       "Merchandiser": "मर्चेंडाइजर",
       "Junior Merchandiser": "जूनियर मर्चेंडाइजर",
       "Senior Merchandiser": "सीनियर मर्चेंडाइजर",
