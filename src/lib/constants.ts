@@ -17,6 +17,7 @@ export const STAFF_CLASSIFICATION = {
   "DEVELOPMENT": ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
   "DESIGN": ["UI/UX Designer", "Graphic Designer"],
   "MARKETING": ["Digital Marketing", "SEO Specialist"],
+  "SALES & BIZ DEV": ["Business Development Executive", "IT Sales Executive"],
   "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
   MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
   FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager"],
@@ -50,6 +51,7 @@ export const STAFF_CATEGORIES_BASE = [
   { name: "Development", id: "DEVELOPMENT", icon: "💻" },
   { name: "Design", id: "DESIGN", icon: "🎨" },
   { name: "Marketing", id: "MARKETING", icon: "🚀" },
+  { name: "Sales & Biz Dev", id: "SALES & BIZ DEV", icon: "📈" },
   { name: "IT Support", id: "IT SUPPORT", icon: "🖥️" },
   { name: "Merchandising", id: "MERCHANDISING", icon: "👔" },
   { name: "Fabric", id: "FABRIC", icon: "🧵" },
@@ -66,11 +68,12 @@ export const STAFF_CATEGORIES_BASE = [
 
 export const CLASSIFICATION = {
   "Technical": {
-    departments: ["DEVELOPMENT", "DESIGN", "MARKETING", "IT SUPPORT", "MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
+    departments: ["DEVELOPMENT", "DESIGN", "MARKETING", "SALES & BIZ DEV", "IT SUPPORT", "MERCHANDISING", "FABRIC", "PRINT & EMBROIDERY", "PRODUCTION", "QUALITY", "HR & ADMIN", "ACCOUNTS & DOCS", "CAD & SAMPLING", "ERP/EDP", "STORE", "OTHERS"],
     designations: {
       DEVELOPMENT: ["Technical Developer", "Frontend Developer", "Backend Developer", "Fullstack Developer"],
       DESIGN: ["UI/UX Designer", "Graphic Designer"],
       MARKETING: ["Digital Marketing", "SEO Specialist"],
+      "SALES & BIZ DEV": ["Business Development Executive", "IT Sales Executive"],
       "IT SUPPORT": ["IT Support Engineer", "System Administrator"],
       MERCHANDISING: ["Merchandiser", "Junior Merchandiser", "Senior Merchandiser", "Sampling Merchandiser", "Merchandising Manager"],
       FABRIC: ["Fabric Follow-Up", "Fabric Incharge", "Fabric Manager", "Dyeing Followup", "Knitting Followup", "Lot Incharge", "Lot Assistant", "Dyeing Master", "Knitting Supervisor", "Knitting Incharge", "Knitting Manager", "Compacting Manager", "Dyeing Supervisor", "Dyeing Incharge", "Dyeing Manager", "Trims Follow-Up"],
