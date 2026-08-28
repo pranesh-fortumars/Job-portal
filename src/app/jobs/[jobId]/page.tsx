@@ -43,7 +43,8 @@ import {
   Gift,
   Camera,
   Maximize2,
-  EyeOff
+  EyeOff,
+  Lock
 } from "lucide-react";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import Link from "next/link";
@@ -189,6 +190,14 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
 
   const isSuspended = useMemo(() => employerData?.status === 'suspended', [employerData]);
 
+  const isInterviewPassed = useMemo(() => {
+    if (!job) return false;
+    const now = startOfDay(new Date());
+    const interviewEndDateStr = job.interviewEndDate || job.interviewStartDate;
+    if (interviewEndDateStr && isBefore(addDays(startOfDay(new Date(interviewEndDateStr)), 1), now)) return true;
+    return false;
+  }, [job]);
+
   const isClosed = useMemo(() => {
     if (!job) return false;
     
@@ -196,14 +205,13 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
     if (isSuspended) return true;
 
     const now = startOfDay(new Date());
-    const interviewEndDateStr = job.interviewEndDate || job.interviewStartDate;
     const autoCloseDateStr = job.autoCloseDate;
 
     if (autoCloseDateStr && isBefore(addDays(startOfDay(new Date(autoCloseDateStr)), 1), now)) return true;
-    if (interviewEndDateStr && isBefore(addDays(startOfDay(new Date(interviewEndDateStr)), 1), now)) return true;
+    if (isInterviewPassed) return true;
     
     return false;
-  }, [job, isSuspended]);
+  }, [job, isSuspended, isInterviewPassed]);
 
   const dynamicDistance = useMemo(() => {
     const jobLat = parseFloat(job?.latitude as any);
@@ -659,10 +667,10 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
                       <Button disabled className="w-full h-16 md:h-20 px-12 bg-green-500 text-white font-black text-xl md:text-2xl rounded-[1.5rem] flex items-center justify-center gap-3 shadow-xl">
                         <CheckCircle2 className="w-8 h-8" /> {t.alreadyApplied}
                       </Button>
-                    ) : (isClosed || isSuspended) ? (
+                    ) : (isClosed || isSuspended || isInterviewPassed) ? (
                       <Button disabled className="w-full h-16 md:h-20 bg-muted text-muted-foreground font-black text-xl rounded-[1.5rem] flex items-center justify-center gap-3 shadow-xl border-dashed border-2">
-                         {isSuspended ? <EyeOff className="w-8 h-8" /> : <XCircle className="w-8 h-8" />} 
-                         {isSuspended ? "Recruitment Halted" : t.expired}
+                         {isSuspended ? <EyeOff className="w-8 h-8" /> : (isInterviewPassed ? <Lock className="w-8 h-8" /> : <XCircle className="w-8 h-8" />)} 
+                         {isSuspended ? "Recruitment Halted" : (isInterviewPassed ? "🔒 Interview Passed" : t.expired)}
                       </Button>
                     ) : (
                       <Button disabled={applying} onClick={handleApply} className="w-full h-16 md:h-20 px-12 bg-accent hover:bg-accent/90 text-accent-foreground font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 group">
@@ -679,25 +687,25 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
         <div className="max-w-6xl mx-auto px-4 -mt-12">
            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
              <div className="lg:col-span-2 space-y-8">
-                {(isClosed || isSuspended) && (
+                {(isClosed || isSuspended || isInterviewPassed) && (
                    <Card className="rounded-[2.5rem] shadow-xl border-none p-8 bg-red-50 border-l-8 border-red-400">
                       <div className="flex items-center gap-4">
                          <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center text-red-600">
-                           {isSuspended ? <EyeOff className="w-7 h-7" /> : job.status === 'closed' ? <Power className="w-7 h-7" /> : <AlertTriangle className="w-7 h-7" />}
+                           {isSuspended ? <EyeOff className="w-7 h-7" /> : isInterviewPassed ? <Lock className="w-7 h-7" /> : job.status === 'closed' ? <Power className="w-7 h-7" /> : <AlertTriangle className="w-7 h-7" />}
                          </div>
                          <div>
                            <h3 className="text-xl font-black text-red-900 uppercase">
-                             {isSuspended ? "Employer Temporarily Suspended" : job.status === 'closed' ? `Recruitment Halted by ${job.closedBy === 'admin' ? 'Admin' : 'Owner'}` : t.expired}
+                             {isSuspended ? "Employer Temporarily Suspended" : isInterviewPassed ? "Interview Timeline Passed" : job.status === 'closed' ? `Recruitment Halted by ${job.closedBy === 'admin' ? 'Admin' : 'Owner'}` : t.expired}
                            </h3>
                            <p className="text-sm font-bold text-red-800/70">
-                             {isSuspended ? "This factory's recruitment terminal is currently offline. Please check back later." : "This job is no longer accepting applications."}
+                             {isSuspended ? "This factory's recruitment terminal is currently offline. Please check back later." : isInterviewPassed ? "The interview dates for this job have expired. No new applications are being accepted." : "This job is no longer accepting applications."}
                            </p>
                          </div>
                       </div>
                    </Card>
                 )}
 
-                {interviewDateText && !isClosed && !isSuspended && (
+                {interviewDateText && !isClosed && !isSuspended && !isInterviewPassed && (
                    <Card className={cn("rounded-[2.5rem] shadow-xl border-none p-8 border-l-8 bg-amber-50 border-amber-400")}>
                      <h3 className="text-xl font-black uppercase tracking-widest flex items-center gap-2 text-amber-900">
                         <Zap className="w-5 h-5 fill-current text-amber-500" /> {t.interviewSchedule}
@@ -797,8 +805,8 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
                   <h4 className="text-xs font-black uppercase text-muted-foreground tracking-widest border-b pb-2">{t.requirements}</h4>
                   <div className="space-y-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center shrink-0 text-primary"><Users className="w-5 h-5" /></div>
-                      <div><p className="text-[10px] font-black text-muted-foreground uppercase">{t.openingsLabel}</p><p className="text-lg font-black text-foreground">{job.openings} Seats</p></div>
+                      <div className="w-10 h-10 bg-brand-secondarySoft rounded-xl flex items-center justify-center shrink-0 text-brand-primary"><Users className="w-5 h-5" /></div>
+                      <div><p className="text-[10px] font-black text-brand-primary uppercase">{t.openingsLabel}</p><p className="text-lg font-black text-foreground">{job.openings} Seats</p></div>
                     </div>
                     <div className="flex items-start gap-4">
                       <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center shrink-0 text-primary"><Clock className="w-5 h-5" /></div>
@@ -870,15 +878,15 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
                   )}
                   <Button 
                     onClick={handleApply} 
-                    disabled={applying || applied || isClosed || isSuspended}
+                    disabled={applying || applied || isClosed || isSuspended || isInterviewPassed}
                     className={cn(
                       "w-full h-14 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-all",
                       applied ? "bg-green-50 text-white" : 
-                      (isClosed || isSuspended) ? "bg-muted text-muted-foreground" : 
+                      (isClosed || isSuspended || isInterviewPassed) ? "bg-muted text-muted-foreground" : 
                       "bg-accent hover:bg-accent/90 text-accent-foreground"
                     )}
                   >
-                    {applied ? t.applied : (isClosed || isSuspended) ? (isSuspended ? "Recruitment Halted" : t.expired) : t.applyNow}
+                    {applied ? t.applied : (isClosed || isSuspended || isInterviewPassed) ? (isSuspended ? "Recruitment Halted" : isInterviewPassed ? "🔒 Interview Passed" : t.expired) : t.applyNow}
                   </Button>
                   <Button 
                     variant="outline" 

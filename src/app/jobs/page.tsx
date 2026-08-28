@@ -177,6 +177,9 @@ export default function JobsPage({
     return (liveJobs || [])
       .filter(j => {
         if ((j.status as string) !== 'approved' && (j.status as string) !== 'live' && (j.status as string) !== 'open') return false;
+        // STRICT FILTER: Explicitly exclude closed or archived jobs
+        if ((j.status as string) === 'closed' || (j.status as string) === 'archived') return false;
+        
         if (employerStatusMap[j.employerId] === 'suspended') return false;
 
         const createdAtDate = j.createdAt ? new Date(j.createdAt) : new Date(0);

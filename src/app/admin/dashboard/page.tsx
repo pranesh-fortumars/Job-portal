@@ -2,6 +2,8 @@
 
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { Header } from "@/components/layout/Header";
+import { ProfileTab } from "@/components/admin/ProfileTab";
+import { ManageAdminsTab } from "@/components/admin/ManageAdminsTab";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -2765,9 +2767,9 @@ export default function AdminDashboard() {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="print:hidden">
           <div className="w-full overflow-x-auto border-b">
             <TabsList className="bg-transparent p-0 h-14 space-x-8 w-max min-w-full justify-start">
-              <TabsTrigger value="hero-sliders" className="rounded-none border-b-4 border-transparent data-[state=active]:border-accent data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-accent whitespace-nowrap">Hero Sliders ⚡</TabsTrigger>
               <TabsTrigger value="my-profile" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">My Profile <User className="ml-1.5 w-4 h-4" /></TabsTrigger>
               <TabsTrigger value="admin-mgmt" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">Admin Mgmt ({stats.adminsCount})</TabsTrigger>
+              <TabsTrigger value="hero-sliders" className="rounded-none border-b-4 border-transparent data-[state=active]:border-accent data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-accent whitespace-nowrap">Hero Sliders ⚡</TabsTrigger>
               <TabsTrigger value="jobs-queue" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">Jobs Registry ({stats.pendingJobs})</TabsTrigger>
               <TabsTrigger value="job-export" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-primary whitespace-nowrap">Job Export <FileDown className="ml-1.5 w-4 h-4" /></TabsTrigger>
               <TabsTrigger value="suspended-assets" className="rounded-none border-b-4 border-transparent data-[state=active]:border-red-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-red-600 whitespace-nowrap">Suspended Assets ({stats.suspendedJobsCount})</TabsTrigger>
@@ -2789,11 +2791,11 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="my-profile" className="mt-6 space-y-6">
-             <AdminProfileView db={db} profile={userProfile} />
+             <ProfileTab db={db} profile={userProfile} />
           </TabsContent>
 
           <TabsContent value="admin-mgmt" className="mt-6 space-y-6">
-             <AdminManagement db={db} liveUsers={liveUsers} />
+             <ManageAdminsTab db={db} liveUsers={liveUsers} />
           </TabsContent>
 
           <TabsContent value="job-export" className="mt-6 space-y-6">

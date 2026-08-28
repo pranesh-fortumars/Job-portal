@@ -148,6 +148,8 @@ export default function Home() {
 
     liveJobs.forEach(job => {
       if ((job.status as string) !== 'approved' && (job.status as string) !== 'live' && (job.status as string) !== 'open') return;
+      // STRICT FILTER: Explicitly exclude closed or archived jobs
+      if ((job.status as string) === 'closed' || (job.status as string) === 'archived') return;
       
       // NEW: Suspension Check - Don't count jobs from suspended units
       if (employerStatusMap[job.employerId] === 'suspended') return;
@@ -187,6 +189,8 @@ export default function Home() {
       .filter(job => {
         if (job.category !== mainCategory) return false;
         if ((job.status as string) !== 'approved' && (job.status as string) !== 'live' && (job.status as string) !== 'open') return false;
+        // STRICT FILTER: Explicitly exclude closed or archived jobs
+        if ((job.status as string) === 'closed' || (job.status as string) === 'archived') return false;
 
         // NEW: Global Suspension Shield
         if (employerStatusMap[job.employerId] === 'suspended') return false;
