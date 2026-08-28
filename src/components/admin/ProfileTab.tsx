@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { ShieldCheck, User, Mail, Calendar, Loader2, Save, Edit3 } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
 
