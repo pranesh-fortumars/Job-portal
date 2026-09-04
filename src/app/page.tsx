@@ -427,7 +427,7 @@ export default function Home() {
             {jobsLoading ? (
               <>
                 {[...Array(6)].map((_, i) => (
-                  <Card key={i} className="h-full bg-white rounded-[3rem] p-6 space-y-4">
+                  <Card key={i} className="h-full bg-white border border-slate-200 rounded-[3rem] p-6 space-y-4">
                     <div className="flex items-center gap-4">
                       <Skeleton className="w-16 h-16 rounded-[1.5rem]" />
                       <div className="space-y-2 flex-1">

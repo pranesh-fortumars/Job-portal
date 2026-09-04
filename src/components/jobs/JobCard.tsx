@@ -149,7 +149,7 @@ export function JobCard({ job, isApplied = false, userCoords, masterDesignations
   }, [job.salaryType, job.salaryMin, job.salaryMax, isPieceRate, t]);
 
   return (
-    <Card className="hover:shadow-lg transition-all duration-300 border-border/60 group overflow-hidden rounded-[2rem] flex flex-col h-full bg-white relative">
+    <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 group overflow-hidden rounded-[2rem] flex flex-col h-full bg-white relative">
       {isApplied && (
         <div className="absolute top-0 left-0 w-full h-1 bg-green-500 z-30" />
       )}
