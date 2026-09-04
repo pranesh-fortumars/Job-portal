@@ -594,8 +594,50 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
     return t.perMonth;
   };
 
+  const jsonLd = useMemo(() => {
+    if (!job) return null;
+    return {
+      "@context": "https://schema.org",
+      "@type": "JobPosting",
+      "title": job.jobTitle || job.designation,
+      "description": job.description || "Hiring in Tirupur",
+      "datePosted": job.createdAt ? new Date(job.createdAt).toISOString() : new Date().toISOString(),
+      "validThrough": job.autoCloseDate ? new Date(job.autoCloseDate).toISOString() : new Date(Date.now() + 30*24*60*60*1000).toISOString(),
+      "employmentType": job.workType === 'Part-time' ? 'PART_TIME' : 'FULL_TIME',
+      "hiringOrganization": {
+        "@type": "Organization",
+        "name": job.companyName || "Tirupur Factory",
+        "logo": job.companyLogoUrl || ""
+      },
+      "jobLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": job.location || "Tirupur",
+          "addressRegion": "TN",
+          "addressCountry": "IN"
+        }
+      },
+      "baseSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "INR",
+        "value": {
+          "@type": "QuantitativeValue",
+          "value": job.salaryMin || 0,
+          "unitText": "MONTH"
+        }
+      }
+    };
+  }, [job]);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       <Header />
       <main className="flex-grow pb-16">
         <div className="bg-primary pt-8 pb-20 px-4">
@@ -673,9 +715,24 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
                          {isSuspended ? "Recruitment Halted" : (isInterviewPassed ? "🔒 Interview Passed" : t.expired)}
                       </Button>
                     ) : (
-                      <Button disabled={applying} onClick={handleApply} className="w-full h-16 md:h-20 px-12 bg-accent hover:bg-accent/90 text-accent-foreground font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 group">
-                        {applying ? <Loader2 className="w-6 h-6 animate-spin" /> : <>{t.applyNow} <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" /></>}
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-4 w-full">
+                        <Button disabled={applying} onClick={handleApply} className="flex-1 h-16 md:h-20 bg-accent hover:bg-accent/90 text-accent-foreground font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 group">
+                          {applying ? <Loader2 className="w-6 h-6 animate-spin" /> : <>{t.applyNow} <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" /></>}
+                        </Button>
+                        <Button 
+                          onClick={() => {
+                            if (!employerData?.phone) {
+                              toast({ variant: "destructive", title: "Contact Unavailable", description: "This employer has not provided a WhatsApp contact." });
+                              return;
+                            }
+                            const msg = `Hi, I am interested in the ${job.jobTitle || job.designation} position at ${job.companyName}. I found this on NexTirupur.in.`;
+                            window.open(`https://wa.me/${employerData.phone.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank');
+                          }}
+                          className="flex-1 h-16 md:h-20 bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-2 transition-all active:scale-95 group"
+                        >
+                          <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform" /> WhatsApp Apply
+                        </Button>
+                      </div>
                     )}
                   </div>
                 </div>

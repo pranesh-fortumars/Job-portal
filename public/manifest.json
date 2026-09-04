@@ -1,0 +1,21 @@
+{
+  "name": "NexIndia Job Portal",
+  "short_name": "NexIndia",
+  "description": "India's All-in-One Job Portal. Connect with MNCs, Corporates, Retail Shops, and Skilled Workers across India. Hiring simplified for everyone.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/nextiruppur.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/nextiruppur.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

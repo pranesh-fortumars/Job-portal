@@ -23,7 +23,8 @@ import {
   Heart,
   AlertTriangle,
   Tags,
-  UserCircle
+  UserCircle,
+  Mic
 } from "lucide-react";
 import { cn, calculateDistance, getLocalizedDesignation } from "@/lib/utils";
 import { useLanguage } from "@/components/providers/LanguageProvider";
@@ -33,6 +34,8 @@ import { collection, query, where } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { isBefore, startOfDay, subDays, isAfter, addDays } from "date-fns";
 import { DepartmentLogo } from "@/components/shared/DepartmentLogo";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card } from "@/components/ui/card";
 
 import { CLASSIFICATION } from "@/lib/constants";
 
@@ -60,6 +63,29 @@ export default function JobsPage({
   const [searchQuery, setSearchQuery] = useState("");
   const [userCoords, setUserCoords] = useState<{lat: number, lng: number} | null>(null);
   const [isLocating, setIsLocating] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+
+  const handleVoiceSearch = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      toast({ variant: "destructive", title: "Not Supported", description: "Your browser does not support voice search." });
+      return;
+    }
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.lang = language === 'Tamil' ? 'ta-IN' : (language === 'Hindi' ? 'hi-IN' : 'en-IN');
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onresult = (event: any) => {
+      const text = event.results[0][0].transcript;
+      setSearchQuery(text);
+      setIsListening(false);
+    };
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => setIsListening(false);
+
+    recognition.start();
+  };
   
   const [filters, setFilters] = useState({
     category: initialCategory, 
@@ -342,10 +368,18 @@ export default function JobsPage({
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input 
                   placeholder="Search jobs by role or company..." 
-                  className="pl-12 h-14 bg-white border-none shadow-lg rounded-2xl text-base md:text-lg font-medium" 
+                  className="pl-12 pr-12 h-14 bg-white border-none shadow-lg rounded-2xl text-base md:text-lg font-medium" 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={cn("absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl transition-all", isListening && "bg-red-100 text-red-500 animate-pulse")}
+                  onClick={handleVoiceSearch}
+                >
+                  <Mic className="w-5 h-5" />
+                </Button>
               </div>
             </div>
 
@@ -389,9 +423,26 @@ export default function JobsPage({
 
         <div className="max-w-7xl mx-auto px-4 py-8">
           {jobsLoading ? (
-            <div className="flex flex-col items-center justify-center py-20 space-y-4">
-              <Loader2 className="w-12 h-12 text-primary animate-spin" />
-              <p className="font-medium text-muted-foreground">Syncing Live Opportunities...</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <Card key={i} className="h-full bg-white rounded-[3rem] p-6 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <Skeleton className="w-16 h-16 rounded-[1.5rem]" />
+                    <div className="space-y-2 flex-1">
+                      <Skeleton className="h-6 w-3/4 rounded-lg" />
+                      <Skeleton className="h-4 w-1/2 rounded-lg" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-full rounded-lg" />
+                    <Skeleton className="h-4 w-5/6 rounded-lg" />
+                  </div>
+                  <div className="flex gap-2">
+                    <Skeleton className="h-8 w-20 rounded-lg" />
+                    <Skeleton className="h-8 w-20 rounded-lg" />
+                  </div>
+                </Card>
+              ))}
             </div>
           ) : sortedJobs.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

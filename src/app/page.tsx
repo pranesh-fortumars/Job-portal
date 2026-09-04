@@ -40,6 +40,7 @@ import { JobListing } from "@/lib/types";
 import { JobCard } from "@/components/jobs/JobCard";
 import Image from "next/image";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
@@ -424,10 +425,27 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {jobsLoading ? (
-              <div className="col-span-full py-20 text-center flex flex-col items-center justify-center space-y-4">
-                 <Loader2 className="w-10 h-10 text-primary animate-spin" />
-                 <p className="font-medium text-base text-muted-foreground">Syncing Live Opportunities...</p>
-              </div>
+              <>
+                {[...Array(6)].map((_, i) => (
+                  <Card key={i} className="h-full bg-white rounded-[3rem] p-6 space-y-4">
+                    <div className="flex items-center gap-4">
+                      <Skeleton className="w-16 h-16 rounded-[1.5rem]" />
+                      <div className="space-y-2 flex-1">
+                        <Skeleton className="h-6 w-3/4 rounded-lg" />
+                        <Skeleton className="h-4 w-1/2 rounded-lg" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-full rounded-lg" />
+                      <Skeleton className="h-4 w-5/6 rounded-lg" />
+                    </div>
+                    <div className="flex gap-2">
+                      <Skeleton className="h-8 w-20 rounded-lg" />
+                      <Skeleton className="h-8 w-20 rounded-lg" />
+                    </div>
+                  </Card>
+                ))}
+              </>
             ) : publicJobs.length > 0 ? (
               publicJobs.map((job) => (
                 <JobCard key={job.jobId || (job as any).id} job={{ ...job, jobId: job.jobId || (job as any).id }} userCoords={userCoords} masterDesignations={masterDesignations} />
