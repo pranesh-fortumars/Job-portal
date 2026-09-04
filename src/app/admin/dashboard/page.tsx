@@ -1194,22 +1194,27 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 print:hidden">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 print:hidden">
           {[
-            { label: "Factories", val: stats.totalCompanies, icon: Building2, color: "border-primary", sub: `${stats.pendingApprovals} Pending` },
-            { label: "Approved", val: stats.approvedCompanies, icon: CheckCircle2, color: "border-green-500", sub: "Verified Units" },
-            { label: "Identity Hub", val: stats.nameRequestsCount + stats.roleRequestsCount, icon: UserCircle, color: "border-purple-600", sub: "Override Pending" },
-            { label: "Jobs Queue", val: stats.pendingJobs, icon: ShieldAlert, color: "border-amber-500", sub: "Approval Needed" },
-            { label: "Incidents", val: stats.pendingReports, icon: Flag, color: "border-red-500", sub: "Open Reports" }
+            { label: "Factories", val: stats.totalCompanies, icon: Building2, side: "bg-primary", text: "text-primary", bg: "bg-primary/10", sub: `${stats.pendingApprovals} Pending` },
+            { label: "Approved", val: stats.approvedCompanies, icon: CheckCircle2, side: "bg-green-500", text: "text-green-600", bg: "bg-green-100", sub: "Verified Units" },
+            { label: "Identity Hub", val: stats.nameRequestsCount + stats.roleRequestsCount, icon: UserCircle, side: "bg-purple-500", text: "text-purple-600", bg: "bg-purple-100", sub: "Override Pending" },
+            { label: "Jobs Queue", val: stats.pendingJobs, icon: ShieldAlert, side: "bg-amber-500", text: "text-amber-600", bg: "bg-amber-100", sub: "Approval Needed" },
+            { label: "Incidents", val: stats.pendingReports, icon: Flag, side: "bg-red-500", text: "text-red-600", bg: "bg-red-100", sub: "Open Reports" }
           ].map((s, i) => (
-            <Card key={i} className={cn("border-l-4 shadow-sm", s.color)}>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-[10px] font-bold uppercase text-muted-foreground">{s.label}</CardTitle>
-                <s.icon className="w-4 h-4 text-muted-foreground" />
+            <Card key={i} className="border-none shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 bg-white group cursor-default ring-1 ring-slate-100 overflow-hidden relative rounded-[1.5rem]">
+              <div className={cn("absolute inset-y-0 left-0 w-1.5 transition-all group-hover:w-2", s.side)} />
+              <CardHeader className="flex flex-row items-center justify-between pb-2 pl-6 pt-6">
+                <CardTitle className="text-[10px] font-bold uppercase text-slate-500 group-hover:text-slate-900 transition-colors tracking-widest">{s.label}</CardTitle>
+                <div className={cn("p-2.5 rounded-2xl transition-transform duration-300 group-hover:scale-110", s.bg)}>
+                  <s.icon className={cn("w-5 h-5", s.text)} />
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-medium">{s.val}</div>
-                <p className="text-[10px] font-bold text-muted-foreground mt-1 uppercase tracking-wider">{s.sub}</p>
+              <CardContent className="pl-6 pb-6">
+                <div className="text-3xl font-bold tracking-tight text-slate-900">{s.val}</div>
+                <p className="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-widest flex items-center gap-2">
+                  <span className={cn("w-2 h-2 rounded-full shadow-sm", s.side)} /> {s.sub}
+                </p>
               </CardContent>
             </Card>
           ))}
