@@ -1221,24 +1221,56 @@ export default function AdminDashboard() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="print:hidden">
-          <div className="w-full overflow-x-auto border-b">
-            <TabsList className="bg-transparent p-0 h-14 space-x-8 w-max min-w-full justify-start">
-              <TabsTrigger value="my-profile" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">My Profile <User className="ml-1.5 w-4 h-4" /></TabsTrigger>
-              <TabsTrigger value="admin-mgmt" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">Admin Mgmt ({stats.adminsCount})</TabsTrigger>
-              <TabsTrigger value="branding-hub" className="rounded-none border-b-4 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-indigo-600 whitespace-nowrap">App Branding <Monitor className="ml-1.5 w-4 h-4" /></TabsTrigger>
-              <TabsTrigger value="hero-sliders" className="rounded-none border-b-4 border-transparent data-[state=active]:border-accent data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-accent whitespace-nowrap">Hero Sliders ⚡</TabsTrigger>
-              <TabsTrigger value="jobs-queue" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">Jobs Registry ({stats.pendingJobs})</TabsTrigger>
-              <TabsTrigger value="job-export" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-primary whitespace-nowrap">Job Export <FileDown className="ml-1.5 w-4 h-4" /></TabsTrigger>
-              <TabsTrigger value="suspended-assets" className="rounded-none border-b-4 border-transparent data-[state=active]:border-red-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-red-600 whitespace-nowrap">Suspended Assets ({stats.suspendedJobsCount})</TabsTrigger>
-              <TabsTrigger value="name-requests" className="rounded-none border-b-4 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-indigo-600 whitespace-nowrap">Name Requests ({stats.nameRequestsCount})</TabsTrigger>
-              <TabsTrigger value="role-overrides" className="rounded-none border-b-4 border-transparent data-[state=active]:border-teal-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-teal-600 whitespace-nowrap">Role Overrides ({stats.roleRequestsCount})</TabsTrigger>
-              <TabsTrigger value="job-lifecycle" className="rounded-none border-b-4 border-transparent data-[state=active]:border-blue-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-blue-600 whitespace-nowrap">Drive Lifecycle ({stats.completedDrives})</TabsTrigger>
-              <TabsTrigger value="company-hub" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">Factory Hub ({stats.pendingApprovals})</TabsTrigger>
-              <TabsTrigger value="designation-registry" className="rounded-none border-b-4 border-transparent data-[state=active]:border-teal-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-teal-600 whitespace-nowrap">Designation Registry <Tag className="ml-1.5 w-4 h-4" /></TabsTrigger>
-              <TabsTrigger value="asset-hub" className="rounded-none border-b-4 border-transparent data-[state=active]:border-amber-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-amber-600 whitespace-nowrap">Asset Hub <Zap className="ml-1.5 w-4 h-4 fill-current" /></TabsTrigger>
-              <TabsTrigger value="financial-hub" className="rounded-none border-b-4 border-transparent data-[state=active]:border-green-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-green-600 whitespace-nowrap">Financial Hub <IndianRupee className="ml-1.5 w-4 h-4" /></TabsTrigger>
-              <TabsTrigger value="identity-hub" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">Identity Hub</TabsTrigger>
-              <TabsTrigger value="reports" className="rounded-none border-b-4 border-transparent data-[state=active]:border-red-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-red-600 whitespace-nowrap">Incidents ({stats.pendingReports})</TabsTrigger>
+          <div className="w-full overflow-x-auto pb-4 pt-2 -mx-4 px-4 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <TabsList className="bg-slate-100/80 p-1.5 h-auto rounded-2xl space-x-2 w-max min-w-full justify-start shadow-inner border border-slate-200/50 backdrop-blur-md">
+              <TabsTrigger value="my-profile" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <User className="w-4 h-4" /> My Profile
+              </TabsTrigger>
+              <TabsTrigger value="admin-mgmt" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Users className="w-4 h-4" /> Admin Mgmt <Badge className="ml-1.5 bg-primary/10 text-primary hover:bg-primary/20 border-none px-2 rounded-full h-5 text-[10px]">{stats.adminsCount}</Badge>
+              </TabsTrigger>
+              <TabsTrigger value="branding-hub" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Monitor className="w-4 h-4 text-indigo-500" /> App Branding
+              </TabsTrigger>
+              <TabsTrigger value="hero-sliders" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-accent data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Zap className="w-4 h-4 text-accent fill-accent" /> Hero Sliders
+              </TabsTrigger>
+              <TabsTrigger value="jobs-queue" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-amber-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Briefcase className="w-4 h-4 text-amber-500" /> Jobs Registry <Badge className="ml-1.5 bg-amber-100 text-amber-700 hover:bg-amber-200 border-none px-2 rounded-full h-5 text-[10px]">{stats.pendingJobs}</Badge>
+              </TabsTrigger>
+              <TabsTrigger value="job-export" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-teal-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <FileDown className="w-4 h-4 text-teal-500" /> Job Export
+              </TabsTrigger>
+              <TabsTrigger value="suspended-assets" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-red-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <ShieldBan className="w-4 h-4 text-red-500" /> Suspended <Badge className="ml-1.5 bg-red-100 text-red-700 hover:bg-red-200 border-none px-2 rounded-full h-5 text-[10px]">{stats.suspendedJobsCount}</Badge>
+              </TabsTrigger>
+              <TabsTrigger value="name-requests" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Edit3 className="w-4 h-4 text-blue-500" /> Name Requests <Badge className="ml-1.5 bg-blue-100 text-blue-700 hover:bg-blue-200 border-none px-2 rounded-full h-5 text-[10px]">{stats.nameRequestsCount}</Badge>
+              </TabsTrigger>
+              <TabsTrigger value="role-overrides" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-purple-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-purple-500" /> Role Overrides <Badge className="ml-1.5 bg-purple-100 text-purple-700 hover:bg-purple-200 border-none px-2 rounded-full h-5 text-[10px]">{stats.roleRequestsCount}</Badge>
+              </TabsTrigger>
+              <TabsTrigger value="company-hub" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-primary" /> Factory Hub <Badge className="ml-1.5 bg-primary/10 text-primary hover:bg-primary/20 border-none px-2 rounded-full h-5 text-[10px]">{stats.pendingApprovals}</Badge>
+              </TabsTrigger>
+              <TabsTrigger value="job-lifecycle" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <RefreshCcw className="w-4 h-4 text-blue-500" /> Drive Lifecycle <Badge className="ml-1.5 bg-blue-100 text-blue-700 hover:bg-blue-200 border-none px-2 rounded-full h-5 text-[10px]">{stats.completedDrives}</Badge>
+              </TabsTrigger>
+              <TabsTrigger value="designation-registry" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-teal-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Tag className="w-4 h-4 text-teal-500" /> Designation Registry
+              </TabsTrigger>
+              <TabsTrigger value="asset-hub" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-amber-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Zap className="w-4 h-4 text-amber-500 fill-amber-500" /> Asset Hub
+              </TabsTrigger>
+              <TabsTrigger value="financial-hub" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <IndianRupee className="w-4 h-4 text-green-500" /> Financial Hub
+              </TabsTrigger>
+              <TabsTrigger value="identity-hub" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <UserCheck className="w-4 h-4 text-primary" /> Identity Hub
+              </TabsTrigger>
+              <TabsTrigger value="reports" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-rose-600 data-[state=active]:shadow-md px-5 py-2.5 font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+                <Flag className="w-4 h-4 text-rose-500" /> Incidents <Badge className="ml-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 border-none px-2 rounded-full h-5 text-[10px]">{stats.pendingReports}</Badge>
+              </TabsTrigger>
             </TabsList>
           </div>
 
