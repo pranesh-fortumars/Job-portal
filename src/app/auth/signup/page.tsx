@@ -498,7 +498,7 @@ export default function SignupPage() {
       <main className="flex-grow flex items-center justify-center p-4 py-12">
         <div ref={recaptchaContainerRef}></div>
         
-        <Card className="w-full max-w-lg shadow-2xl border-primary/10 rounded-[2.5rem] overflow-hidden">
+        <Card className="w-full max-w-lg shadow-xl border border-slate-800/20 ring-1 ring-slate-800/5 rounded-[2.5rem] overflow-hidden bg-white">
           <CardHeader className="space-y-2 text-center bg-muted/20 pb-8 pt-10">
             <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-2 text-primary shadow-inner">
               {step === "role-select" ? <AppLogo section="auth" width={36} height={36} /> : step === "email-completion" ? <Mail className="w-8 h-8" /> : step === "verify-otp" ? <Smartphone className="w-8 h-8" /> : <ShieldCheck className="w-8 h-8" />}

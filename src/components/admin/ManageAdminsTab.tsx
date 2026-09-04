@@ -226,22 +226,22 @@ export function ManageAdminsTab({ db, liveUsers }: { db: any, liveUsers: any[] }
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-           <h2 className="text-2xl font-bold text-black uppercase tracking-tight">Administrative Governance</h2>
+           <h2 className="text-2xl font-bold text-slate-900 uppercase tracking-tight">Administrative Governance</h2>
            <p className="text-sm font-semibold text-slate-700">Provisioning and monitoring privileged terminal access.</p>
         </div>
-        <Button onClick={() => setIsDialogOpen(true)} className="h-12 px-10 rounded-xl bg-slate-900 text-white font-medium shadow-xl hover:bg-black active:scale-95 transition-all">
+        <Button onClick={() => setIsDialogOpen(true)} className="h-12 px-10 rounded-xl bg-slate-900 text-white font-medium shadow-xl hover:bg-slate-800 active:scale-95 transition-all">
            <ShieldCheck className="w-5 h-5 mr-2" /> Provision Administrator
         </Button>
       </div>
 
-      <Card className="rounded-[2.5rem] overflow-hidden border-2 border-slate-900 shadow-2xl bg-white">
+      <Card className="rounded-[2.5rem] overflow-hidden border-2 border-slate-800 shadow-2xl bg-white">
         <Table>
-           <TableHeader className="bg-slate-100/50 border-b-2 border-slate-900">
+           <TableHeader className="bg-slate-100/50 border-b-2 border-slate-800">
               <TableRow className="border-none hover:bg-transparent">
-                 <TableHead className="pl-10 font-bold uppercase text-[10px] text-black">Administrative Identity</TableHead>
-                 <TableHead className="font-bold uppercase text-[10px] text-black">Functional Chain</TableHead>
-                 <TableHead className="font-bold uppercase text-[10px] text-black">Contact Terminal</TableHead>
-                 <TableHead className="pr-10 text-right font-bold uppercase text-[10px] text-black">Audit Status</TableHead>
+                 <TableHead className="pl-10 font-bold uppercase text-[10px] text-slate-900">Administrative Identity</TableHead>
+                 <TableHead className="font-bold uppercase text-[10px] text-slate-900">Functional Chain</TableHead>
+                 <TableHead className="font-bold uppercase text-[10px] text-slate-900">Contact Terminal</TableHead>
+                 <TableHead className="pr-10 text-right font-bold uppercase text-[10px] text-slate-900">Audit Status</TableHead>
               </TableRow>
            </TableHeader>
            <TableBody>
@@ -256,23 +256,23 @@ export function ManageAdminsTab({ db, liveUsers }: { db: any, liveUsers: any[] }
                              {a.name?.[0]?.toUpperCase() || <User className="w-5 h-5" />}
                           </div>
                           <div>
-                             <p className="font-bold text-base text-black">{a.name}</p>
+                             <p className="font-bold text-base text-slate-900">{a.name}</p>
                              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ID: {a.id.slice(0, 12)}</p>
                           </div>
                        </div>
                     </TableCell>
                     <TableCell>
-                       <p className="font-bold text-xs text-black">{a.designation}</p>
+                       <p className="font-bold text-xs text-slate-900">{a.designation}</p>
                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">{a.department}</p>
                     </TableCell>
                     <TableCell>
                        <div className="space-y-0.5">
-                          <p className="font-bold text-xs text-black flex items-center gap-2"><Smartphone className="w-3 h-3 text-slate-400" /> {a.phone}</p>
+                          <p className="font-bold text-xs text-slate-900 flex items-center gap-2"><Smartphone className="w-3 h-3 text-slate-400" /> {a.phone}</p>
                           <p className="text-[10px] font-bold text-slate-600 flex items-center gap-2"><Mail className="w-3 h-3 text-slate-400" /> {a.email}</p>
                        </div>
                     </TableCell>
                     <TableCell className="pr-10 text-right">
-                       <Badge className="bg-slate-900 text-white hover:bg-black border-none font-bold uppercase text-[9px] px-3 py-1">Verified</Badge>
+                       <Badge className="bg-slate-900 text-white hover:bg-slate-800 border-none font-bold uppercase text-[9px] px-3 py-1">Verified</Badge>
                     </TableCell>
                   </TableRow>
                 ))

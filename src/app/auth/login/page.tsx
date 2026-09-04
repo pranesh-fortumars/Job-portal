@@ -377,7 +377,7 @@ export default function LoginPage() {
       <main className="flex-grow flex items-center justify-center p-4 py-8">
         <div id="recaptcha-container"></div>
         
-        <Card className="w-full max-w-md shadow-2xl border-primary/10 rounded-[2rem] overflow-hidden">
+        <Card className="w-full max-w-md shadow-xl border border-slate-800/20 ring-1 ring-slate-800/5 rounded-[2rem] overflow-hidden bg-white">
           <CardHeader className="space-y-1 text-center bg-muted/20 pb-6 pt-10">
             <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-2 text-primary shadow-inner">
               {step === "reconcile" ? <RefreshCw className="w-7 h-7" /> : step === "role-select" ? <AppLogo section="auth" width={28} height={28} /> : loginMethod === 'password' ? <KeyRound className="w-7 h-7" /> : <PhoneIcon className="w-7 h-7" />}
