@@ -36,6 +36,12 @@ import { isBefore, startOfDay, subDays, isAfter, addDays } from "date-fns";
 import { DepartmentLogo } from "@/components/shared/DepartmentLogo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card } from "@/components/ui/card";
+import dynamic from "next/dynamic";
+
+const JobsMap = dynamic(() => import('@/components/jobs/JobsMap'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[600px] rounded-[3rem] bg-muted animate-pulse flex items-center justify-center font-bold text-muted-foreground border-4 border-white shadow-xl">Initializing Map...</div>
+});
 
 import { CLASSIFICATION } from "@/lib/constants";
 
@@ -64,6 +70,7 @@ export default function JobsPage({
   const [userCoords, setUserCoords] = useState<{lat: number, lng: number} | null>(null);
   const [isLocating, setIsLocating] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [isMapView, setIsMapView] = useState(false);
 
   const handleVoiceSearch = () => {
     if (!('webkitSpeechRecognition' in window)) {
@@ -422,6 +429,25 @@ export default function JobsPage({
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="flex justify-end mb-6">
+            <div className="bg-white p-1.5 rounded-2xl shadow-sm border-2 inline-flex items-center">
+              <Button 
+                variant={!isMapView ? "default" : "ghost"} 
+                className={cn("rounded-xl px-8 h-10 font-bold transition-all", !isMapView && "bg-primary text-white shadow-md")}
+                onClick={() => setIsMapView(false)}
+              >
+                List View
+              </Button>
+              <Button 
+                variant={isMapView ? "default" : "ghost"} 
+                className={cn("rounded-xl px-8 h-10 font-bold transition-all", isMapView && "bg-primary text-white shadow-md")}
+                onClick={() => setIsMapView(true)}
+              >
+                Map View
+              </Button>
+            </div>
+          </div>
+
           {jobsLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
@@ -445,11 +471,20 @@ export default function JobsPage({
               ))}
             </div>
           ) : sortedJobs.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sortedJobs.map((job) => (
-                <JobCard key={job.jobId} job={job} isApplied={appliedJobIds.has(job.jobId)} userCoords={userCoords} masterDesignations={masterDesignations} />
-              ))}
-            </div>
+            isMapView ? (
+              <JobsMap 
+                jobs={sortedJobs} 
+                userCoords={userCoords} 
+                appliedJobIds={appliedJobIds} 
+                masterDesignations={masterDesignations || []} 
+              />
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {sortedJobs.map((job) => (
+                  <JobCard key={job.jobId} job={job} isApplied={appliedJobIds.has(job.jobId!)} userCoords={userCoords} masterDesignations={masterDesignations} />
+                ))}
+              </div>
+            )
           ) : (
             <div className="text-center py-20 bg-muted/20 rounded-3xl border border-dashed flex flex-col items-center justify-center space-y-6">
               <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-muted-foreground shadow-sm">
