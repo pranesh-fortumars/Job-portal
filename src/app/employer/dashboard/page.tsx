@@ -1012,7 +1012,7 @@ export default function EmployerDashboard() {
               <button onClick={() => setSubTab("rejected")} className={cn("px-6 py-2 rounded-xl text-sm font-bold transition-all", subTab === 'rejected' ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{t.rejected} ({counts.rejected})</button>
             </div>
 
-            <Card className="rounded-[1.5rem] border-none shadow-xl overflow-x-auto bg-white">
+            <Card className="rounded-[1.5rem] border border-slate-200 shadow-xl overflow-x-auto bg-white">
               <Table className="min-w-[1300px] border-collapse">
                 <TableHeader className="bg-muted/30 border-b-2">
                   <TableRow>
@@ -1040,8 +1040,8 @@ export default function EmployerDashboard() {
                     <TableRow key={app.id} className="hover:bg-primary/5 border-b border-muted/30">
                       <TableCell className="pl-10 py-6 border-r border-muted/30">
                         <div className="space-y-1">
-                          <p className="font-medium text-lg whitespace-nowrap">{app.seekerName || "Industrial Candidate"}</p>
-                          <p className="text-[11px] font-medium text-primary whitespace-nowrap">{app.phone ? `+91 ${app.phone}` : "Contact Private"}</p>
+                          <p className="font-semibold text-base text-slate-900 whitespace-nowrap">{app.seekerName || "Industrial Candidate"}</p>
+                          <p className="text-[11px] font-semibold text-primary whitespace-nowrap">{app.phone ? `+91 ${app.phone}` : "Contact Private"}</p>
                         </div>
                       </TableCell>
                       <TableCell className="px-4 py-6 font-bold text-sm capitalize border-r border-muted/30">
@@ -1122,7 +1122,7 @@ export default function EmployerDashboard() {
                </div>
             </div>
 
-            <Card className="rounded-[1.5rem] border-none shadow-xl overflow-hidden bg-white">
+            <Card className="rounded-[1.5rem] border border-slate-200 shadow-xl overflow-hidden bg-white">
               <Table className="border-collapse">
                 <TableHeader className="bg-muted/30 border-b-2">
                   <TableRow>
@@ -1143,7 +1143,7 @@ export default function EmployerDashboard() {
                     <TableRow key={report.id} className="hover:bg-amber-50/30 border-b border-muted/30">
                       <TableCell className="pl-10 py-6 border-r border-muted/30">
                          <div className="space-y-1">
-                            <p className="font-medium text-lg text-foreground">{report.targetName}</p>
+                            <p className="font-semibold text-base text-slate-900">{report.targetName}</p>
                             <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">ID: {report.targetId?.slice(0, 8)}</p>
                          </div>
                       </TableCell>
@@ -1184,7 +1184,7 @@ export default function EmployerDashboard() {
               <button onClick={() => setJobLifecycleTab("closed")} className={cn("px-6 py-2 rounded-xl text-sm font-bold transition-all", jobLifecycleTab === 'closed' ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{t.expired} ({counts.closed})</button>
               <button onClick={() => setJobLifecycleTab("archived")} className={cn("px-6 py-2 rounded-xl text-sm font-bold transition-all", jobLifecycleTab === 'archived' ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{(t as any).archive || "Archived"} ({counts.archived})</button>
             </div>
-            <Card className="rounded-[1.5rem] border-none shadow-xl overflow-hidden bg-white">
+            <Card className="rounded-[1.5rem] border border-slate-200 shadow-xl overflow-hidden bg-white">
               <Table className="border-collapse">
                 <TableHeader className="bg-muted/30 border-b-2">
                   <TableRow>
@@ -1210,7 +1210,7 @@ export default function EmployerDashboard() {
                   ) : (
                     (categorizedJobs as any)[jobLifecycleTab].map((job: any) => (
                     <TableRow key={job.id} className="hover:bg-primary/5 border-b border-muted/30">
-                      <TableCell className="pl-10 py-6 font-medium text-lg border-r border-muted/30"><button onClick={() => router.push(`/jobs/${job.id}`)} className="hover:text-primary">{job.jobTitle}</button></TableCell>
+                      <TableCell className="pl-10 py-6 border-r border-muted/30"><button onClick={() => router.push(`/jobs/${job.id}`)} className="font-semibold text-base text-slate-900 hover:text-primary transition-colors text-left">{job.jobTitle}</button></TableCell>
                       <TableCell className="px-4 py-6 border-r border-muted/30">
                         {jobLifecycleTab === 'closed' ? (
                           <Badge className="bg-red-100 text-red-700 font-medium border-none uppercase text-[10px]">{t.expired}</Badge>
@@ -1281,7 +1281,7 @@ export default function EmployerDashboard() {
           </TabsContent>
 
           <TabsContent value="drafts" className="m-0 space-y-6">
-            <Card className="rounded-[1.5rem] border-none shadow-xl overflow-hidden bg-white">
+            <Card className="rounded-[1.5rem] border border-slate-200 shadow-xl overflow-hidden bg-white">
               <Table className="border-collapse">
                 <TableHeader className="bg-muted/30 border-b-2">
                   <TableRow>
@@ -1296,7 +1296,7 @@ export default function EmployerDashboard() {
                   ) : (
                     categorizedJobs.drafts.map((job: any) => (
                     <TableRow key={job.id} className="hover:bg-primary/5 border-b border-muted/30">
-                      <TableCell className="pl-10 py-6 font-medium text-lg border-r border-muted/30">{job.jobTitle}</TableCell>
+                      <TableCell className="pl-10 py-6 font-semibold text-base text-slate-900 border-r border-muted/30">{job.jobTitle}</TableCell>
                       <TableCell className="px-4 py-6 text-muted-foreground font-bold border-r border-muted/50">{safeFormatDate(job.updatedAt || job.createdAt)}</TableCell>
                       <TableCell className="pr-10 py-6 text-right">
                         <div className="flex items-center justify-end gap-2">
