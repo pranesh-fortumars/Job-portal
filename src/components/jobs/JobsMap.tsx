@@ -26,6 +26,13 @@ const userIcon = L.divIcon({
   iconAnchor: [10, 10],
 });
 
+const jobIcon = L.divIcon({
+  className: 'custom-job-marker',
+  html: `<div style="width: 32px; height: 32px; background-color: #2563eb; color: white; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 12px rgba(37,99,235,0.4); display: flex; align-items: center; justify-content: center; transform: translateY(-50%);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg></div><div style="position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #2563eb;"></div>`,
+  iconSize: [32, 40],
+  iconAnchor: [16, 40],
+});
+
 // Component to handle auto-centering when userCoords changes
 function RecenterAutomatically({ lat, lng }: { lat: number; lng: number }) {
   const map = useMap();
@@ -89,6 +96,7 @@ export default function JobsMap({
           <Marker 
             key={job.jobId} 
             position={[parseFloat(job.latitude as any), parseFloat(job.longitude as any)]}
+            icon={jobIcon}
           >
             <Popup>
               <div className="max-w-[320px]">

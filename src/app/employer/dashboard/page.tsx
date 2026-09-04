@@ -994,14 +994,14 @@ export default function EmployerDashboard() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
-          <div className="w-full overflow-x-auto border-b scrollbar-hide">
-            <TabsList className="bg-transparent p-0 h-14 space-x-8 w-max min-w-full justify-start">
-              <TabsTrigger value="applicants" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">{t.candidate}</TabsTrigger>
-              <TabsTrigger value="my-jobs" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">{t.myJobs}</TabsTrigger>
-              <TabsTrigger value="drafts" className="rounded-none border-b-4 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 whitespace-nowrap">{t.drafts} ({counts.drafts})</TabsTrigger>
-              <TabsTrigger value="plan" className="rounded-none border-b-4 border-transparent data-[state=active]:border-accent data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-accent whitespace-nowrap">{t.planStatus}</TabsTrigger>
-              <TabsTrigger value="incidents" className="rounded-none border-b-4 border-transparent data-[state=active]:border-destructive data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-destructive whitespace-nowrap">{t.reportAlert} ({counts.reports})</TabsTrigger>
-              <TabsTrigger value="candidate-reports" className="rounded-none border-b-4 border-transparent data-[state=active]:border-amber-600 data-[state=active]:bg-transparent px-2 font-medium text-lg h-14 text-amber-600 whitespace-nowrap">{t.candidateReportsManagement} ({counts.candidateReports})</TabsTrigger>
+          <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
+            <TabsList className="bg-muted/50 p-1.5 h-16 w-max rounded-3xl backdrop-blur-md shadow-inner gap-2 flex items-center">
+              <TabsTrigger value="applicants" className="rounded-2xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-lg px-6 font-bold text-base h-12 whitespace-nowrap transition-all">{t.candidate}</TabsTrigger>
+              <TabsTrigger value="my-jobs" className="rounded-2xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-lg px-6 font-bold text-base h-12 whitespace-nowrap transition-all">{t.myJobs}</TabsTrigger>
+              <TabsTrigger value="drafts" className="rounded-2xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-lg px-6 font-bold text-base h-12 whitespace-nowrap transition-all">{t.drafts} ({counts.drafts})</TabsTrigger>
+              <TabsTrigger value="plan" className="rounded-2xl data-[state=active]:bg-white data-[state=active]:text-accent data-[state=active]:shadow-lg px-6 font-bold text-base h-12 whitespace-nowrap transition-all">{t.planStatus}</TabsTrigger>
+              <TabsTrigger value="incidents" className="rounded-2xl data-[state=active]:bg-white data-[state=active]:text-destructive data-[state=active]:shadow-lg px-6 font-bold text-base h-12 whitespace-nowrap transition-all">{t.reportAlert} ({counts.reports})</TabsTrigger>
+              <TabsTrigger value="candidate-reports" className="rounded-2xl data-[state=active]:bg-white data-[state=active]:text-amber-600 data-[state=active]:shadow-lg px-6 font-bold text-base h-12 whitespace-nowrap transition-all">{t.candidateReportsManagement} ({counts.candidateReports})</TabsTrigger>
             </TabsList>
           </div>
 
@@ -1446,6 +1446,8 @@ export default function EmployerDashboard() {
                           </Pie>
                           <ReTooltip 
                             contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}
+                            itemStyle={{ fontWeight: 700, fontFamily: 'Outfit, sans-serif' }} 
+                            labelStyle={{ fontWeight: 700, fontFamily: 'Outfit, sans-serif' }}
                           />
                           <Legend verticalAlign="bottom" align="center" wrapperStyle={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', paddingTop: '20px' }} />
                        </RePieChart>

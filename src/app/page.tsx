@@ -304,7 +304,7 @@ export default function Home() {
                </div>
             </div>
 
-            <div className="bg-white p-3 md:p-4 rounded-[3rem] shadow-2xl flex flex-col md:flex-row gap-4 max-w-5xl mx-auto mt-12 border-4 border-white/20">
+            <div className="bg-white/80 backdrop-blur-2xl p-3 md:p-4 rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] flex flex-col md:flex-row gap-4 max-w-5xl mx-auto mt-12 border border-white/50">
               <div className="flex-1">
                 <Select value={mainCategory} onValueChange={(v: any) => { setMainCategory(v); setSelectedCategory('all'); }}>
                   <SelectTrigger className="h-16 border-none shadow-none text-base md:text-lg font-medium bg-muted/30 rounded-2xl focus:ring-0">
@@ -391,7 +391,7 @@ export default function Home() {
               <div ref={scrollContainerRef} className="flex gap-6 overflow-x-auto scrollbar-hide pb-6 px-1 w-full snap-x">
                 {categoriesToDisplay.map((cat) => (
                   <button key={cat.id} onClick={() => handleDeptClick(cat.id)} className="shrink-0 w-[180px] md:w-[220px] snap-start group">
-                    <div className={cn("flex flex-col items-center justify-center p-6 md:p-8 rounded-[2.5rem] border-2 bg-white hover:border-primary hover:bg-primary/5 transition-all shadow-md h-[220px] w-full", (selectedCategory === cat.id || ((mainCategory === 'Non-Technical' ? WORKER_CLASSIFICATION : STAFF_CLASSIFICATION) as any)[cat.id]?.includes(selectedCategory)) && "border-primary bg-primary/5 shadow-inner")}>
+                    <div className={cn("flex flex-col items-center justify-center p-6 md:p-8 rounded-[2.5rem] border-2 bg-white hover:border-primary hover:bg-primary/5 hover:-translate-y-2 hover:shadow-2xl duration-300 transition-all shadow-md h-[220px] w-full", (selectedCategory === cat.id || ((mainCategory === 'Non-Technical' ? WORKER_CLASSIFICATION : STAFF_CLASSIFICATION) as any)[cat.id]?.includes(selectedCategory)) && "border-primary bg-primary/5 shadow-inner")}>
                       <DepartmentLogo category={mainCategory} department={cat.id} className="w-14 h-14 md:w-16 md:h-16 mb-4 rounded-2xl group-hover:scale-110 transition-transform shadow-sm" />
                       <span className="font-medium text-sm md:text-base text-center leading-tight group-hover:text-primary transition-colors px-2">
                         {(t.categories as any)[cat.id] || (t.departments as any)[cat.id] || cat.name}
@@ -472,7 +472,7 @@ export default function Home() {
         </section>
 
         <section className="px-4 max-w-7xl mx-auto mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <Card className="bg-primary text-white rounded-[3rem] border-none shadow-2xl overflow-hidden relative">
+          <Card className="bg-gradient-to-br from-primary via-blue-700 to-indigo-900 text-white rounded-[3rem] border border-blue-500/30 shadow-[0_20px_60px_-15px_rgba(37,99,235,0.5)] overflow-hidden relative">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
             <div className="p-8 md:p-14 relative z-10">
               <div className="flex items-center gap-6 mb-8 border-b border-white/10 pb-6">

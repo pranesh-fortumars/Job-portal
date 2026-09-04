@@ -69,7 +69,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { DepartmentLogo } from "@/components/shared/DepartmentLogo";
 
 function ApplicationTimeline({ status, t }: { status: string, t: any }) {
-  const steps = ["applied", "shortlisted", "hired"];
+  const steps = ["applied", "reviewed", "shortlisted", "hired"];
   const isRejected = status === "rejected";
   const currentIndex = steps.indexOf(status);
 

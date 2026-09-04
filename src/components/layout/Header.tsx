@@ -117,8 +117,8 @@ export function Header() {
   }, [userProfile, userRole]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-20 items-center justify-between max-w-7xl mx-auto px-2 sm:px-4 md:px-8 w-full overflow-hidden">
+    <header className="sticky top-4 z-50 w-full px-4 sm:px-6 md:px-8 max-w-7xl mx-auto mb-4 transition-all duration-300">
+      <div className="flex h-20 items-center justify-between w-full overflow-hidden bg-white/70 backdrop-blur-2xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-[2.5rem] px-4 sm:px-6 md:px-8">
         {/* Left Side: Logo and Mobile Lang Switcher */}
         <div className="flex items-center gap-1 sm:gap-3 flex-1 min-w-0">
           <Link href="/" className="flex items-center gap-1 sm:gap-2 shrink-0">
