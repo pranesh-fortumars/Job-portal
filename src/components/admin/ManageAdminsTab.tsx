@@ -226,53 +226,53 @@ export function ManageAdminsTab({ db, liveUsers }: { db: any, liveUsers: any[] }
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-           <h2 className="text-2xl font-medium text-primary uppercase tracking-tight">Administrative Governance</h2>
-           <p className="text-sm font-medium text-muted-foreground">Provisioning and monitoring privileged terminal access.</p>
+           <h2 className="text-2xl font-bold text-black uppercase tracking-tight">Administrative Governance</h2>
+           <p className="text-sm font-semibold text-slate-700">Provisioning and monitoring privileged terminal access.</p>
         </div>
-        <Button onClick={() => setIsDialogOpen(true)} className="h-12 px-10 rounded-xl bg-primary text-white font-medium shadow-xl shadow-primary/20 active:scale-95 transition-all">
+        <Button onClick={() => setIsDialogOpen(true)} className="h-12 px-10 rounded-xl bg-slate-900 text-white font-medium shadow-xl hover:bg-black active:scale-95 transition-all">
            <ShieldCheck className="w-5 h-5 mr-2" /> Provision Administrator
         </Button>
       </div>
 
-      <Card className="rounded-[2.5rem] overflow-hidden border-none shadow-2xl bg-white">
+      <Card className="rounded-[2.5rem] overflow-hidden border-2 border-slate-900 shadow-2xl bg-white">
         <Table>
-           <TableHeader className="bg-muted/50">
-              <TableRow>
-                 <TableHead className="pl-10 font-medium uppercase text-[10px]">Administrative Identity</TableHead>
-                 <TableHead className="font-medium uppercase text-[10px]">Functional Chain</TableHead>
-                 <TableHead className="font-medium uppercase text-[10px]">Contact Terminal</TableHead>
-                 <TableHead className="pr-10 text-right font-medium uppercase text-[10px]">Audit Status</TableHead>
+           <TableHeader className="bg-slate-100/50 border-b-2 border-slate-900">
+              <TableRow className="border-none hover:bg-transparent">
+                 <TableHead className="pl-10 font-bold uppercase text-[10px] text-black">Administrative Identity</TableHead>
+                 <TableHead className="font-bold uppercase text-[10px] text-black">Functional Chain</TableHead>
+                 <TableHead className="font-bold uppercase text-[10px] text-black">Contact Terminal</TableHead>
+                 <TableHead className="pr-10 text-right font-bold uppercase text-[10px] text-black">Audit Status</TableHead>
               </TableRow>
            </TableHeader>
            <TableBody>
               {admins.length === 0 ? (
-                <TableRow><TableCell colSpan={4} className="h-40 text-center text-muted-foreground italic">No secondary administrators detected.</TableCell></TableRow>
+                <TableRow><TableCell colSpan={4} className="h-40 text-center text-slate-500 font-medium italic">No secondary administrators detected.</TableCell></TableRow>
               ) : (
                 admins.map(a => (
-                  <TableRow key={a.id} className="hover:bg-primary/5 transition-colors">
+                  <TableRow key={a.id} className="hover:bg-slate-50 transition-colors border-b border-slate-200 last:border-none">
                     <TableCell className="pl-10 py-6">
                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-primary font-medium shadow-inner border border-primary/5">
+                          <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white font-bold shadow-inner">
                              {a.name?.[0]?.toUpperCase() || <User className="w-5 h-5" />}
                           </div>
                           <div>
-                             <p className="font-medium text-base">{a.name}</p>
-                             <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">ID: {a.id.slice(0, 12)}</p>
+                             <p className="font-bold text-base text-black">{a.name}</p>
+                             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ID: {a.id.slice(0, 12)}</p>
                           </div>
                        </div>
                     </TableCell>
                     <TableCell>
-                       <p className="font-medium text-xs text-foreground">{a.designation}</p>
-                       <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">{a.department}</p>
+                       <p className="font-bold text-xs text-black">{a.designation}</p>
+                       <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">{a.department}</p>
                     </TableCell>
                     <TableCell>
                        <div className="space-y-0.5">
-                          <p className="font-bold text-xs flex items-center gap-2"><Smartphone className="w-3 h-3 text-primary/40" /> {a.phone}</p>
-                          <p className="text-[10px] font-medium text-muted-foreground flex items-center gap-2"><Mail className="w-3 h-3 text-primary/40" /> {a.email}</p>
+                          <p className="font-bold text-xs text-black flex items-center gap-2"><Smartphone className="w-3 h-3 text-slate-400" /> {a.phone}</p>
+                          <p className="text-[10px] font-bold text-slate-600 flex items-center gap-2"><Mail className="w-3 h-3 text-slate-400" /> {a.email}</p>
                        </div>
                     </TableCell>
                     <TableCell className="pr-10 text-right">
-                       <Badge className="bg-green-100 text-green-700 border-none font-medium uppercase text-[9px] px-3 py-1">Verified</Badge>
+                       <Badge className="bg-slate-900 text-white hover:bg-black border-none font-bold uppercase text-[9px] px-3 py-1">Verified</Badge>
                     </TableCell>
                   </TableRow>
                 ))

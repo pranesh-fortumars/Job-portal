@@ -1202,17 +1202,17 @@ export default function AdminDashboard() {
             { label: "Jobs Queue", val: stats.pendingJobs, icon: ShieldAlert, side: "bg-amber-500", text: "text-amber-600", bg: "bg-amber-100", sub: "Approval Needed" },
             { label: "Incidents", val: stats.pendingReports, icon: Flag, side: "bg-red-500", text: "text-red-600", bg: "bg-red-100", sub: "Open Reports" }
           ].map((s, i) => (
-            <Card key={i} className="border-none shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 bg-white group cursor-default ring-1 ring-slate-100 overflow-hidden relative rounded-[1.5rem]">
+            <Card key={i} className="border border-slate-900/10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 bg-white group cursor-default ring-1 ring-slate-900/5 overflow-hidden relative rounded-[1.5rem]">
               <div className={cn("absolute inset-y-0 left-0 w-1.5 transition-all group-hover:w-2", s.side)} />
               <CardHeader className="flex flex-row items-center justify-between pb-2 pl-6 pt-6">
-                <CardTitle className="text-[10px] font-bold uppercase text-slate-500 group-hover:text-slate-900 transition-colors tracking-widest">{s.label}</CardTitle>
+                <CardTitle className="text-[10px] font-bold uppercase text-slate-800 group-hover:text-black transition-colors tracking-widest">{s.label}</CardTitle>
                 <div className={cn("p-2.5 rounded-2xl transition-transform duration-300 group-hover:scale-110", s.bg)}>
                   <s.icon className={cn("w-5 h-5", s.text)} />
                 </div>
               </CardHeader>
               <CardContent className="pl-6 pb-6">
-                <div className="text-3xl font-bold tracking-tight text-slate-900">{s.val}</div>
-                <p className="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-widest flex items-center gap-2">
+                <div className="text-3xl font-extrabold tracking-tight text-black">{s.val}</div>
+                <p className="text-[10px] font-bold text-slate-700 mt-2 uppercase tracking-widest flex items-center gap-2">
                   <span className={cn("w-2 h-2 rounded-full shadow-sm", s.side)} /> {s.sub}
                 </p>
               </CardContent>
