@@ -994,7 +994,7 @@ export default function EmployerDashboard() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
-          <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
+          <div className="w-full overflow-x-auto pb-4 pt-2 -mx-4 px-4 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <TabsList className="bg-muted/50 p-1.5 h-16 w-max rounded-3xl backdrop-blur-md shadow-inner gap-2 flex items-center">
               <TabsTrigger value="applicants" className="rounded-2xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-lg px-6 font-bold text-base h-12 whitespace-nowrap transition-all">{t.candidate}</TabsTrigger>
               <TabsTrigger value="my-jobs" className="rounded-2xl data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-lg px-6 font-bold text-base h-12 whitespace-nowrap transition-all">{t.myJobs}</TabsTrigger>
@@ -1426,11 +1426,11 @@ export default function EmployerDashboard() {
                  <h3 className="text-xl font-medium text-primary uppercase tracking-tight">Posting Intelligence</h3>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                 <Card className="rounded-[2.5rem] border border-muted shadow-xl bg-white p-8">
-                    <CardHeader className="p-0 mb-6">
+                 <Card className="rounded-[2.5rem] border border-muted shadow-xl bg-white p-4 md:p-8">
+                    <CardHeader className="p-0 mb-4 md:mb-6">
                        <CardTitle className="text-sm font-medium uppercase tracking-widest text-muted-foreground">Overall Capacity Utilization</CardTitle>
                     </CardHeader>
-                    <div className="h-[250px] w-full">
+                    <div className="h-[200px] md:h-[250px] w-full">
                        <ResponsiveContainer width="100%" height="100%">
                           <RePieChart margin={{ bottom: 20 }}>
                              <Pie 
@@ -1455,11 +1455,11 @@ export default function EmployerDashboard() {
                  </div>
               </Card>
 
-              <Card className="rounded-[2.5rem] border border-muted shadow-xl bg-white p-8">
-                 <CardHeader className="p-0 mb-6">
+              <Card className="rounded-[2.5rem] border border-muted shadow-xl bg-white p-4 md:p-8">
+                 <CardHeader className="p-0 mb-4 md:mb-6">
                     <CardTitle className="text-sm font-medium uppercase tracking-widest text-muted-foreground">Entitlement Breakdown</CardTitle>
                  </CardHeader>
-                 <div className="h-[250px] w-full">
+                 <div className="h-[200px] md:h-[250px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                        <ReBarChart data={visualizationData.bar} layout="vertical" margin={{ left: 20, right: 10, bottom: 20 }}>
                           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#f0f0f0" />
@@ -1482,11 +1482,11 @@ export default function EmployerDashboard() {
                  </div>
               </Card>
 
-              <Card className="rounded-[2.5rem] border border-muted shadow-xl bg-white p-8">
-                 <CardHeader className="p-0 mb-6">
+              <Card className="rounded-[2.5rem] border border-muted shadow-xl bg-white p-4 md:p-8">
+                 <CardHeader className="p-0 mb-4 md:mb-6">
                     <CardTitle className="text-sm font-medium uppercase tracking-widest text-muted-foreground">Industrial Posting Pulse</CardTitle>
                  </CardHeader>
-                 <div className="h-[250px] w-full">
+                 <div className="h-[200px] md:h-[250px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                        <AreaChart data={visualizationData.trend} margin={{ bottom: 20, left: 0, right: 10, top: 10 }}>
                           <defs>

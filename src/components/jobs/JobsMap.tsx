@@ -58,7 +58,7 @@ export default function JobsMap({
   const center = userCoords || defaultCenter;
 
   return (
-    <div className="w-full h-[600px] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white relative z-0">
+    <div className="w-full h-[400px] md:h-[600px] rounded-3xl md:rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white relative z-0">
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes pulse {
           0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }

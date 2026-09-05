@@ -304,7 +304,7 @@ export default function Home() {
                </div>
             </div>
 
-            <div className="bg-white/80 backdrop-blur-2xl p-3 md:p-4 rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] flex flex-col md:flex-row gap-4 max-w-5xl mx-auto mt-12 border border-white/50">
+            <div className="bg-white/80 backdrop-blur-2xl p-3 md:p-4 rounded-3xl md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] flex flex-col md:flex-row gap-4 max-w-5xl mx-auto mt-12 border border-white/50">
               <div className="flex-1">
                 <Select value={mainCategory} onValueChange={(v: any) => { setMainCategory(v); setSelectedCategory('all'); }}>
                   <SelectTrigger className="h-16 border-none shadow-none text-base md:text-lg font-medium bg-muted/30 rounded-2xl focus:ring-0">
