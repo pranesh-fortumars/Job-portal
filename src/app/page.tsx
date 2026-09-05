@@ -378,10 +378,10 @@ export default function Home() {
                 <h2 className="text-2xl md:text-3xl font-semibold font-headline tracking-tight">{t.popularCategories}</h2>
                 <p className="text-sm md:text-base text-muted-foreground font-normal mt-1">Select track to explore opportunities</p>
               </div>
-              <Tabs value={mainCategory} onValueChange={(v: any) => { setMainCategory(v); setSelectedCategory('all'); }} className="w-full md:w-auto">
-                <TabsList className="bg-muted p-1 h-14 w-full md:w-auto rounded-2xl">
-                  <TabsTrigger value="Technical" className="flex-1 md:flex-none font-medium px-6 data-[state=active]:bg-white rounded-xl text-sm md:text-base"><Building2 className="w-4 h-4 mr-2" /> {t.staff}</TabsTrigger>
-                  <TabsTrigger value="Non-Technical" className="flex-1 md:flex-none font-medium px-6 data-[state=active]:bg-white rounded-xl text-sm md:text-base"><User className="w-4 h-4 mr-2" /> {t.worker}</TabsTrigger>
+              <Tabs value={mainCategory} onValueChange={(v: any) => { setMainCategory(v); setSelectedCategory('all'); }} className="w-full md:w-auto max-w-full">
+                <TabsList className="bg-muted p-1 h-auto w-full md:w-auto rounded-2xl flex flex-col sm:flex-row">
+                  <TabsTrigger value="Technical" className="w-full sm:w-auto font-medium px-4 md:px-6 py-2.5 md:py-0 h-auto sm:h-12 data-[state=active]:bg-white rounded-xl text-xs md:text-base whitespace-normal text-center flex items-center justify-center"><Building2 className="w-4 h-4 mr-1 md:mr-2 shrink-0" /> {t.staff}</TabsTrigger>
+                  <TabsTrigger value="Non-Technical" className="w-full sm:w-auto font-medium px-4 md:px-6 py-2.5 md:py-0 h-auto sm:h-12 data-[state=active]:bg-white rounded-xl text-xs md:text-base whitespace-normal text-center flex items-center justify-center"><User className="w-4 h-4 mr-1 md:mr-2 shrink-0" /> {t.worker}</TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
