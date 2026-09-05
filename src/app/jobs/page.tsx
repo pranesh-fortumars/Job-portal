@@ -306,7 +306,7 @@ export default function JobsPage({
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       <main className="flex-grow pb-8">
-        <div className="sticky top-0 z-40 bg-primary py-8 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
+        <div className="relative z-30 bg-primary py-8 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
           <div className="max-w-7xl mx-auto px-4">
             <h1 className="text-2xl md:text-3xl font-semibold font-headline mb-6 text-white text-center md:text-left">{t.findJobs}</h1>
             <div className="flex flex-col md:flex-row gap-3">
