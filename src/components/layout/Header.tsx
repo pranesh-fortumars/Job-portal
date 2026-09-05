@@ -182,6 +182,13 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Apply Now Button */}
+          <Link href="/jobs" className="flex items-center justify-center mr-1">
+             <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white font-black px-2 sm:px-4 h-8 sm:h-10 text-[10px] sm:text-sm rounded-lg sm:rounded-xl shadow-sm transition-all active:scale-95">
+                 Apply Now
+             </Button>
+          </Link>
+
           {isLoggedIn ? (
             <div className="flex items-center gap-1 sm:gap-2">
               <Link href={getDashboardLink()}>
