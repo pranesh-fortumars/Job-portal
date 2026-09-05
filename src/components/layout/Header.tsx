@@ -35,6 +35,26 @@ import { doc } from "firebase/firestore";
 import { BRANDING } from "@/lib/branding";
 import { AppLogo } from "@/components/shared/AppLogo";
 
+const NavItem = ({ href, icon: Icon, label, pathname }: { href: string; icon: any; label: string, pathname: string }) => {
+  const isActive = pathname === href;
+  return (
+    <SheetClose asChild>
+      <Link 
+        href={href} 
+        className={cn(
+          "flex items-center gap-3 p-4 rounded-2xl font-bold transition-all border",
+          isActive 
+            ? "bg-primary/5 border-primary/10 text-primary shadow-sm" 
+            : "bg-transparent border-transparent text-foreground hover:bg-primary/5 hover:text-primary hover:border-primary/10"
+        )}
+      >
+        <Icon className={cn("w-5 h-5", isActive ? "text-primary" : "text-primary/60")} /> 
+        {label}
+      </Link>
+    </SheetClose>
+  );
+};
+
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
   const pathname = usePathname();
@@ -87,26 +107,6 @@ export function Header() {
   // Dashboard/Profile only visible when signupStatus is 'completed'
   const isLoggedIn = !!user && (userProfile?.signupStatus === 'completed' || userProfile?.role === 'admin' || (!!userProfile?.role && !userProfile?.signupStatus && userProfile?.onboarded));
   const showEmployerOptions = isLoggedIn && userRole === 'employer';
-
-  const NavItem = ({ href, icon: Icon, label }: { href: string; icon: any; label: string }) => {
-    const isActive = pathname === href;
-    return (
-      <SheetClose asChild>
-        <Link 
-          href={href} 
-          className={cn(
-            "flex items-center gap-3 p-4 rounded-2xl font-bold transition-all border",
-            isActive 
-              ? "bg-primary/5 border-primary/10 text-primary shadow-sm" 
-              : "bg-transparent border-transparent text-foreground hover:bg-primary/5 hover:text-primary hover:border-primary/10"
-          )}
-        >
-          <Icon className={cn("w-5 h-5", isActive ? "text-primary" : "text-primary/60")} /> 
-          {label}
-        </Link>
-      </SheetClose>
-    );
-  };
 
   const profileImage = useMemo(() => {
     if (!userProfile) return null;
@@ -269,18 +269,18 @@ export function Header() {
                   <div className="flex-grow overflow-y-auto py-6 px-4">
                     <div className="grid gap-2 mb-8">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground px-2 mb-2">{t.home}</p>
-                      <NavItem href="/" icon={Home} label={t.home} />
-                      {isLoggedIn && <NavItem href={getDashboardLink()} icon={LayoutDashboard} label={t.dashboard} />}
-                      {isLoggedIn && <NavItem href={getProfileLink()} icon={User} label={t.profile} />}
-                      <NavItem href="/jobs" icon={Search} label={t.findJobs} />
-                      <NavItem href="/communities" icon={MessageCircle} label={t.whatsappCommunity} />
+                      <NavItem href="/" icon={Home} label={t.home} pathname={pathname} />
+                      {isLoggedIn && <NavItem href={getDashboardLink()} icon={LayoutDashboard} label={t.dashboard} pathname={pathname} />}
+                      {isLoggedIn && <NavItem href={getProfileLink()} icon={User} label={t.profile} pathname={pathname} />}
+                      <NavItem href="/jobs" icon={Search} label={t.findJobs} pathname={pathname} />
+                      <NavItem href="/communities" icon={MessageCircle} label={t.whatsappCommunity} pathname={pathname} />
                       {showEmployerOptions && (
                         <>
-                          <NavItem href="/employer/post-job" icon={PlusCircle} label={t.hireTalent} />
-                          <NavItem href="/pricing" icon={CreditCard} label={t.plans} />
+                          <NavItem href="/employer/post-job" icon={PlusCircle} label={t.hireTalent} pathname={pathname} />
+                          <NavItem href="/pricing" icon={CreditCard} label={t.plans} pathname={pathname} />
                         </>
                       )}
-                      {isLoggedIn && <NavItem href="/settings" icon={Settings} label={t.settings} />}
+                      {isLoggedIn && <NavItem href="/settings" icon={Settings} label={t.settings} pathname={pathname} />}
                     </div>
 
                     <div className="px-2 mb-8">
