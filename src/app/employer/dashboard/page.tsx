@@ -286,54 +286,81 @@ const PrintProfile = ({ user, app, t }: { user: any, app: any, t: any }) => {
           {/* RIGHT COLUMN: MAIN CONTENT */}
           <div className="w-full md:w-[68%] space-y-10">
             
-            {resume?.recentCompany?.length > 0 && (
+            {resume?.academic?.length > 0 && (
               <section>
-                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-6">Employment History</h2>
-                <div className="space-y-6">
-                  {resume.recentCompany.map((job: any, i: number) => (
-                    <div key={i} className="relative pl-4 border-l-2 border-gray-200">
-                      <div className="absolute w-2 h-2 bg-black rounded-full -left-[5px] top-1.5"></div>
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                        <h3 className="text-lg font-bold text-black">{job.name}</h3>
-                        <span className="text-xs font-black text-gray-500 uppercase tracking-widest mt-1 sm:mt-0">{job.startDate} — {job.endDate}</span>
+                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-4">Academic Records</h2>
+                <div className="w-full">
+                  <div className="grid grid-cols-[15%_35%_35%_15%] border-b-2 border-black pb-2 mb-3">
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black">Level</div>
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black">Degree / Specialization</div>
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black">Institution / College</div>
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black text-right">Year</div>
+                  </div>
+                  <div className="space-y-3">
+                    {resume.academic.map((edu: any, i: number) => (
+                      <div key={i} className="grid grid-cols-[15%_35%_35%_15%] items-start text-sm border-b border-gray-100 pb-2">
+                        <div className="font-bold text-black pr-2">{edu.education}</div>
+                        <div className="font-medium text-gray-800 pr-2">{edu.degree || "-"}</div>
+                        <div className="font-medium text-gray-800 pr-4">{edu.institute}</div>
+                        <div className="font-bold text-primary text-right">{edu.year}</div>
                       </div>
-                      <h4 className="text-sm font-bold text-primary mb-2 uppercase tracking-wide">{job.position}</h4>
-                      {job.remarks && <p className="text-sm text-gray-700 leading-relaxed font-medium">"{job.remarks}"</p>}
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </section>
             )}
 
-            {resume?.academic?.length > 0 && (
+            {resume?.recentCompany?.length > 0 && (
               <section>
-                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-6">Academic Records</h2>
-                <div className="space-y-4">
-                  {resume.academic.map((edu: any, i: number) => (
-                    <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline border-b border-gray-100 pb-3">
-                      <div>
-                        <div className="font-bold text-black text-base">{edu.education} {edu.degree && <span className="text-gray-500 font-medium">— {edu.degree}</span>}</div>
-                        <div className="text-sm text-gray-700 font-medium mt-0.5">{edu.institute}</div>
+                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-4">Employment History</h2>
+                <div className="w-full">
+                  <div className="grid grid-cols-[35%_20%_45%] border-b-2 border-black pb-2 mb-3">
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black">Company & Role</div>
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black text-center">Tenure</div>
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black text-right">Notes / Responsibilities</div>
+                  </div>
+                  <div className="space-y-4">
+                    {resume.recentCompany.map((job: any, i: number) => (
+                      <div key={i} className="grid grid-cols-[35%_20%_45%] items-start text-sm border-b border-gray-100 pb-3">
+                        <div className="pr-4">
+                          <div className="font-bold text-black">{job.name}</div>
+                          <div className="text-xs font-bold text-primary uppercase mt-0.5">{job.position}</div>
+                        </div>
+                        <div className="text-xs font-bold text-gray-700 text-center uppercase tracking-wide">{job.startDate} — {job.endDate}</div>
+                        <div className="text-xs text-gray-700 leading-relaxed font-medium text-right italic pl-4">"{job.remarks || "No specific details provided."}"</div>
                       </div>
-                      <div className="text-sm font-bold text-primary mt-1 sm:mt-0">{edu.year}</div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </section>
             )}
 
             {resume?.references?.length > 0 && (
               <section>
-                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-6">Industrial References</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {resume.references.map((ref: any, i: number) => (
-                    <div key={i} className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
-                      <div className="font-bold text-black text-base mb-1">{ref.name}</div>
-                      <div className="text-xs font-bold text-gray-600 mb-3 uppercase tracking-wide">{ref.designation} <span className="text-gray-400">@</span> {ref.company}</div>
-                      <div className="text-sm text-black font-semibold">+91 {ref.contact}</div>
-                      {ref.email && <div className="text-xs text-gray-500 font-medium mt-1">{ref.email}</div>}
-                    </div>
-                  ))}
+                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-4">Professional References</h2>
+                <div className="w-full">
+                  <div className="grid grid-cols-[20%_30%_25%_25%] border-b-2 border-black pb-2 mb-3">
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black">Reference Name</div>
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black">Designation & Firm</div>
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black">Contact Info</div>
+                    <div className="font-black text-[11px] uppercase tracking-wider text-black text-right">Remarks / Context</div>
+                  </div>
+                  <div className="space-y-3">
+                    {resume.references.map((ref: any, i: number) => (
+                      <div key={i} className="grid grid-cols-[20%_30%_25%_25%] items-start text-sm border-b border-gray-100 pb-2">
+                        <div className="font-bold text-black pr-2">{ref.name}</div>
+                        <div className="pr-2">
+                          <div className="font-bold text-gray-800">{ref.designation}</div>
+                          <div className="text-[10px] text-gray-500 uppercase tracking-wide mt-0.5">@ {ref.company}</div>
+                        </div>
+                        <div className="pr-2">
+                          <div className="font-bold text-black">+91 {ref.contact}</div>
+                          {ref.email && <div className="text-[10px] text-gray-500 break-all">{ref.email}</div>}
+                        </div>
+                        <div className="text-xs text-gray-700 italic text-right pl-2">{ref.remarks || ref.relationship || "N/A"}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </section>
             )}
