@@ -205,167 +205,140 @@ const PrintProfile = ({ user, app, t }: { user: any, app: any, t: any }) => {
           th.bg-gray-100 { background-color: #f3f4f6 !important; }
         }
       `}} />
-      <div className="resume-document-frame">
-        <div className="border-b-4 border-black pb-4 mb-6 flex justify-between items-start">
+      <div className="resume-document-frame p-4 sm:p-8">
+        {/* HEADER AREA */}
+        <div className="border-b-4 border-black pb-4 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold uppercase tracking-tighter mb-1 text-black">{user.name}</h1>
-            <p className="text-lg font-bold text-gray-800 uppercase tracking-wide">
+            <h1 className="text-4xl font-black uppercase tracking-tighter mb-1 text-black">{user.name}</h1>
+            <p className="text-xl font-bold text-gray-700 uppercase tracking-wide">
               {user.designation || app?.jobTitle} • {user.department || "Industrial Sector"}
             </p>
-            <div className="flex wrap gap-x-4 gap-y-1 mt-2 text-sm font-medium text-black">
-              <span className="flex items-center gap-1">Mobile: +91 {user.phone}</span>
-              {user.email && <span className="flex items-center gap-1">Email: {user.email}</span>}
-              <span className="flex items-center gap-1">Location: {translateLocation(user.location, t)}</span>
-            </div>
           </div>
-          {user.photo && (
-            <div className="w-24 h-24 border-2 border-black rounded-lg overflow-hidden shrink-0 ml-6 bg-gray-50 flex items-center justify-center">
-              <img src={user.photo} alt="Profile" className="w-full h-full object-cover" />
-            </div>
-          )}
+          <div className="text-left sm:text-right text-sm font-semibold text-gray-800 space-y-0.5">
+            <div>+91 {user.phone}</div>
+            {user.email && <div>{user.email}</div>}
+            <div>{translateLocation(user.location, t)}</div>
+          </div>
         </div>
 
-        <section className="mb-6">
-          <h2 className="text-lg font-bold uppercase border-b-2 border-black mb-3 text-black">Industrial Profile</h2>
-          <table className="print-table w-full border-collapse border border-black text-black">
-            <tbody>
-              <tr>
-                <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400 w-1/4">Global Category</th>
-                <td className="p-2 border border-gray-400 w-1/4 font-bold">{user.category}</td>
-                <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400 w-1/4">Total Experience</th>
-                <td className="p-2 border border-gray-400 w-1/4 font-bold">{user.experience || resume?.professional?.totalExperience || "0"} Years</td>
-              </tr>
-              <tr>
-                <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400">Residing Area</th>
-                <td className="p-2 border border-gray-400">{translateLocation(user.location, t)}</td>
-                <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400">Date of Birth</th>
-                <td className="p-2 border border-gray-400">{safeFormatDateOnly(user.dob)}</td>
-              </tr>
-              <tr>
-                <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400">Gender / Age</th>
-                <td className="p-2 border border-gray-400">{user.gender || "Not Specified"} / {user.age || "?"} Yrs</td>
-                <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400">Languages Known</th>
-                <td className="p-2 border border-gray-400">{(user.languages || resume?.personal?.languages || []).join(', ') || "N/A"}</td>
-              </tr>
-              {app && (
-                <tr>
-                  <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400">Expected Salary</th>
-                  <td className="p-2 border border-gray-400 font-medium">₹{app.expectedSalary ? parseInt(app.expectedSalary).toLocaleString() : "Not Specified"}</td>
-                  <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400">Interview Slot</th>
-                  <td className="p-2 border border-gray-400 font-bold">{app.preferredInterviewDate && isValid(new Date(app.preferredInterviewDate)) ? format(new Date(app.preferredInterviewDate), "dd MMM yyyy") : "Immediate Walk-in"}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </section>
+        {/* 2-COLUMN RESUME LAYOUT */}
+        <div className="flex flex-col md:flex-row gap-8">
+          
+          {/* LEFT COLUMN: SIDEBAR */}
+          <div className="w-full md:w-[32%] md:pr-6 md:border-r border-gray-300 space-y-8">
+            {user.photo && (
+              <div className="w-32 h-32 border-2 border-black rounded-2xl overflow-hidden bg-gray-50 flex items-center justify-center mb-2 mx-auto md:mx-0">
+                <img src={user.photo} alt="Profile" className="w-full h-full object-cover" />
+              </div>
+            )}
 
-        {(resume?.professional || user.category === 'Technical') && (
-          <section className="mb-6">
-            <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Technical Assets & Skills</h2>
-            <table className="print-table w-full border-collapse border border-gray-400">
-              <tbody>
-                <tr>
-                  <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400 w-1/4">Buyers Handled</th>
-                  <td colSpan={3} className="p-2 border border-gray-400">{resume?.professional?.buyersHandled || "N/A"}</td>
-                </tr>
-                <tr>
-                  <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400 w-1/4">Audit Knowledge</th>
-                  <td colSpan={3} className="p-2 border border-gray-400">{resume?.professional?.auditExperience || "N/A"}</td>
-                </tr>
-                <tr>
-                  <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400 w-1/4">Software Proficiency</th>
-                  <td colSpan={3} className="p-2 border border-gray-400">{resume?.professional?.certifications || "N/A"}</td>
-                </tr>
-                <tr>
-                  <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400 w-1/4">Core Skills</th>
-                  <td colSpan={3} className="p-2 border border-gray-400 font-bold">{(resume?.professional?.coreSkills || []).join(', ') || "N/A"}</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-        )}
+            <section>
+              <h2 className="text-sm font-black uppercase tracking-widest text-black border-b-2 border-gray-300 pb-2 mb-4">Quick Details</h2>
+              <div className="space-y-3 text-sm text-gray-800 font-medium">
+                <div className="flex justify-between border-b border-gray-100 pb-1.5">
+                  <span className="font-bold text-black">Category</span>
+                  <span className="text-right">{user.category}</span>
+                </div>
+                <div className="flex justify-between border-b border-gray-100 pb-1.5">
+                  <span className="font-bold text-black">Experience</span>
+                  <span className="text-right">{user.experience || resume?.professional?.totalExperience || "0"} Yrs</span>
+                </div>
+                <div className="flex justify-between border-b border-gray-100 pb-1.5">
+                  <span className="font-bold text-black">Age / Gender</span>
+                  <span className="text-right">{user.age || "?"} / {user.gender || "N/A"}</span>
+                </div>
+                <div className="flex justify-between border-b border-gray-100 pb-1.5">
+                  <span className="font-bold text-black">Languages</span>
+                  <span className="text-right">{(user.languages || resume?.personal?.languages || []).join(', ') || "N/A"}</span>
+                </div>
+              </div>
+            </section>
 
-        {resume?.academic?.length > 0 && (
-          <section className="mb-6">
-            <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Academic Records</h2>
-            <table className="print-grid-table w-full border-collapse border border-gray-400">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium">Level</th>
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium">Degree / Specialization</th>
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium">Institution / College</th>
-                  <th className="border border-gray-400 p-2 text-center text-[8pt] uppercase font-medium">Year</th>
-                </tr>
-              </thead>
-              <tbody>
-                {resume.academic.map((edu: any, i: number) => (
-                  <tr key={i}>
-                    <td className="border border-gray-400 p-2 font-bold">{edu.education}</td>
-                    <td className="border border-gray-400 p-2">{edu.degree}</td>
-                    <td className="border border-gray-400 p-2">{edu.institute}</td>
-                    <td className="border border-gray-400 p-2 text-center">{edu.year}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
-        )}
+            {app && (
+              <section>
+                <h2 className="text-sm font-black uppercase tracking-widest text-black border-b-2 border-gray-300 pb-2 mb-4">Application</h2>
+                <div className="space-y-3 text-sm text-gray-800 font-medium">
+                  <div className="flex justify-between border-b border-gray-100 pb-1.5">
+                    <span className="font-bold text-black">Exp. Salary</span>
+                    <span className="text-right">₹{app.expectedSalary ? parseInt(app.expectedSalary).toLocaleString() : "N/A"}</span>
+                  </div>
+                  <div className="flex justify-between border-b border-gray-100 pb-1.5">
+                    <span className="font-bold text-black">Interview</span>
+                    <span className="text-right">{app.preferredInterviewDate && isValid(new Date(app.preferredInterviewDate)) ? format(new Date(app.preferredInterviewDate), "dd MMM") : "Walk-in"}</span>
+                  </div>
+                </div>
+              </section>
+            )}
 
-        {resume?.recentCompany?.length > 0 && (
-          <section className="mb-6">
-            <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Employment History</h2>
-            <table className="print-grid-table w-full border-collapse border border-gray-400">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium" style={{ width: '30%' }}>Company & Role</th>
-                  <th className="border border-gray-400 p-2 text-center text-[8pt] uppercase font-medium" style={{ width: '25%' }}>Tenure</th>
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium" style={{ width: '45%' }}>Remarks / Responsibilities</th>
-                </tr>
-              </thead>
-              <tbody>
-                {resume.recentCompany.map((job: any, i: number) => (
-                  <tr key={i}>
-                    <td className="border border-gray-400 p-2">
-                      <div className="font-bold">{job.name}</div>
-                      <div className="text-[7pt] italic uppercase">{job.position}</div>
-                    </td>
-                    <td className="border border-gray-400 p-2 text-center font-medium">{job.startDate} — {job.endDate}</td>
-                    <td className="border border-gray-400 p-2 text-[8pt] leading-relaxed italic">"{job.remarks || "No specific details provided."}"</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
-        )}
+            {(resume?.professional || user.category === 'Technical') && (
+              <section>
+                <h2 className="text-sm font-black uppercase tracking-widest text-black border-b-2 border-gray-300 pb-2 mb-4">Core Skills</h2>
+                <div className="flex flex-wrap gap-2">
+                  {(resume?.professional?.coreSkills || []).map((s: string, i: number) => (
+                    <span key={i} className="px-2.5 py-1 bg-gray-100 border border-gray-300 text-[10px] uppercase font-bold text-black rounded-md">{s}</span>
+                  ))}
+                  {!(resume?.professional?.coreSkills?.length > 0) && <span className="text-sm italic text-gray-500">Not specified</span>}
+                </div>
+              </section>
+            )}
+          </div>
 
-        {resume?.references?.length > 0 && (
-          <section className="mb-6">
-            <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Industrial References</h2>
-            <table className="print-grid-table w-full border-collapse border border-gray-400">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium">Ref. Name</th>
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium">Designation & Firm</th>
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium">Contact Information</th>
-                  <th className="border border-gray-400 p-2 text-left text-[8pt] uppercase font-medium">Context / Relationship</th>
-                </tr>
-              </thead>
-              <tbody>
-                {resume.references.map((ref: any, i: number) => (
-                  <tr key={i}>
-                    <td className="border border-gray-400 p-2 font-bold">{ref.name}</td>
-                    <td className="border border-gray-400 p-2">{ref.designation} @ {ref.company}</td>
-                    <td className="border border-gray-400 p-2">
-                      <div className="font-bold">+91 {ref.contact}</div>
-                      {ref.email && <div className="text-[7pt] text-gray-600">{ref.email}</div>}
-                    </td>
-                    <td className="border border-gray-400 p-2 text-[8pt]">{ref.remarks || ref.relationship || "N/A"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
-        )}
+          {/* RIGHT COLUMN: MAIN CONTENT */}
+          <div className="w-full md:w-[68%] space-y-10">
+            
+            {resume?.recentCompany?.length > 0 && (
+              <section>
+                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-6">Employment History</h2>
+                <div className="space-y-6">
+                  {resume.recentCompany.map((job: any, i: number) => (
+                    <div key={i} className="relative pl-4 border-l-2 border-gray-200">
+                      <div className="absolute w-2 h-2 bg-black rounded-full -left-[5px] top-1.5"></div>
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                        <h3 className="text-lg font-bold text-black">{job.name}</h3>
+                        <span className="text-xs font-black text-gray-500 uppercase tracking-widest mt-1 sm:mt-0">{job.startDate} — {job.endDate}</span>
+                      </div>
+                      <h4 className="text-sm font-bold text-primary mb-2 uppercase tracking-wide">{job.position}</h4>
+                      {job.remarks && <p className="text-sm text-gray-700 leading-relaxed font-medium">"{job.remarks}"</p>}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {resume?.academic?.length > 0 && (
+              <section>
+                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-6">Academic Records</h2>
+                <div className="space-y-4">
+                  {resume.academic.map((edu: any, i: number) => (
+                    <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline border-b border-gray-100 pb-3">
+                      <div>
+                        <div className="font-bold text-black text-base">{edu.education} {edu.degree && <span className="text-gray-500 font-medium">— {edu.degree}</span>}</div>
+                        <div className="text-sm text-gray-700 font-medium mt-0.5">{edu.institute}</div>
+                      </div>
+                      <div className="text-sm font-bold text-primary mt-1 sm:mt-0">{edu.year}</div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {resume?.references?.length > 0 && (
+              <section>
+                <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-6">Industrial References</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {resume.references.map((ref: any, i: number) => (
+                    <div key={i} className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+                      <div className="font-bold text-black text-base mb-1">{ref.name}</div>
+                      <div className="text-xs font-bold text-gray-600 mb-3 uppercase tracking-wide">{ref.designation} <span className="text-gray-400">@</span> {ref.company}</div>
+                      <div className="text-sm text-black font-semibold">+91 {ref.contact}</div>
+                      {ref.email && <div className="text-xs text-gray-500 font-medium mt-1">{ref.email}</div>}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+        </div>
 
         <div className="mt-10 pt-4 border-t border-dotted border-gray-400 text-center">
           <p className="text-[7pt] text-gray-500 uppercase tracking-widest">
