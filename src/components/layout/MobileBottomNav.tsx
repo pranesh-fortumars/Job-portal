@@ -71,7 +71,7 @@ export function MobileBottomNav() {
                 </div>
                 <span className={cn(
                   "text-[9px] font-black uppercase tracking-tight mt-0.5 transition-colors",
-                  isActive ? "text-primary font-black" : "text-slate-500 font-bold group-hover:text-primary"
+                  isActive ? "text-primary font-black" : "text-slate-600 font-bold group-hover:text-primary"
                 )}>
                   {item.label}
                 </span>
@@ -85,18 +85,18 @@ export function MobileBottomNav() {
               href={item.href}
               className={cn(
                 "flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 group relative",
-                isActive ? "text-primary" : "text-slate-500 hover:text-primary"
+                isActive ? "text-primary" : "text-slate-700 hover:text-primary"
               )}
             >
               <div className={cn(
                 "p-1 rounded-lg transition-all duration-200",
-                isActive ? "bg-primary/10 scale-105" : "group-hover:bg-primary/5"
+                isActive ? "bg-primary/15 scale-105 border border-primary/30 shadow-sm" : "group-hover:bg-primary/5"
               )}>
-                <Icon className={cn("w-5 h-5 transition-transform", isActive ? "stroke-[2.5px]" : "stroke-[1.75px]")} />
+                <Icon className={cn("w-5 h-5 transition-all", isActive ? "stroke-[2.75px] drop-shadow-md" : "stroke-[2px]")} />
               </div>
               <span className={cn(
-                "text-[9px] tracking-tight transition-colors mt-0.5",
-                isActive ? "text-primary font-black" : "text-slate-500 font-bold"
+                "text-[9px] tracking-tight transition-colors mt-1",
+                isActive ? "text-primary font-black" : "text-slate-600 font-bold"
               )}>
                 {item.label}
               </span>
