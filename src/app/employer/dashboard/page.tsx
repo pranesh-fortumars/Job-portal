@@ -2085,26 +2085,26 @@ export default function EmployerDashboard() {
           )}
        </div>
        
-       <DialogFooter className="p-4 sm:p-6 bg-white sm:bg-muted/20 border-t flex flex-row flex-wrap items-center gap-2 sm:gap-4 shrink-0 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.05)] sm:shadow-none max-h-[50vh] overflow-y-auto">
-          <Button variant="ghost" onClick={() => setSelectedApp(null)} className="w-full sm:flex-1 font-bold h-10 sm:h-14 rounded-xl sm:rounded-2xl order-last sm:order-none mt-1 sm:mt-0">Dismiss Dossier</Button>
+       <DialogFooter className="p-3 sm:p-6 bg-white sm:bg-muted/20 border-t grid grid-cols-6 sm:flex sm:flex-row sm:flex-wrap items-center gap-2 sm:gap-4 shrink-0 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.05)] sm:shadow-none">
+          <Button variant="ghost" onClick={() => setSelectedApp(null)} className="col-span-2 sm:flex-1 font-bold h-10 sm:h-14 rounded-xl sm:rounded-2xl text-[10px] sm:text-sm px-1">Dismiss</Button>
           <Button 
             variant="outline" 
             onClick={handleDownloadProfile} 
-            className="flex-1 sm:flex-none font-bold text-primary hover:text-primary active:text-primary h-10 sm:h-14 px-2 sm:px-6 rounded-xl border-primary/20 hover:bg-primary/5 gap-1 sm:gap-2"
+            className="col-span-2 sm:flex-none font-bold text-primary hover:text-primary active:text-primary h-10 sm:h-14 px-1 sm:px-6 rounded-xl border-primary/20 hover:bg-primary/5 gap-1 sm:gap-2 text-[10px] sm:text-sm"
           >
-            <Download className="w-4 h-4" /> <span className="hidden xs:inline">{t.downloadReport}</span><span className="inline xs:hidden">PDF</span>
+            <Download className="w-3 h-3 sm:w-4 sm:h-4" /> <span className="hidden xs:inline">{t.downloadReport}</span><span className="inline xs:hidden">PDF</span>
           </Button>
-          <Button variant="outline" className="flex-1 sm:flex-1 border-amber-200 text-amber-600 font-bold h-10 sm:h-14 rounded-xl sm:rounded-2xl px-2 sm:px-6 gap-1 sm:gap-2 hover:bg-amber-50" onClick={() => { setReportingCandidate(selectedApp); setIsReportDialogOpen(true); }}>
-             <ShieldAlert className="w-4 h-4" /> Report
+          <Button variant="outline" className="col-span-2 sm:flex-1 border-amber-200 text-amber-600 font-bold h-10 sm:h-14 rounded-xl sm:rounded-2xl px-1 sm:px-6 gap-1 sm:gap-2 hover:bg-amber-50 text-[10px] sm:text-sm" onClick={() => { setReportingCandidate(selectedApp); setIsReportDialogOpen(true); }}>
+             <ShieldAlert className="w-3 h-3 sm:w-4 sm:h-4" /> Report
           </Button>
           {(selectedApp?.status === 'applied' || selectedApp?.status === 'pending' || selectedApp?.status === 'rejected') && (
-             <Button onClick={() => handleUpdateStatus(selectedApp, 'shortlisted')} className="w-full sm:flex-[2] bg-green-600 hover:bg-green-700 text-white font-bold h-10 sm:h-14 px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all">{t.shortlisted} Now</Button>
+             <Button onClick={() => handleUpdateStatus(selectedApp, 'shortlisted')} className="col-span-3 sm:flex-[2] bg-green-600 hover:bg-green-700 text-white font-bold h-10 sm:h-14 px-2 sm:px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all text-[11px] sm:text-sm">Shortlist</Button>
           )}
           {(selectedApp?.status === 'applied' || selectedApp?.status === 'pending' || selectedApp?.status === 'shortlisted' || selectedApp?.status === 'hired') && (
-             <Button onClick={() => handleUpdateStatus(selectedApp, 'rejected')} className="flex-1 sm:flex-1 bg-red-500 hover:bg-red-600 text-white font-bold h-10 sm:h-14 px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all">{t.reject}</Button>
+             <Button onClick={() => handleUpdateStatus(selectedApp, 'rejected')} className="col-span-3 sm:flex-1 bg-red-500 hover:bg-red-600 text-white font-bold h-10 sm:h-14 px-2 sm:px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all text-[11px] sm:text-sm">{t.reject}</Button>
           )}
           {(selectedApp?.status === 'rejected' || selectedApp?.status === 'shortlisted' || selectedApp?.status === 'hired') && (
-             <Button variant="outline" onClick={() => handleUpdateStatus(selectedApp, 'pending')} className="flex-1 sm:flex-1 border-primary text-primary font-bold h-10 sm:h-14 px-6 rounded-xl sm:rounded-2xl hover:bg-primary/5 active:scale-95 transition-all">Restore</Button>
+             <Button variant="outline" onClick={() => handleUpdateStatus(selectedApp, 'pending')} className="col-span-3 sm:flex-1 border-primary text-primary font-bold h-10 sm:h-14 px-2 sm:px-6 rounded-xl sm:rounded-2xl hover:bg-primary/5 active:scale-95 transition-all text-[11px] sm:text-sm">Restore</Button>
           )}
        </DialogFooter>
      </DialogContent>
