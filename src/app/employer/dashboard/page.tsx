@@ -194,14 +194,25 @@ const PrintProfile = ({ user, app, t }: { user: any, app: any, t: any }) => {
   
   return (
     <div className="print-container w-full text-black bg-white p-0 m-0">
+      <style dangerouslySetInnerHTML={{__html: `
+        @media print {
+          @page { margin: 15mm; }
+          body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+          .print-hidden { display: none !important; }
+          .print-table th, .print-table td, .print-grid-table th, .print-grid-table td {
+            border: 1px solid #000 !important;
+          }
+          th.bg-gray-100 { background-color: #f3f4f6 !important; }
+        }
+      `}} />
       <div className="resume-document-frame">
         <div className="border-b-4 border-black pb-4 mb-6 flex justify-between items-start">
           <div className="flex-1">
-            <h1 className="text-3xl font-medium uppercase tracking-tighter mb-1">{user.name}</h1>
-            <p className="text-lg font-bold text-gray-700 uppercase tracking-wide">
+            <h1 className="text-3xl font-bold uppercase tracking-tighter mb-1 text-black">{user.name}</h1>
+            <p className="text-lg font-bold text-gray-800 uppercase tracking-wide">
               {user.designation || app?.jobTitle} • {user.department || "Industrial Sector"}
             </p>
-            <div className="flex wrap gap-x-4 gap-y-1 mt-2 text-sm font-medium">
+            <div className="flex wrap gap-x-4 gap-y-1 mt-2 text-sm font-medium text-black">
               <span className="flex items-center gap-1">Mobile: +91 {user.phone}</span>
               {user.email && <span className="flex items-center gap-1">Email: {user.email}</span>}
               <span className="flex items-center gap-1">Location: {translateLocation(user.location, t)}</span>
@@ -215,8 +226,8 @@ const PrintProfile = ({ user, app, t }: { user: any, app: any, t: any }) => {
         </div>
 
         <section className="mb-6">
-          <h2 className="text-lg font-medium uppercase border-b-2 border-black mb-3">Industrial Profile</h2>
-          <table className="print-table w-full border-collapse border border-gray-400">
+          <h2 className="text-lg font-bold uppercase border-b-2 border-black mb-3 text-black">Industrial Profile</h2>
+          <table className="print-table w-full border-collapse border border-black text-black">
             <tbody>
               <tr>
                 <th className="bg-gray-100 text-[9pt] font-medium uppercase p-2 border border-gray-400 w-1/4">Global Category</th>
@@ -980,7 +991,9 @@ export default function EmployerDashboard() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header />
+      <div className="print:hidden">
+        <Header />
+      </div>
       <main className="flex-grow p-4 md:p-8 max-w-7xl mx-auto w-full space-y-8 print:hidden">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1">
@@ -2148,7 +2161,7 @@ export default function EmployerDashboard() {
    </Dialog>
 
    {printBuffer && (
-     <div className="print-container">
+     <div className="print-container block w-full bg-white absolute top-0 left-0 z-[9999] min-h-screen">
        <PrintProfile user={printBuffer.user} app={printBuffer.app} t={t} />
      </div>
    )}
