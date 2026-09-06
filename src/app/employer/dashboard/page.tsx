@@ -2085,26 +2085,26 @@ export default function EmployerDashboard() {
           )}
        </div>
        
-       <DialogFooter className="p-4 sm:p-8 bg-white sm:bg-muted/20 border-t flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 shrink-0 max-h-[45vh] sm:max-h-none overflow-y-auto sm:overflow-visible scrollbar-hide shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.1)] sm:shadow-none">
-          <Button variant="ghost" onClick={() => setSelectedApp(null)} className="w-full sm:flex-1 font-bold h-12 sm:h-14 rounded-xl sm:rounded-2xl min-w-[140px] order-last sm:order-none mt-2 sm:mt-0">Dismiss Dossier</Button>
+       <DialogFooter className="p-4 sm:p-6 bg-white sm:bg-muted/20 border-t flex flex-row flex-nowrap sm:flex-wrap items-center gap-2 sm:gap-4 shrink-0 overflow-x-auto sm:overflow-visible scrollbar-hide shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.05)] sm:shadow-none">
+          <Button variant="ghost" onClick={() => setSelectedApp(null)} className="shrink-0 sm:flex-1 font-bold h-10 sm:h-14 rounded-xl sm:rounded-2xl px-4 sm:px-6">Dismiss Dossier</Button>
           <Button 
             variant="outline" 
             onClick={handleDownloadProfile} 
-            className="w-full sm:flex-none font-bold text-primary hover:text-primary active:text-primary h-12 sm:h-14 px-6 rounded-xl border-primary/20 hover:bg-primary/5 gap-2"
+            className="shrink-0 sm:flex-none font-bold text-primary hover:text-primary active:text-primary h-10 sm:h-14 px-4 sm:px-6 rounded-xl border-primary/20 hover:bg-primary/5 gap-2"
           >
-            <Download className="w-4 h-4" /> {t.downloadReport} (PDF)
+            <Download className="w-4 h-4" /> <span className="hidden xs:inline">{t.downloadReport} (PDF)</span><span className="inline xs:hidden">PDF Report</span>
           </Button>
-          <Button variant="outline" className="w-full sm:flex-1 border-amber-200 text-amber-600 font-bold h-12 sm:h-14 rounded-xl sm:rounded-2xl gap-2 hover:bg-amber-50" onClick={() => { setReportingCandidate(selectedApp); setIsReportDialogOpen(true); }}>
-             <ShieldAlert className="w-4 h-4" /> {t.reportCandidate}
+          <Button variant="outline" className="shrink-0 sm:flex-1 border-amber-200 text-amber-600 font-bold h-10 sm:h-14 rounded-xl sm:rounded-2xl px-4 sm:px-6 gap-2 hover:bg-amber-50" onClick={() => { setReportingCandidate(selectedApp); setIsReportDialogOpen(true); }}>
+             <ShieldAlert className="w-4 h-4" /> Report
           </Button>
           {(selectedApp?.status === 'applied' || selectedApp?.status === 'pending' || selectedApp?.status === 'rejected') && (
-             <Button onClick={() => handleUpdateStatus(selectedApp, 'shortlisted')} className="w-full sm:flex-[2] bg-green-600 hover:bg-green-700 text-white font-medium h-12 sm:h-14 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl min-w-[180px] active:scale-95 transition-all">{t.shortlisted} Now</Button>
+             <Button onClick={() => handleUpdateStatus(selectedApp, 'shortlisted')} className="shrink-0 sm:flex-[2] bg-green-600 hover:bg-green-700 text-white font-bold h-10 sm:h-14 px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all">{t.shortlisted} Now</Button>
           )}
           {(selectedApp?.status === 'applied' || selectedApp?.status === 'pending' || selectedApp?.status === 'shortlisted' || selectedApp?.status === 'hired') && (
-             <Button onClick={() => handleUpdateStatus(selectedApp, 'rejected')} className="w-full sm:flex-1 bg-red-500 hover:bg-red-600 text-white font-medium h-12 sm:h-14 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl min-w-[140px] active:scale-95 transition-all">{t.reject}</Button>
+             <Button onClick={() => handleUpdateStatus(selectedApp, 'rejected')} className="shrink-0 sm:flex-1 bg-red-500 hover:bg-red-600 text-white font-bold h-10 sm:h-14 px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all">{t.reject}</Button>
           )}
           {(selectedApp?.status === 'rejected' || selectedApp?.status === 'shortlisted' || selectedApp?.status === 'hired') && (
-             <Button variant="outline" onClick={() => handleUpdateStatus(selectedApp, 'pending')} className="w-full sm:flex-1 border-primary text-primary font-bold h-12 sm:h-14 rounded-xl sm:rounded-2xl hover:bg-primary/5 active:scale-95 transition-all">Restore to Pending</Button>
+             <Button variant="outline" onClick={() => handleUpdateStatus(selectedApp, 'pending')} className="shrink-0 sm:flex-1 border-primary text-primary font-bold h-10 sm:h-14 px-6 rounded-xl sm:rounded-2xl hover:bg-primary/5 active:scale-95 transition-all">Restore</Button>
           )}
        </DialogFooter>
      </DialogContent>
