@@ -130,85 +130,80 @@ const PrintResume = ({ userData, formData, resumeData, t }: any) => {
 
         {formData.category === 'Technical' && resumeData.academic?.length > 0 && (
           <section className="mb-6">
-            <h2 className="text-lg font-black uppercase border-b-2 border-black mb-3">Academic Records</h2>
-            <table className="print-grid-table">
-              <thead>
-                <tr>
-                  <th>Level</th>
-                  <th>Degree / Specialization</th>
-                  <th>Institution / College</th>
-                  <th>Year</th>
-                </tr>
-              </thead>
-              <tbody>
+            <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-4">Academic Records</h2>
+            <div className="w-full">
+              <div className="grid grid-cols-[15%_35%_35%_15%] border-b-2 border-black pb-2 mb-3">
+                <div className="font-black text-[11px] uppercase tracking-wider text-black">Level</div>
+                <div className="font-black text-[11px] uppercase tracking-wider text-black">Degree / Specialization</div>
+                <div className="font-black text-[11px] uppercase tracking-wider text-black">Institution / College</div>
+                <div className="font-black text-[11px] uppercase tracking-wider text-black text-right">Year</div>
+              </div>
+              <div className="space-y-3">
                 {resumeData.academic.map((edu: any, i: number) => (
-                  <tr key={i}>
-                    <td className="font-bold">{edu.education}</td>
-                    <td>{edu.degree}</td>
-                    <td>{edu.institute}</td>
-                    <td className="text-center">{edu.year}</td>
-                  </tr>
+                  <div key={i} className="grid grid-cols-[15%_35%_35%_15%] items-start text-sm border-b border-gray-100 pb-2">
+                    <div className="font-bold text-black pr-2">{edu.education}</div>
+                    <div className="font-medium text-gray-800 pr-2">{edu.degree || "-"}</div>
+                    <div className="font-medium text-gray-800 pr-4">{edu.institute}</div>
+                    <div className="font-bold text-primary text-right">{edu.year}</div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            </div>
           </section>
         )}
 
         {formData.category === 'Technical' && resumeData.recentCompany?.length > 0 && (
           <section className="mb-6">
-            <h2 className="text-lg font-black uppercase border-b-2 border-black mb-3">Employment History</h2>
-            <table className="print-grid-table">
-              <thead>
-                <tr>
-                  <th style={{ width: '30%' }}>Company & Role</th>
-                  <th style={{ width: '25%' }}>Tenure</th>
-                  <th style={{ width: '45%' }}>Notes / Responsibilities / Remarks</th>
-                </tr>
-              </thead>
-              <tbody>
+            <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-4">Employment History</h2>
+            <div className="w-full">
+              <div className="grid grid-cols-[35%_20%_45%] border-b-2 border-black pb-2 mb-3">
+                <div className="font-black text-[11px] uppercase tracking-wider text-black">Company & Role</div>
+                <div className="font-black text-[11px] uppercase tracking-wider text-black text-center">Tenure</div>
+                <div className="font-black text-[11px] uppercase tracking-wider text-black text-right">Notes / Responsibilities</div>
+              </div>
+              <div className="space-y-4">
                 {resumeData.recentCompany.map((job: any, i: number) => (
-                  <tr key={i}>
-                    <td>
-                      <div className="font-bold">{job.name}</div>
-                      <div className="text-xs italic">{job.position}</div>
-                    </td>
-                    <td className="text-center font-medium">{job.startDate} - {job.endDate}</td>
-                    <td className="text-[8pt] leading-relaxed">{job.remarks || "No specific details provided."}</td>
-                  </tr>
+                  <div key={i} className="grid grid-cols-[35%_20%_45%] items-start text-sm border-b border-gray-100 pb-3">
+                    <div className="pr-4">
+                      <div className="font-bold text-black">{job.name}</div>
+                      <div className="text-xs font-bold text-primary uppercase mt-0.5">{job.position}</div>
+                    </div>
+                    <div className="text-xs font-bold text-gray-700 text-center uppercase tracking-wide">{job.startDate} — {job.endDate}</div>
+                    <div className="text-xs text-gray-700 leading-relaxed font-medium text-right italic pl-4">"{job.remarks || "No specific details provided."}"</div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            </div>
           </section>
         )}
 
         {formData.category === 'Technical' && resumeData.references?.length > 0 && (
           <section className="mb-6">
-            <h2 className="text-lg font-black uppercase border-b-2 border-black mb-3">Professional References</h2>
-            <table className="print-grid-table">
-              <thead>
-                <tr>
-                  <th>Reference Name</th>
-                  <th>Designation & Firm</th>
-                  <th>Contact Information</th>
-                  <th>Relationship</th>
-                  <th>Remarks / Context</th>
-                </tr>
-              </thead>
-              <tbody>
+            <h2 className="text-xl font-black uppercase tracking-widest text-black border-b-2 border-black pb-2 mb-4">Professional References</h2>
+            <div className="w-full">
+              <div className="grid grid-cols-[20%_30%_25%_25%] border-b-2 border-black pb-2 mb-3">
+                <div className="font-black text-[11px] uppercase tracking-wider text-black">Reference Name</div>
+                <div className="font-black text-[11px] uppercase tracking-wider text-black">Designation & Firm</div>
+                <div className="font-black text-[11px] uppercase tracking-wider text-black">Contact Info</div>
+                <div className="font-black text-[11px] uppercase tracking-wider text-black text-right">Remarks / Context</div>
+              </div>
+              <div className="space-y-3">
                 {resumeData.references.map((ref: any, i: number) => (
-                  <tr key={i}>
-                    <td className="font-bold">{ref.name}</td>
-                    <td>{ref.designation} • {ref.company}</td>
-                    <td>
-                      <div className="font-medium">+91 {ref.contact}</div>
-                      {ref.email && <div className="text-[7pt] text-gray-600">{ref.email}</div>}
-                    </td>
-                    <td className="text-center italic">{ref.relationship || "N/A"}</td>
-                    <td className="text-[8pt]">{ref.remarks || "Professional reference."}</td>
-                  </tr>
+                  <div key={i} className="grid grid-cols-[20%_30%_25%_25%] items-start text-sm border-b border-gray-100 pb-2">
+                    <div className="font-bold text-black pr-2">{ref.name}</div>
+                    <div className="pr-2">
+                      <div className="font-bold text-gray-800">{ref.designation}</div>
+                      <div className="text-[10px] text-gray-500 uppercase tracking-wide mt-0.5">@ {ref.company}</div>
+                    </div>
+                    <div className="pr-2">
+                      <div className="font-bold text-black">+91 {ref.contact}</div>
+                      {ref.email && <div className="text-[10px] text-gray-500 break-all">{ref.email}</div>}
+                    </div>
+                    <div className="text-xs text-gray-700 italic text-right pl-2">{ref.remarks || ref.relationship || "N/A"}</div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            </div>
           </section>
         )}
 
