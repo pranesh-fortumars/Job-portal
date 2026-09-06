@@ -121,12 +121,12 @@ export function Header() {
       <div className="flex h-16 md:h-20 items-center justify-between w-full overflow-hidden bg-white/70 backdrop-blur-2xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-3xl md:rounded-[2.5rem] px-3 sm:px-6 md:px-8">
         {/* Left Side: Logo and Mobile Lang Switcher */}
         <div className="flex items-center gap-1 sm:gap-3 flex-1 min-w-0">
-          <Link href="/" className="flex items-center gap-1 sm:gap-2 shrink-0">
-            <div className="w-24 xs:w-28 sm:w-32 md:w-40 h-11 md:h-14 rounded-xl flex items-center justify-center overflow-hidden bg-primary/5 px-1 sm:px-2 transition-all">
+          <Link href="/" className="flex items-center shrink-0">
+            <div className="w-20 xs:w-24 sm:w-32 md:w-40 h-9 xs:h-11 md:h-14 rounded-xl flex items-center justify-center overflow-hidden bg-primary/5 px-1 transition-all">
               <AppLogo 
                 width={120} 
                 height={48} 
-                className="max-w-[80px] xs:max-w-[100px] md:max-w-full h-auto" 
+                className="max-w-[70px] xs:max-w-[90px] md:max-w-full h-auto" 
                 priority 
                 section="header"
               />
@@ -161,7 +161,7 @@ export function Header() {
         </div>
 
         {/* Right Side: Desktop Actions and Mobile Terminal */}
-        <div className="flex items-center gap-1 sm:gap-2 md:gap-4 shrink-0 ml-1">
+        <div className="flex items-center gap-0.5 xs:gap-1 sm:gap-2 md:gap-4 shrink-0 justify-end">
           <Link href="/communities" className="hidden sm:flex items-center justify-center w-10 h-10 rounded-xl bg-green-50 text-green-600 hover:bg-green-100 transition-all active:scale-95" title={t.whatsappCommunity}>
             <MessageCircle className="w-6 h-6" />
           </Link>
@@ -183,8 +183,8 @@ export function Header() {
           </DropdownMenu>
 
           {/* Apply Now Button */}
-          <Link href="/jobs" className="flex items-center justify-center mr-1">
-             <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white font-black px-2 sm:px-4 h-8 sm:h-10 text-[10px] sm:text-sm rounded-lg sm:rounded-xl shadow-sm transition-all active:scale-95">
+          <Link href="/jobs" className="flex items-center justify-center">
+             <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white font-black px-1.5 xs:px-2 sm:px-4 h-7 xs:h-8 sm:h-10 text-[9px] xs:text-[10px] sm:text-sm rounded-lg sm:rounded-xl shadow-sm transition-all active:scale-95">
                  Apply Now
              </Button>
           </Link>
@@ -198,13 +198,13 @@ export function Header() {
               </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="rounded-full overflow-hidden border h-8 w-8 sm:h-10 sm:w-10 p-0 hover:bg-primary/5">
+                  <Button variant="ghost" size="icon" className="rounded-full overflow-hidden border h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 p-0 hover:bg-primary/5 shrink-0">
                     {profileLoading ? (
                       <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin text-primary" />
                     ) : profileImage ? (
-                      <img src={profileImage} alt="User" className="w-full h-full object-cover" />
+                      <img src={profileImage} alt="" className="w-full h-full object-cover text-[0px]" />
                     ) : (
-                      <UserCircle className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                      <UserCircle className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-primary" />
                     )}
                   </Button>
                 </DropdownMenuTrigger>
@@ -235,7 +235,7 @@ export function Header() {
                 <Button variant="ghost" className="font-bold text-primary hover:text-primary hover:bg-primary/5">{t.login}</Button>
               </Link>
               <Link href="/auth/signup">
-                <Button className="bg-primary text-white hover:bg-primary/90 hover:text-white font-black px-2 sm:px-6 h-8 sm:h-10 text-[10px] sm:text-sm rounded-lg sm:rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
+                <Button className="bg-primary text-white hover:bg-primary/90 hover:text-white font-black px-1.5 xs:px-2 sm:px-6 h-7 xs:h-8 sm:h-10 text-[9px] xs:text-[10px] sm:text-sm rounded-lg sm:rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95 shrink-0">
                   {t.signUp}
                 </Button>
               </Link>
@@ -243,11 +243,11 @@ export function Header() {
           )}
 
           {/* Mobile Terminal Icons */}
-          <div className="flex md:hidden items-center gap-1">
-            <a href="tel:+919025404014" className="flex items-center justify-center w-8 h-8 xs:w-9 xs:h-9 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all active:scale-95 shadow-sm">
-              <Phone className="w-4 h-4" />
+          <div className="flex md:hidden items-center gap-0.5 xs:gap-1 shrink-0">
+            <a href="tel:+919025404014" className="flex items-center justify-center w-7 h-7 xs:w-8 xs:h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all active:scale-95 shadow-sm shrink-0">
+              <Phone className="w-3 h-3 xs:w-4 xs:h-4" />
             </a>
-            <Link href="/communities" className="flex items-center justify-center w-8 h-8 xs:w-9 xs:h-9 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-all active:scale-95 shadow-sm">
+            <Link href="/communities" className="flex items-center justify-center w-7 h-7 xs:w-8 xs:h-8 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-all active:scale-95 shadow-sm shrink-0">
               <MessageCircle className="w-4 h-4" />
             </Link>
             <Sheet>
