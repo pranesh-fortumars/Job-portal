@@ -410,9 +410,16 @@ export default function SeekerDashboard() {
                 <p className="text-muted-foreground text-sm font-medium">
                   India's All-in-One Job Portal — MNCs, Corporates, Retail & Skilled Workers
                 </p>
-                <Badge variant="outline" className="w-fit text-[9px] uppercase tracking-widest border-primary/20 text-primary bg-primary/5 font-bold py-1 px-3">
-                  <Calendar className="w-3 h-3 mr-1.5" /> Active Seeker
-                </Badge>
+                <div className="flex gap-2">
+                  <Badge variant="outline" className="w-fit text-[9px] uppercase tracking-widest border-primary/20 text-primary bg-primary/5 font-bold py-1 px-3">
+                    <Calendar className="w-3 h-3 mr-1.5" /> Active Seeker
+                  </Badge>
+                  <Link href="/seeker/profile-views" className="hover:opacity-80 transition-opacity">
+                     <Badge className="w-fit text-[9px] uppercase tracking-widest border-blue-200 text-blue-700 bg-blue-50 font-bold py-1 px-3 cursor-pointer flex items-center gap-1.5">
+                       <EyeOff className="w-3 h-3" /> Profile Views <span className="bg-blue-600 text-white px-1.5 py-0.5 rounded-sm ml-1">New</span>
+                     </Badge>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

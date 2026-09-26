@@ -374,7 +374,7 @@ export default function PostJobPage() {
       });
 
       toast({ title: "Job Posted for Approval!" });
-      router.push("/employer/dashboard");
+      router.push(`/employer/jobs/${finalJobId}/matches`);
     } catch (error) { toast({ variant: "destructive", title: "Error Posting Job" }); } finally { setLoading(false); }
   };
 
