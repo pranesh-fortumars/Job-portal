@@ -184,7 +184,7 @@ export default function JobAlertsPage() {
                       <div className="flex flex-wrap gap-2 mt-2">
                         {alert.minSalary > 0 && (
                           <span className="text-[10px] font-bold bg-green-50 text-green-700 px-2 py-1 rounded-md border border-green-200">
-                            > ₹{alert.minSalary}/mo
+                            &gt; ₹{alert.minSalary}/mo
                           </span>
                         )}
                         {alert.location !== "Anywhere" && (
