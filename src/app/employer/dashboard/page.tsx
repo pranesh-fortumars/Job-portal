@@ -142,6 +142,7 @@ import {
   Area
 } from "recharts";
 import { JobListing } from "@/lib/types";
+import { KanbanBoard } from "@/components/employer/KanbanBoard";
 
 const getTime = (val: any) => {
   if (!val) return Date.now();
@@ -388,6 +389,7 @@ export default function EmployerDashboard() {
   
   const [activeTab, setActiveTab] = useState("applicants");
   const [subTab, setSubTab] = useState("pending");
+  const [viewMode, setViewMode] = useState<'table' | 'kanban'>('kanban');
   const [jobLifecycleTab, setJobLifecycleTab] = useState<"active" | "closed" | "archived" | "plan">("active");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedApp, setSelectedApp] = useState<any>(null);
@@ -1025,11 +1027,48 @@ export default function EmployerDashboard() {
           </div>
 
           <TabsContent value="applicants" className="m-0 space-y-6">
-            <div className="flex bg-muted/40 p-1 rounded-2xl w-fit">
-              <button onClick={() => setSubTab("pending")} className={cn("px-6 py-2 rounded-xl text-sm font-bold transition-all", (subTab === 'pending' || subTab === 'applied') ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{t.pending} ({counts.pending})</button>
-              <button onClick={() => setSubTab("shortlisted")} className={cn("px-6 py-2 rounded-xl text-sm font-bold transition-all", subTab === 'shortlisted' ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{t.shortlisted} ({counts.shortlisted})</button>
-              <button onClick={() => setSubTab("rejected")} className={cn("px-6 py-2 rounded-xl text-sm font-bold transition-all", subTab === 'rejected' ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{t.rejected} ({counts.rejected})</button>
+            <div className="flex justify-between items-center bg-white p-2 rounded-[2rem] shadow-sm border border-slate-200">
+              <div className="flex items-center gap-1">
+                <Button 
+                   variant={viewMode === 'kanban' ? 'default' : 'ghost'} 
+                   className={cn("rounded-xl px-6 h-10 font-bold", viewMode === 'kanban' && "bg-primary text-white shadow-md")}
+                   onClick={() => setViewMode('kanban')}
+                >
+                   <LayoutDashboard className="w-4 h-4 mr-2" /> Pipeline
+                </Button>
+                <Button 
+                   variant={viewMode === 'table' ? 'default' : 'ghost'} 
+                   className={cn("rounded-xl px-6 h-10 font-bold", viewMode === 'table' && "bg-primary text-white shadow-md")}
+                   onClick={() => setViewMode('table')}
+                >
+                   <Database className="w-4 h-4 mr-2" /> List
+                </Button>
+              </div>
+              
+              {viewMode === 'table' && (
+                <div className="flex bg-muted/40 p-1 rounded-2xl">
+                  <button onClick={() => setSubTab("pending")} className={cn("px-4 py-1.5 rounded-xl text-xs font-bold transition-all", (subTab === 'pending' || subTab === 'applied') ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{t.pending} ({counts.pending})</button>
+                  <button onClick={() => setSubTab("shortlisted")} className={cn("px-4 py-1.5 rounded-xl text-xs font-bold transition-all", subTab === 'shortlisted' ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{t.shortlisted} ({counts.shortlisted})</button>
+                  <button onClick={() => setSubTab("rejected")} className={cn("px-4 py-1.5 rounded-xl text-xs font-bold transition-all", subTab === 'rejected' ? "bg-white text-primary shadow-sm" : "text-muted-foreground")}>{t.rejected} ({counts.rejected})</button>
+                </div>
+              )}
             </div>
+
+            {viewMode === 'kanban' ? (
+               <KanbanBoard 
+                 applications={liveApps} 
+                 onStatusChange={handleUpdateStatus}
+                 onViewProfile={setSelectedApp}
+                 onWhatsAppContact={(app: any) => {
+                    if (app.phone) {
+                      window.open(`https://wa.me/91${app.phone.replace(/\D/g, "")}?text=${encodeURIComponent(generateCandidateShortlistMessage(app))}`, '_blank');
+                    } else {
+                      toast({ variant: "destructive", title: "Phone Missing", description: "This candidate's contact details are private." });
+                    }
+                 }}
+                 t={t}
+               />
+            ) : (
 
             <Card className="rounded-[1.5rem] border border-slate-200 shadow-xl overflow-x-auto bg-white">
               <Table className="min-w-[1300px] border-collapse">
@@ -1126,6 +1165,7 @@ export default function EmployerDashboard() {
                 </TableBody>
               </Table>
             </Card>
+            )}
           </TabsContent>
 
           <TabsContent value="candidate-reports" className="m-0 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
