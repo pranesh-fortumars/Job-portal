@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { Checkbox } from "@/components/ui/checkbox";
 import { JobListing } from "@/lib/types";
 import { JobCard } from "@/components/jobs/JobCard";
 import { 
@@ -428,9 +430,83 @@ export default function JobsPage({
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex justify-end mb-6">
-            <div className="bg-white p-1.5 rounded-2xl shadow-sm border-2 inline-flex items-center">
+        <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
+          {/* Advanced Filters Sidebar (Naukri Style) */}
+          <aside className="w-full lg:w-72 shrink-0 space-y-6">
+            <div className="bg-white rounded-[2rem] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] p-6 border-none">
+              <div className="flex items-center justify-between mb-4 pb-4 border-b border-dashed">
+                <h3 className="font-black text-lg text-primary uppercase tracking-tight">Advanced Filters</h3>
+                <Button variant="ghost" size="sm" onClick={() => setFilters({ category: 'all', company: 'all', location: 'all', type: 'all', department: 'all', accommodation: false, food: false, gender: 'any', minSalary: 0, maxExperience: 20, nearMe: false, maxDistance: 10 })} className="text-muted-foreground hover:text-primary text-xs font-bold h-8">Clear</Button>
+              </div>
+              
+              <Accordion type="multiple" defaultValue={["salary", "experience", "benefits", "gender"]} className="w-full">
+                <AccordionItem value="salary" className="border-b-0 mb-2">
+                  <AccordionTrigger className="hover:no-underline py-2"><span className="font-bold text-sm text-foreground">Minimum Salary</span></AccordionTrigger>
+                  <AccordionContent className="pt-4 pb-2 px-1">
+                    <Slider 
+                      value={[filters.minSalary]} 
+                      min={0} 
+                      max={100000} 
+                      step={1000} 
+                      onValueChange={([v]) => setFilters(prev => ({...prev, minSalary: v}))} 
+                    />
+                    <div className="mt-3 text-xs font-black text-primary text-right bg-primary/5 py-1 px-2 rounded-md inline-block float-right">₹{filters.minSalary > 0 ? `${(filters.minSalary/1000)}k+` : 'Any'}</div>
+                    <div className="clear-both"></div>
+                  </AccordionContent>
+                </AccordionItem>
+                
+                <AccordionItem value="experience" className="border-b border-dashed mb-2 pb-2">
+                  <AccordionTrigger className="hover:no-underline py-2"><span className="font-bold text-sm text-foreground">Maximum Experience</span></AccordionTrigger>
+                  <AccordionContent className="pt-4 pb-2 px-1">
+                    <Slider 
+                      value={[filters.maxExperience]} 
+                      min={0} 
+                      max={20} 
+                      step={1} 
+                      onValueChange={([v]) => setFilters(prev => ({...prev, maxExperience: v}))} 
+                    />
+                    <div className="mt-3 text-xs font-black text-primary text-right bg-primary/5 py-1 px-2 rounded-md inline-block float-right">{filters.maxExperience === 20 ? 'Any' : `Up to ${filters.maxExperience} yrs`}</div>
+                    <div className="clear-both"></div>
+                  </AccordionContent>
+                </AccordionItem>
+                
+                <AccordionItem value="benefits" className="border-b border-dashed mb-2 pb-2">
+                  <AccordionTrigger className="hover:no-underline py-2"><span className="font-bold text-sm text-foreground">Facilities</span></AccordionTrigger>
+                  <AccordionContent className="pt-2 pb-2 space-y-4">
+                    <div className="flex items-center space-x-3 bg-muted/20 p-2 rounded-lg">
+                      <Checkbox id="acc-filter" checked={filters.accommodation} onCheckedChange={(c) => setFilters(prev => ({...prev, accommodation: !!c}))} />
+                      <label htmlFor="acc-filter" className="text-sm font-bold leading-none cursor-pointer">Room Available</label>
+                    </div>
+                    <div className="flex items-center space-x-3 bg-muted/20 p-2 rounded-lg">
+                      <Checkbox id="food-filter" checked={filters.food} onCheckedChange={(c) => setFilters(prev => ({...prev, food: !!c}))} />
+                      <label htmlFor="food-filter" className="text-sm font-bold leading-none cursor-pointer">Food Available</label>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="gender" className="border-b-0">
+                  <AccordionTrigger className="hover:no-underline py-2"><span className="font-bold text-sm text-foreground">Gender Preference</span></AccordionTrigger>
+                  <AccordionContent className="pt-2 pb-2">
+                     <Select value={filters.gender} onValueChange={(val) => setFilters(prev => ({ ...prev, gender: val }))}>
+                        <SelectTrigger className="w-full bg-muted/20 border-none font-bold">
+                           <SelectValue placeholder="Any Gender" />
+                        </SelectTrigger>
+                        <SelectContent>
+                           <SelectItem value="any" className="font-bold">Any Gender</SelectItem>
+                           <SelectItem value="Male" className="font-bold">Male Preferred</SelectItem>
+                           <SelectItem value="Female" className="font-bold">Female Preferred</SelectItem>
+                        </SelectContent>
+                     </Select>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </aside>
+          
+          <div className="flex-1 min-w-0">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-black text-primary uppercase tracking-tight hidden lg:block">Job Results <span className="text-muted-foreground text-sm font-bold ml-2">({sortedJobs.length})</span></h2>
+              <div className="bg-white p-1.5 rounded-2xl shadow-sm border-2 inline-flex items-center ml-auto">
               <Button 
                 variant={!isMapView ? "default" : "ghost"} 
                 className={cn("rounded-xl px-8 h-10 font-bold transition-all", !isMapView && "bg-primary text-white shadow-md")}
@@ -516,6 +592,7 @@ export default function JobsPage({
               </div>
             </div>
           )}
+        </div>
         </div>
       </main>
     </div>
