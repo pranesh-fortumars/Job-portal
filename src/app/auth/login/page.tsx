@@ -13,9 +13,9 @@ import Link from "next/link";
 import { UserRole } from "@/lib/types";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import { useAuth, useUser, useFirestore } from "@/firebase";
-import {
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
+import { 
+  RecaptchaVerifier, 
+  signInWithPhoneNumber, 
   ConfirmationResult,
   signInWithEmailAndPassword,
   PhoneAuthProvider,
@@ -27,8 +27,8 @@ import { errorEmitter } from "@/firebase/error-emitter";
 import { FirestorePermissionError } from "@/firebase/errors";
 import { cn } from "@/lib/utils";
 import { AppLogo } from "@/components/shared/AppLogo";
-import { loginAsDemoUser, DemoRoleKey } from "@/lib/demo-auth";
 import { Suspense } from "react";
+import { loginAsDemoUser, DemoRoleKey } from "@/lib/demo-auth";
 
 function LoginContent() {
   const router = useRouter();
@@ -38,7 +38,7 @@ function LoginContent() {
   const { toast } = useToast();
   const auth = useAuth();
   const db = useFirestore();
-
+  
   const [loginMethod, setLoginMethod] = useState<"otp" | "password">("otp");
   const [step, setStep] = useState<"phone" | "otp" | "reconcile" | "role-select">("phone");
   const [phone, setPhone] = useState("");
@@ -124,7 +124,7 @@ function LoginContent() {
         try {
           recaptchaVerifier.current.clear();
           recaptchaVerifier.current = null;
-        } catch (e) { }
+        } catch (e) {}
       }
     };
   }, [auth, mounted]);
@@ -151,12 +151,12 @@ function LoginContent() {
           setLoading(false);
           return;
         }
-
+        
         // Re-initialize if for some reason the verifier was lost
         if (!recaptchaVerifier.current) {
           recaptchaVerifier.current = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'invisible' });
         }
-
+        
         const appVerifier = recaptchaVerifier.current;
         const result = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
         setConfirmationResult(result);
@@ -181,7 +181,7 @@ function LoginContent() {
 
   const handlePasswordLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const sanitizedPhone = phone.replace(/\D/g, "").slice(-10);
+    const sanitizedPhone = phone.replace(/\D/g, "").slice(-10); 
     if (sanitizedPhone.length !== 10 || !password) return;
 
     setLoading(true);
@@ -205,7 +205,7 @@ function LoginContent() {
             const userSnap = await getDoc(doc(db, "Users", userCredential.uid));
             if (userSnap.exists()) {
               completeLogin(userSnap.data());
-              return;
+              return; 
             }
           }
         } catch (testError: any) {
@@ -216,11 +216,11 @@ function LoginContent() {
 
     try {
       const formattedPhone = `+91${sanitizedPhone}`;
-
+      
       const usersRef = collection(db, "Users");
       const q = query(usersRef, where("phone", "==", formattedPhone), limit(1));
       const snap = await getDocs(q);
-
+      
       if (snap.empty) {
         toast({ variant: "destructive", title: "Identity Error", description: "Mobile number not found in our industrial registry." });
         setLoading(false);
@@ -234,7 +234,7 @@ function LoginContent() {
       console.log("[Auth Audit] Attempting password login:", { authEmail, phone: sanitizedPhone });
 
       await signInWithEmailAndPassword(auth, authEmail, password);
-
+      
       if (userData.role) {
         completeLogin(userData);
       } else {
@@ -260,10 +260,10 @@ function LoginContent() {
         const credential = PhoneAuthProvider.credential(confirmationResult.verificationId, otp);
         const result = await confirmationResult.confirm(otp);
         const user = result.user;
-
+        
         const userDocRef = doc(db, "Users", user.uid);
         const userDoc = await getDoc(userDocRef);
-
+        
         if (userDoc.exists()) {
           const data = userDoc.data();
           if (data.role && data.signupStatus === 'completed') {
@@ -276,11 +276,11 @@ function LoginContent() {
           const tenDigitPhone = authPhone.slice(-10);
           const q = query(collection(db, "Users"), where("phone", "==", authPhone), limit(1));
           const snap = await getDocs(q);
-
+          
           if (!snap.empty) {
             const existingUser = snap.docs[0].data();
             const existingEmail = (existingUser.email || `${tenDigitPhone}@nextirupur.internal`).toLowerCase().trim();
-
+            
             setReconcileData({ email: existingEmail, phoneCredential: credential });
             setStep("reconcile");
             toast({ title: t.reportAlert, description: "Verify password to unify your mobile identity." });
@@ -338,10 +338,10 @@ function LoginContent() {
         onboarded: false,
         updatedAt: serverTimestamp()
       };
-
+      
       const userRef = doc(db, "Users", user.uid);
       await setDoc(userRef, updateData, { merge: true });
-
+      
       const finalSnap = await getDoc(userRef);
       completeLogin(finalSnap.data());
       toast({ title: "Industrial Identity Established" });
@@ -355,7 +355,7 @@ function LoginContent() {
   const completeLogin = (data: any) => {
     localStorage.setItem('sim_is_logged_in', 'true');
     localStorage.setItem('sim_user_role', data.role);
-
+    
     if (!data.role) {
       router.push("/auth/signup");
       return;
@@ -368,12 +368,12 @@ function LoginContent() {
 
     if (data.role === 'admin') router.push("/admin/dashboard");
     else if (data.role === 'employer') {
-      if (data.onboarded) router.push("/employer/dashboard");
-      else router.push("/employer/profile");
+       if (data.onboarded) router.push("/employer/dashboard");
+       else router.push("/employer/profile");
     }
     else {
-      if (data.onboarded) router.push("/seeker/dashboard");
-      else router.push(`/seeker/onboarding${redirectUrl ? `?redirect=${redirectUrl}` : ''}`);
+       if (data.onboarded) router.push("/seeker/dashboard");
+       else router.push(`/seeker/onboarding${redirectUrl ? `?redirect=${redirectUrl}` : ''}`);
     }
   };
 
@@ -384,7 +384,7 @@ function LoginContent() {
       <Header />
       <main className="flex-grow flex items-center justify-center p-4 py-8">
         <div id="recaptcha-container"></div>
-
+        
         <Card className="w-full max-w-md shadow-xl border border-slate-800/20 ring-1 ring-slate-800/5 rounded-[2rem] overflow-hidden bg-white">
           <CardHeader className="space-y-1 text-center bg-muted/20 pb-6 pt-10">
             <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-2 text-primary shadow-inner">
@@ -495,13 +495,13 @@ function LoginContent() {
                   <Label className="font-medium text-xs uppercase text-muted-foreground ml-1">Account Password</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Enter password"
-                      className="pl-10 pr-10 h-12 rounded-xl font-medium border-primary/20"
-                      value={password}
-                      onChange={e => setPassword(e.target.value)}
-                      required
+                    <Input 
+                      type={showPassword ? "text" : "password"} 
+                      placeholder="Enter password" 
+                      className="pl-10 pr-10 h-12 rounded-xl font-medium border-primary/20" 
+                      value={password} 
+                      onChange={e => setPassword(e.target.value)} 
+                      required 
                     />
                     <button
                       type="button"
@@ -553,7 +553,7 @@ function LoginContent() {
                   <TabsTrigger value="otp" className="rounded-lg font-semibold text-xs uppercase data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all">Via OTP</TabsTrigger>
                   <TabsTrigger value="password" className="rounded-lg font-semibold text-xs uppercase data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all">Via Password</TabsTrigger>
                 </TabsList>
-
+                
                 <TabsContent value="otp" className="space-y-5 m-0 animate-in fade-in slide-in-from-left-2 duration-300">
                   <form onSubmit={handleSendOtp} className="space-y-5">
                     <div className="space-y-2">
@@ -583,13 +583,13 @@ function LoginContent() {
                         <Label className="font-medium text-xs uppercase text-muted-foreground ml-1">Password</Label>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                          <Input
-                            type={showPassword ? "text" : "password"}
-                            placeholder="••••••••"
-                            className="pl-10 pr-10 h-12 rounded-xl font-medium border-primary/20"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            required
+                          <Input 
+                            type={showPassword ? "text" : "password"} 
+                            placeholder="••••••••" 
+                            className="pl-10 pr-10 h-12 rounded-xl font-medium border-primary/20" 
+                            value={password} 
+                            onChange={e => setPassword(e.target.value)} 
+                            required 
                           />
                           <button
                             type="button"
