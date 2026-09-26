@@ -76,7 +76,8 @@ import {
   LayoutDashboard,
   Info,
   BadgeInfo,
-  EyeOff
+  EyeOff,
+  Database
 } from "lucide-react";
 import { 
   Dialog, 
@@ -1000,9 +1001,14 @@ export default function EmployerDashboard() {
             <h1 className="text-3xl font-medium font-headline text-primary tracking-tight">{t.manageOps}</h1>
             <p className="text-muted-foreground text-sm font-medium">{t.reviewCandidates}</p>
           </div>
-          <div className="relative w-full md:w-80">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input placeholder={`${t.designationLabel} / ${t.candidate}`} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10 h-11 rounded-xl bg-muted/30 border-none" />
+          <div className="flex items-center gap-4 w-full md:w-auto">
+             <div className="relative flex-1 md:w-64">
+               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+               <Input placeholder={`${t.designationLabel} / ${t.candidate}`} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10 h-11 rounded-xl bg-muted/30 border-none w-full" />
+             </div>
+             <Button onClick={() => router.push('/employer/resdex')} className="h-11 rounded-xl font-bold gap-2 shadow-md hidden sm:flex">
+               <Database className="w-4 h-4" /> Resdex Search
+             </Button>
           </div>
         </div>
 
