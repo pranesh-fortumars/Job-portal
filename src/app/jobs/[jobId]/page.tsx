@@ -275,7 +275,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
     }
     if (!user) {
       toast({ title: "Login Required" });
-      router.push("/auth/login");
+      router.push(`/auth/login?redirect=/jobs/${jobId}`);
       return;
     }
     if (profileLoading || !db) return;
@@ -285,7 +285,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
     }
     if (!currentUserProfile?.onboarded) {
       toast({ title: "Profile Required" });
-      router.push("/seeker/onboarding");
+      router.push(`/seeker/onboarding?redirect=/jobs/${jobId}`);
       return;
     }
 

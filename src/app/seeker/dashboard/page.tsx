@@ -551,11 +551,12 @@ export default function SeekerDashboard() {
                               <Badge className={cn(
                                 "h-fit capitalize font-black px-3 py-1 rounded-lg text-[10px] md:text-xs border-none shadow-sm",
                                 app.status === 'applied' ? "bg-blue-100 text-blue-700" :
+                                app.status === 'interview_scheduled' ? "bg-purple-100 text-purple-700" :
                                 app.status === 'shortlisted' ? "bg-green-100 text-green-700" :
                                 app.status === 'rejected' ? "bg-red-100 text-red-700" :
                                 "bg-purple-100 text-purple-700"
                               )} variant="secondary">
-                                {t[app.status as keyof typeof t] || app.status}
+                                {app.status === 'interview_scheduled' ? "Interview" : (t[app.status as keyof typeof t] || app.status)}
                               </Badge>
                               {isNoLongerAccepting && (
                                 <span className="text-[9px] font-bold text-red-600 uppercase tracking-tighter">
@@ -567,7 +568,36 @@ export default function SeekerDashboard() {
                         </div>
                         <ApplicationTimeline status={app.status} t={t} />
 
-                        {(app.status === 'shortlisted' || app.status === 'hired') && employerInfo && !isSuspendedEmployer && (
+                        {app.status === 'interview_scheduled' && app.interviewDetails && (
+                          <div className="mt-6 p-5 bg-purple-50 border border-purple-100 rounded-[1.5rem] space-y-4 shadow-inner">
+                            <div className="flex items-center gap-2 border-b border-purple-200 pb-2">
+                              <Calendar className="w-4 h-4 text-purple-600" />
+                              <h4 className="text-[10px] font-black uppercase text-purple-800 tracking-widest">Interview Scheduled</h4>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-1">
+                                <p className="text-[9px] font-black text-purple-700/60 uppercase">Date & Time</p>
+                                <p className="text-sm font-black text-purple-900">{app.interviewDetails.date} at {app.interviewDetails.time}</p>
+                              </div>
+                              <div className="space-y-1">
+                                <p className="text-[9px] font-black text-purple-700/60 uppercase">Format</p>
+                                <p className="text-sm font-black text-purple-900 capitalize">{app.interviewDetails.format}</p>
+                              </div>
+                              <div className="col-span-2 space-y-1">
+                                <p className="text-[9px] font-black text-purple-700/60 uppercase">Location / Link</p>
+                                <p className="text-sm font-bold text-purple-900 break-words">{app.interviewDetails.locationOrLink}</p>
+                              </div>
+                              {app.interviewDetails.instructions && (
+                                <div className="col-span-2 space-y-1">
+                                  <p className="text-[9px] font-black text-purple-700/60 uppercase">Instructions</p>
+                                  <p className="text-xs font-medium text-purple-900 whitespace-pre-wrap">{app.interviewDetails.instructions}</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {(app.status === 'shortlisted' || app.status === 'hired' || app.status === 'interview_scheduled') && employerInfo && !isSuspendedEmployer && (
                           <div className="mt-6 p-5 bg-green-50 border border-green-100 rounded-[1.5rem] space-y-4 animate-in fade-in slide-in-from-top-2 duration-500 shadow-inner">
                             <div className="flex items-center gap-2 border-b border-green-200 pb-2">
                               <ShieldCheck className="w-4 h-4 text-green-600" />

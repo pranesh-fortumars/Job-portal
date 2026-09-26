@@ -77,7 +77,8 @@ import {
   Info,
   BadgeInfo,
   EyeOff,
-  Database
+  Database,
+  CalendarClock
 } from "lucide-react";
 import { 
   Dialog, 
@@ -403,6 +404,15 @@ export default function EmployerDashboard() {
   const [reportReason, setReportReason] = useState("");
   const [reportDescription, setReportDescription] = useState("");
   const [isReportingSubmitting, setIsReportingSubmitting] = useState(false);
+
+  const [schedulingApp, setSchedulingApp] = useState<any>(null);
+  const [interviewData, setInterviewData] = useState({
+    date: "",
+    time: "",
+    format: "in-person",
+    locationOrLink: "",
+    instructions: ""
+  });
 
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' | null }>({
     key: 'appliedAt',
@@ -893,6 +903,33 @@ export default function EmployerDashboard() {
       .finally(() => setIsReportingSubmitting(false));
   };
 
+  const handleScheduleInterview = async () => {
+    if (!schedulingApp || !db) return;
+    try {
+      setIsProcessing(true);
+      const appRef = doc(db, "Applications", schedulingApp.id);
+      await updateDoc(appRef, {
+        status: "interview_scheduled",
+        interviewDetails: interviewData,
+        updatedAt: serverTimestamp()
+      });
+      
+      toast({ title: "Interview Scheduled", description: "The candidate will see this in their dashboard." });
+      
+      if (schedulingApp.phone) {
+        const text = `Hi ${schedulingApp.seekerName},\n\nYour interview for ${schedulingApp.jobTitle} is scheduled on *${interviewData.date}* at *${interviewData.time}*.\nFormat: ${interviewData.format}\nDetails: ${interviewData.locationOrLink}\n\nInstructions: ${interviewData.instructions}\n\nPlease be prepared.`;
+        window.open(`https://wa.me/91${schedulingApp.phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`, '_blank');
+      }
+      
+      setSchedulingApp(null);
+    } catch(err: any) {
+       console.error(err);
+       toast({ title: "Error", description: err.message, variant: "destructive" });
+    } finally {
+       setIsProcessing(false);
+    }
+  };
+
   const handleInitiatePrint = (u: any, a: any) => {
     if (!u) {
       toast({ variant: "destructive", title: "Missing Record", description: "Candidate profile telemetry not yet synchronized." });
@@ -1119,7 +1156,7 @@ export default function EmployerDashboard() {
                           </p>
                         )}
                       </TableCell>
-                      <TableCell className="px-4 py-6 border-r border-muted/30"><Badge className={cn("capitalize font-medium text-[10px]", (app.status === 'applied' || app.status === 'pending') ? "bg-blue-100 text-blue-700" : app.status === 'shortlisted' ? "bg-green-100 text-green-700" : app.status === 'hired' ? "bg-purple-100 text-purple-700" : "bg-red-100 text-red-700")}>{app.status || 'pending'}</Badge></TableCell>
+                      <TableCell className="px-4 py-6 border-r border-muted/30"><Badge className={cn("capitalize font-medium text-[10px]", (app.status === 'applied' || app.status === 'pending') ? "bg-blue-100 text-blue-700" : app.status === 'shortlisted' ? "bg-green-100 text-green-700" : app.status === 'interview_scheduled' ? "bg-blue-100 text-blue-700" : app.status === 'hired' ? "bg-purple-100 text-purple-700" : "bg-red-100 text-red-700")}>{app.status === 'interview_scheduled' ? 'interview' : (app.status || 'pending')}</Badge></TableCell>
                       <TableCell className="px-4 py-6 text-muted-foreground font-bold text-sm border-r border-muted/30 w-[100px] max-w-[100px] whitespace-normal break-words leading-tight">{formatDistanceToNow(app.appliedAt?.toDate ? app.appliedAt.toDate() : new Date(app.appliedAt), { addSuffix: true })}</TableCell>
                       <TableCell className="pr-10 py-6 text-right">
                         <div className="flex items-center justify-end gap-2">
@@ -2159,6 +2196,11 @@ export default function EmployerDashboard() {
           {(selectedApp?.status === 'applied' || selectedApp?.status === 'pending' || selectedApp?.status === 'rejected') && (
              <Button onClick={() => handleUpdateStatus(selectedApp, 'shortlisted')} className="col-span-3 sm:flex-[2] bg-green-600 hover:bg-green-700 text-white font-bold h-10 sm:h-14 px-2 sm:px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all text-[11px] sm:text-sm">Shortlist</Button>
           )}
+          {selectedApp?.status === 'shortlisted' && (
+             <Button onClick={() => setSchedulingApp(selectedApp)} className="col-span-3 sm:flex-[2] bg-blue-600 hover:bg-blue-700 text-white font-bold h-10 sm:h-14 px-2 sm:px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all text-[11px] sm:text-sm">
+                <CalendarClock className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" /> Schedule
+             </Button>
+          )}
           {(selectedApp?.status === 'applied' || selectedApp?.status === 'pending' || selectedApp?.status === 'shortlisted' || selectedApp?.status === 'hired') && (
              <Button onClick={() => handleUpdateStatus(selectedApp, 'rejected')} className="col-span-3 sm:flex-1 bg-red-500 hover:bg-red-600 text-white font-bold h-10 sm:h-14 px-2 sm:px-6 rounded-xl sm:rounded-2xl shadow-sm sm:shadow-xl active:scale-95 transition-all text-[11px] sm:text-sm">{t.reject}</Button>
           )}
@@ -2203,6 +2245,57 @@ export default function EmployerDashboard() {
        <DialogFooter className="p-8 bg-muted/20 border-t">
          <Button className="w-full bg-primary text-white font-bold h-12 rounded-xl" onClick={() => setViewingJobStats(null)}>Close Analytics</Button>
        </DialogFooter>
+     </DialogContent>
+   </Dialog>
+
+   <Dialog open={!!schedulingApp} onOpenChange={o => !o && setSchedulingApp(null)}>
+     <DialogContent className="max-w-xl rounded-[2.5rem] p-0 overflow-hidden border-none shadow-2xl">
+        <DialogHeader className="p-8 bg-blue-600 text-white shrink-0">
+           <div className="flex items-center gap-3">
+              <CalendarClock className="w-8 h-8" />
+              <div>
+                 <DialogTitle className="text-2xl font-medium uppercase tracking-tight">Schedule Interview</DialogTitle>
+                 <DialogDescription className="text-white/80 font-bold text-xs uppercase tracking-widest">{schedulingApp?.seekerName}</DialogDescription>
+              </div>
+           </div>
+        </DialogHeader>
+        <div className="p-8 space-y-4">
+           <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                 <Label className="font-bold text-xs uppercase tracking-widest text-muted-foreground">Date</Label>
+                 <Input type="date" value={interviewData.date} onChange={e => setInterviewData({...interviewData, date: e.target.value})} className="h-12 rounded-xl bg-muted/50 border-none font-bold" />
+              </div>
+              <div className="space-y-2">
+                 <Label className="font-bold text-xs uppercase tracking-widest text-muted-foreground">Time</Label>
+                 <Input type="time" value={interviewData.time} onChange={e => setInterviewData({...interviewData, time: e.target.value})} className="h-12 rounded-xl bg-muted/50 border-none font-bold" />
+              </div>
+           </div>
+           <div className="space-y-2">
+              <Label className="font-bold text-xs uppercase tracking-widest text-muted-foreground">Format</Label>
+              <Select value={interviewData.format} onValueChange={v => setInterviewData({...interviewData, format: v})}>
+                 <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
+                    <SelectValue />
+                 </SelectTrigger>
+                 <SelectContent>
+                    <SelectItem value="in-person" className="font-bold">In-Person (Walk-in)</SelectItem>
+                    <SelectItem value="phone" className="font-bold">Phone Call</SelectItem>
+                    <SelectItem value="video" className="font-bold">Video Meeting</SelectItem>
+                 </SelectContent>
+              </Select>
+           </div>
+           <div className="space-y-2">
+              <Label className="font-bold text-xs uppercase tracking-widest text-muted-foreground">Location / Meeting Link</Label>
+              <Input placeholder="E.g., Factory Address or Google Meet Link" value={interviewData.locationOrLink} onChange={e => setInterviewData({...interviewData, locationOrLink: e.target.value})} className="h-12 rounded-xl bg-muted/50 border-none font-bold" />
+           </div>
+           <div className="space-y-2">
+              <Label className="font-bold text-xs uppercase tracking-widest text-muted-foreground">Instructions (Optional)</Label>
+              <Textarea placeholder="E.g., Bring original Aadhar card and photos..." value={interviewData.instructions} onChange={e => setInterviewData({...interviewData, instructions: e.target.value})} className="rounded-xl bg-muted/50 border-none resize-none h-24 font-medium" />
+           </div>
+        </div>
+        <DialogFooter className="p-8 bg-muted/20 border-t">
+           <Button variant="ghost" onClick={() => setSchedulingApp(null)} className="font-bold rounded-xl h-12 flex-1">Cancel</Button>
+           <Button onClick={handleScheduleInterview} disabled={isProcessing || !interviewData.date || !interviewData.time} className="font-bold rounded-xl h-12 flex-1 bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20">{isProcessing ? <Loader2 className="w-5 h-5 animate-spin" /> : "Send Invite"}</Button>
+        </DialogFooter>
      </DialogContent>
    </Dialog>
 

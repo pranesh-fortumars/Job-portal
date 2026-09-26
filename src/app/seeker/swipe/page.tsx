@@ -73,10 +73,10 @@ export default function SeekerSwipePage() {
       <div className="shrink-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-white/10 px-3 py-2">
         <div className="max-w-md mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={() => router.back()} 
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => router.back()}
               className="h-8 w-8 text-white hover:bg-white/10 rounded-full active:scale-95"
               aria-label="Go Back"
             >
@@ -94,11 +94,10 @@ export default function SeekerSwipePage() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-2 py-0.5 rounded-md text-[9px] font-medium transition-all whitespace-nowrap ${
-                  activeCategory === cat 
-                    ? "bg-amber-400 text-slate-950 font-semibold" 
-                    : "bg-white/10 text-white/70 hover:bg-white/20"
-                }`}
+                className={`px-2 py-0.5 rounded-md text-[9px] font-medium transition-all whitespace-nowrap ${activeCategory === cat
+                  ? "bg-amber-400 text-slate-950 font-semibold"
+                  : "bg-white/10 text-white/70 hover:bg-white/20"
+                  }`}
               >
                 {cat === 'all' ? 'All' : cat}
               </button>
@@ -124,12 +123,12 @@ export default function SeekerSwipePage() {
             </Button>
           </div>
         ) : (
-          <div 
+          <div
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             className="w-full max-w-md h-full overflow-y-scroll snap-y snap-mandatory no-scrollbar scrollbar-hide rounded-none md:rounded-2xl shadow-xl"
           >
             {loopedJobs.map((item) => (
-              <SwipeJobCard 
+              <SwipeJobCard
                 key={item.uniqueKey}
                 job={item.job}
                 index={item.originalIndex}
@@ -192,9 +191,9 @@ export default function SeekerSwipePage() {
                     View Full Page Details
                   </Button>
                 </Link>
-                <Button 
-                  type="button" 
-                  onClick={() => setSelectedJob(null)} 
+                <Button
+                  type="button"
+                  onClick={() => setSelectedJob(null)}
                   className="bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700 font-semibold rounded-xl h-10 text-xs px-4"
                 >
                   Close

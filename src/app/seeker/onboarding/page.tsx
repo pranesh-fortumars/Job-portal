@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { User, ShieldCheck, Loader2, LocateFixed, Lock, GraduationCap, Plus, Trash2, Camera, Upload, Zap, X, Users, History } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import { Textarea } from "@/components/ui/textarea";
 import { cn, translateLocation } from "@/lib/utils";
@@ -25,8 +25,12 @@ import { AppLogo } from "@/components/shared/AppLogo";
 
 import { CLASSIFICATION } from "@/lib/constants";
 
-export default function SeekerOnboarding() {
+import { Suspense } from "react";
+
+function OnboardingContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get('redirect');
   const { t } = useLanguage();
   const { toast } = useToast();
   const auth = useAuth();
@@ -319,7 +323,11 @@ export default function SeekerOnboarding() {
       .then(() => {
         localStorage.setItem('sim_seeker_onboarded', 'true');
         toast({ title: "Setup Complete & Synchronized!" });
-        router.push("/");
+        if (redirectUrl) {
+          router.push(redirectUrl);
+        } else {
+          router.push("/");
+        }
       })
       .catch(err => {
         const permissionError = new FirestorePermissionError({ 
@@ -747,5 +755,13 @@ export default function SeekerOnboarding() {
         </Card>
       </main>
     </div>
+  );
+}
+
+export default function SeekerOnboarding() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>}>
+      <OnboardingContent />
+    </Suspense>
   );
 }
