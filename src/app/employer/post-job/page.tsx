@@ -350,8 +350,22 @@ export default function PostJobPage() {
     setLoading(true);
     try {
       const jobData = buildJobData('pending');
-      if (draftId) await updateDoc(doc(db, "Jobs", draftId), { ...jobData, updatedAt: serverTimestamp() });
-      else await addDoc(collection(db, "Jobs"), jobData);
+      let finalJobId = draftId;
+      if (draftId) {
+        await updateDoc(doc(db, "Jobs", draftId), { ...jobData, updatedAt: serverTimestamp() });
+      } else {
+        const newDocRef = await addDoc(collection(db, "Jobs"), jobData);
+        finalJobId = newDocRef.id;
+      }
+      
+      // Fire-and-forget: Trigger Job Alerts matching logic
+      if (finalJobId) {
+        fetch('/api/match-alerts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ jobId: finalJobId, jobData })
+        }).catch(err => console.error("Failed to trigger job alerts:", err));
+      }
       
       await updateDoc(doc(db, "Users", auth.currentUser.uid), { 
         totalUsed: increment(1),

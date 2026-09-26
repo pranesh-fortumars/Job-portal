@@ -418,6 +418,11 @@ export default function SeekerDashboard() {
           </div>
           
           <div className="flex gap-2 w-full md:w-auto">
+            <Link href="/seeker/alerts" className="flex-1 md:flex-none">
+              <Button variant="outline" className="w-full border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 hover:text-amber-800 font-bold h-11 px-4 rounded-xl transition-all active:scale-95">
+                <Bell className="mr-2 w-4 h-4 md:w-5 md:h-5" /> Job Alerts
+              </Button>
+            </Link>
             <Link href="/jobs" className="flex-1 md:flex-none">
               <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold h-11 px-6 shadow-lg shadow-accent/20 rounded-xl transition-all active:scale-95">
                 <Search className="mr-2 w-4 h-4 md:w-5 md:h-5" /> {t.findJobs}
