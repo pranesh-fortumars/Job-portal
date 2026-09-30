@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Building2, MapPin, Briefcase, Star, Users, CheckCircle2, Factory, Calendar, Quote, Navigation, Info } from 'lucide-react';
 import Link from 'next/link';
+import { ReviewForm } from '@/components/company/ReviewForm';
 
 // Enable SSR dynamically
 export const dynamic = 'force-dynamic';
@@ -236,9 +237,12 @@ export default async function CompanyProfilePage({ params }: { params: { employe
                           </Card>
                        ))}
                     </div>
-                 )}
-              </div>
-           </div>
+                  )}
+               </div>
+               
+               {/* Review Submission Form */}
+               <ReviewForm employerId={employerId} />
+            </div>
 
            {/* Sidebar */}
            <div className="space-y-6">
