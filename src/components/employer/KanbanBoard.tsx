@@ -125,6 +125,7 @@ export function KanbanBoard({
             items={columns[col.id]}
             onViewProfile={onViewProfile}
             onWhatsAppContact={onWhatsAppContact}
+            onMessageContact={(app: any) => window.location.href = `/messages?startChat=${app.jobSeekerId}&name=${app.seekerName}`}
             onScheduleClick={(app: any) => setInterviewModalApp(app)}
             t={t}
           />
@@ -159,7 +160,7 @@ export function KanbanBoard({
   );
 }
 
-function KanbanColumn({ col, items, onViewProfile, onWhatsAppContact, onScheduleClick, t }: any) {
+function KanbanColumn({ col, items, onViewProfile, onWhatsAppContact, onMessageContact, onScheduleClick, t }: any) {
   const { setNodeRef } = useSortable({
     id: col.id,
     data: { type: "Column", col }
@@ -188,6 +189,7 @@ function KanbanColumn({ col, items, onViewProfile, onWhatsAppContact, onSchedule
                 t={t}
                 onViewProfile={onViewProfile}
                 onWhatsAppContact={onWhatsAppContact}
+                onMessageContact={onMessageContact}
                 onScheduleClick={onScheduleClick}
               />
             ))}
@@ -222,7 +224,7 @@ function KanbanSortableCard(props: any) {
   );
 }
 
-function KanbanCard({ app, t, onViewProfile, onWhatsAppContact, onScheduleClick, isOverlay, attributes, listeners }: any) {
+function KanbanCard({ app, t, onViewProfile, onWhatsAppContact, onMessageContact, onScheduleClick, isOverlay, attributes, listeners }: any) {
   return (
     <Card className={cn(
       "p-3 rounded-xl shadow-sm border border-slate-200 bg-white group hover:border-primary/30 transition-colors cursor-grab relative",
@@ -266,6 +268,9 @@ function KanbanCard({ app, t, onViewProfile, onWhatsAppContact, onScheduleClick,
         <div className="flex gap-1.5">
            <Button variant="outline" size="icon" title="View Profile" className="h-7 w-7 rounded-lg shadow-none border-blue-200 text-blue-600 hover:bg-blue-50" onClick={(e) => { e.stopPropagation(); onViewProfile(app); }}>
              <Eye className="w-3.5 h-3.5" />
+           </Button>
+           <Button variant="outline" size="icon" title="In-App Chat" className="h-7 w-7 rounded-lg shadow-none border-orange-200 text-orange-600 hover:bg-orange-50" onClick={(e) => { e.stopPropagation(); onMessageContact(app); }}>
+             <MessageSquare className="w-3.5 h-3.5" />
            </Button>
            <Button variant="outline" size="icon" title="Schedule Interview" className="h-7 w-7 rounded-lg shadow-none border-indigo-200 text-indigo-600 hover:bg-indigo-50" onClick={(e) => { e.stopPropagation(); onScheduleClick(app); }}>
              <Calendar className="w-3.5 h-3.5" />

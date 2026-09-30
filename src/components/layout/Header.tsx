@@ -219,6 +219,9 @@ export function Header() {
                   <DropdownMenuItem onClick={() => router.push(getProfileLink())} className="rounded-lg cursor-pointer hover:text-primary">
                     <User className="w-4 h-4 mr-2" /> {t.profile}
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => router.push('/messages')} className="rounded-lg cursor-pointer hover:text-primary">
+                    <MessageSquare className="w-4 h-4 mr-2" /> Messages
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => router.push('/settings')} className="rounded-lg cursor-pointer hover:text-primary">
                     <Settings className="w-4 h-4 mr-2" /> {t.settings}
                   </DropdownMenuItem>
