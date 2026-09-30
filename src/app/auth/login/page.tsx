@@ -77,41 +77,21 @@ function LoginContent() {
     setDemoLoading(roleKey);
     try {
       toast({
-        title: "⚡ Initializing Direct Login",
-        description: `Authenticating Demo ${roleKey.toUpperCase()}...`,
+        title: "⚡ Initializing Demo Mode",
+        description: `Authenticating Demo ${roleKey.toUpperCase()} & seeding data...`,
       });
-
-      let email = "";
-      if (roleKey === 'admin') email = 'admin@nexindia.demo';
-      else if (roleKey === 'employer') email = 'employer@nexindia.demo';
-      else if (roleKey === 'staff') email = 'staff@nexindia.demo';
-      else email = 'worker@nexindia.demo'; // 'worker'
-
-      // Direct Auth Login bypassing pre-login Firestore queries
-      await signInWithEmailAndPassword(auth, email, "123456");
       
-      // Post-login, Firestore permissions should now allow read/write
-      // Now we can safely trigger the original mock data seeding!
-      try {
-        await loginAsDemoUser(roleKey, auth, db);
-      } catch (seedError) {
-        console.warn("Mock data seeding skipped or failed post-login:", seedError);
+      const result = await loginAsDemoUser(roleKey, auth, db);
+      
+      if (result.success) {
+        toast({
+          title: "✅ Login Successful",
+          description: `Welcome to Demo ${roleKey.toUpperCase()} mode!`,
+        });
+        router.push(result.redirectUrl);
       }
-      
-      const userDoc = await getDoc(doc(db, "Users", auth.currentUser!.uid));
-      
-      if (userDoc.exists()) {
-         completeLogin(userDoc.data());
-      } else {
-         completeLogin({ role: roleKey === 'admin' ? 'admin' : roleKey === 'employer' ? 'employer' : 'job_seeker', onboarded: true });
-      }
-
-      toast({
-        title: "✅ Login Successful",
-        description: `Welcome to Demo ${roleKey.toUpperCase()} mode!`,
-      });
     } catch (error: any) {
-      console.error("Direct login error:", error);
+      console.error("Demo login error:", error);
       toast({
         variant: "destructive",
         title: "Login Failed",
@@ -288,7 +268,7 @@ function LoginContent() {
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, emailInput.toLowerCase().trim(), password);
+      const formattedEmail = emailInput.toLowerCase().trim();
       
       // Align with mock login: Trigger data seeding if a demo account was used
       const demoEmailMap: Record<string, any> = {
@@ -298,16 +278,25 @@ function LoginContent() {
         'worker@nexindia.demo': 'worker'
       };
       
-      const roleKey = demoEmailMap[emailInput.toLowerCase().trim()];
-      if (roleKey) {
+      const roleKey = demoEmailMap[formattedEmail];
+      
+      if (roleKey && password === '123456') {
         try {
           console.log(`[Demo Sync] Triggering mock seeding for ${roleKey} via Email Login`);
-          await loginAsDemoUser(roleKey, auth, db);
+          const result = await loginAsDemoUser(roleKey, auth, db);
+          if (result.success) {
+            toast({ title: "✅ Login Successful", description: `Welcome to Demo ${roleKey.toUpperCase()} mode!` });
+            router.push(result.redirectUrl);
+            return;
+          }
         } catch (seedError) {
-          console.warn("Mock data seeding skipped or failed post-login:", seedError);
+          console.warn("Mock data seeding skipped or failed:", seedError);
         }
       }
 
+      // Standard Login Flow
+      await signInWithEmailAndPassword(auth, formattedEmail, password);
+      
       const userSnap = await getDoc(doc(db, "Users", auth.currentUser!.uid));
       
       if (!userSnap.exists()) {
