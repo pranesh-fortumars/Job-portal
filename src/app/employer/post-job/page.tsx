@@ -542,7 +542,7 @@ export default function PostJobPage() {
                                    {isLocating ? <Loader2 className="w-3 h-3 animate-spin" /> : <LocateFixed className="w-3 h-3" />} Capture GPS
                                 </Button>
                              </div>
-                             <Input value={location} onChange={e => setLocation(e.target.value)} className="h-12 rounded-xl font-bold border-primary/10" placeholder="Full address or area in Tirupur..." />
+                             <Input value={location} onChange={e => setLocation(e.target.value)} className="h-12 rounded-xl font-bold border-primary/10" placeholder="Full address or area in India..." />
                           </div>
                           <div className="space-y-2">
                              <Label className="text-xs font-semibold uppercase text-amber-600 tracking-widest flex items-center gap-1.5"><Timer className="w-3.5 h-3.5" /> Expected Listing Closure</Label>

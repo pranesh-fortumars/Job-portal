@@ -140,7 +140,7 @@ export default function SettingsPage() {
                     <AlertTriangle className="w-5 h-5 text-amber-600" /> Security Tip
                  </div>
                  <p className="text-xs text-amber-800/70 font-medium leading-relaxed">
-                   Never share your login OTP or password reset links with anyone, including NexTirupur staff. We will never ask for your account credentials.
+                   Never share your login OTP or password reset links with anyone, including NexIndia staff. We will never ask for your account credentials.
                  </p>
                </CardContent>
             </Card>
@@ -174,7 +174,7 @@ export default function SettingsPage() {
       </main>
 
       <div className="max-w-4xl mx-auto px-4 text-center text-muted-foreground/30 text-[10px] uppercase tracking-widest font-bold pb-12">
-        © {new Date().getFullYear()} NexTirupur.in Secure Settings.
+        © {new Date().getFullYear()} NexIndia.in Secure Settings.
       </div>
     </div>
   );

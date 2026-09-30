@@ -81,10 +81,10 @@ function LoginContent() {
       });
 
       let email = "";
-      if (roleKey === 'admin') email = 'admin@nextirupur.demo';
-      else if (roleKey === 'employer') email = 'employer@nextirupur.demo';
-      else if (roleKey === 'staff') email = 'staff@nextirupur.demo';
-      else email = 'worker@nextirupur.demo'; // 'worker'
+      if (roleKey === 'admin') email = 'admin@nexindia.demo';
+      else if (roleKey === 'employer') email = 'employer@nexindia.demo';
+      else if (roleKey === 'staff') email = 'staff@nexindia.demo';
+      else email = 'worker@nexindia.demo'; // 'worker'
 
       // Direct Auth Login bypassing pre-login Firestore queries
       await signInWithEmailAndPassword(auth, email, "123456");
@@ -214,10 +214,10 @@ function LoginContent() {
       if (sanitizedPhone === '7092988131') testEmail = 'iamnithyaprakash@gmail.com';
       if (sanitizedPhone === '9042321200') testEmail = 'gary@gmail.com';
       if (sanitizedPhone === '9095331071') testEmail = 'john@gmail.com';
-      if (sanitizedPhone === '9000000001') testEmail = 'admin@nextirupur.demo';
-      if (sanitizedPhone === '9000000002') testEmail = 'employer@nextirupur.demo';
-      if (sanitizedPhone === '9000000003') testEmail = 'worker@nextirupur.demo';
-      if (sanitizedPhone === '9000000004') testEmail = 'staff@nextirupur.demo';
+      if (sanitizedPhone === '9000000001') testEmail = 'admin@nexindia.demo';
+      if (sanitizedPhone === '9000000002') testEmail = 'employer@nexindia.demo';
+      if (sanitizedPhone === '9000000003') testEmail = 'worker@nexindia.demo';
+      if (sanitizedPhone === '9000000004') testEmail = 'staff@nexindia.demo';
 
       if (testEmail) {
         try {
@@ -238,7 +238,7 @@ function LoginContent() {
 
     try {
       // Formulate the default internal auth email for the phone number
-      const defaultAuthEmail = `${sanitizedPhone}@nextirupur.internal`.toLowerCase();
+      const defaultAuthEmail = `${sanitizedPhone}@nexindia.internal`.toLowerCase();
 
       console.log("[Auth Audit] Attempting password login via formulated email:", { phone: sanitizedPhone });
 
@@ -307,7 +307,7 @@ function LoginContent() {
           
           if (!snap.empty) {
             const existingUser = snap.docs[0].data();
-            const existingEmail = (existingUser.email || `${tenDigitPhone}@nextirupur.internal`).toLowerCase().trim();
+            const existingEmail = (existingUser.email || `${tenDigitPhone}@nexindia.internal`).toLowerCase().trim();
             
             setReconcileData({ email: existingEmail, phoneCredential: credential });
             setStep("reconcile");
@@ -436,7 +436,7 @@ function LoginContent() {
                   </div>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">Explore All Roles</span>
                 </div>
-                <p className="text-xs text-muted-foreground font-medium">One-click login with pre-loaded Tirupur mock data:</p>
+                <p className="text-xs text-muted-foreground font-medium">One-click login with pre-loaded India mock data:</p>
 
                 <div className="grid grid-cols-2 gap-2">
                   <Button

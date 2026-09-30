@@ -59,15 +59,15 @@ export function translateLocation(location: string | undefined, t: any) {
   if (t.locations[location]) return t.locations[location];
   if (t.locations[locLower]) return t.locations[locLower];
 
-  const isJustCity = locLower === "tirupur" || locLower === "tiruppur" || locLower === "all tirupur" || locLower === "all tiruppur";
+  const isJustCity = locLower === "india" || locLower === "tiruppur" || locLower === "all india" || locLower === "all tiruppur";
   if (isJustCity) return t.locations.all || location;
 
   let result = location;
 
   if (t.locations.all) {
-    const tirupurLabel = t.locations.all.replace(/All|முழுவதும்|पूরা/gi, "").trim();
-    if (tirupurLabel) {
-      result = result.replace(/\bTiruppur\b/gi, tirupurLabel).replace(/\bTirupur\b/gi, tirupurLabel);
+    const indiaLabel = t.locations.all.replace(/All|முழுவதும்|पूরা/gi, "").trim();
+    if (indiaLabel) {
+      result = result.replace(/\bTiruppur\b/gi, indiaLabel).replace(/\bIndia\b/gi, indiaLabel);
     }
   }
 

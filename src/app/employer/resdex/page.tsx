@@ -205,7 +205,7 @@ export default function ResdexPage() {
 
                     <div className="mt-6 pt-4 border-t border-dashed">
                       <Button className="w-full h-10 font-bold rounded-xl" onClick={() => {
-                        window.open(`https://wa.me/91${seeker.phone?.replace(/\D/g, "")}?text=Hi ${seeker.name}, we are interested in your profile on NexTirupur.`, '_blank');
+                        window.open(`https://wa.me/91${seeker.phone?.replace(/\D/g, "")}?text=Hi ${seeker.name}, we are interested in your profile on NexIndia.`, '_blank');
                       }}>
                         Contact Candidate
                       </Button>

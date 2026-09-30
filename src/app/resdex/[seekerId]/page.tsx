@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { seekerId: string 
   }
 
   return {
-    title: `${userData.name || 'Candidate Profile'} - NexTirupur Resdex`,
+    title: `${userData.name || 'Candidate Profile'} - NexIndia Resdex`,
     description: `View the professional profile of ${userData.name}.`,
   };
 }
@@ -101,7 +101,7 @@ export default async function SeekerProfilePage({ params }: { params: { seekerId
                    </div>
                    <div className="flex flex-col items-end gap-2 shrink-0">
                       <Button asChild className="w-full md:w-auto font-bold rounded-xl bg-green-500 hover:bg-green-600 text-white">
-                         <a href={`https://wa.me/91${seeker.phone?.replace(/\D/g, "")}?text=Hi ${seeker.name}, we are interested in your profile on NexTirupur.`} target="_blank" rel="noopener noreferrer">
+                         <a href={`https://wa.me/91${seeker.phone?.replace(/\D/g, "")}?text=Hi ${seeker.name}, we are interested in your profile on NexIndia.`} target="_blank" rel="noopener noreferrer">
                            Contact via WhatsApp
                          </a>
                       </Button>
@@ -111,7 +111,7 @@ export default async function SeekerProfilePage({ params }: { params: { seekerId
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
                    <div className="space-y-1">
                       <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5"><MapPin className="w-3 h-3" /> Location</p>
-                      <p className="font-semibold text-slate-700">{seeker.location || "Tirupur"}</p>
+                      <p className="font-semibold text-slate-700">{seeker.location || "India"}</p>
                    </div>
                    <div className="space-y-1">
                       <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5"><Briefcase className="w-3 h-3" /> Experience</p>

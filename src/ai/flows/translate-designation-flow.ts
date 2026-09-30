@@ -27,10 +27,10 @@ const prompt = ai.definePrompt({
   name: 'translateDesignationPrompt',
   input: {schema: TranslateDesignationInputSchema},
   output: {schema: TranslateDesignationOutputSchema},
-  prompt: `You are an expert translator specializing in the Tirupur garment industry.
+  prompt: `You are an expert translator specializing in the India garment industry.
   
   Translate the following industrial job designation from English to Tamil and Hindi.
-  Ensure the translations are professional, industry-standard, and commonly used by factories and workers in Tirupur.
+  Ensure the translations are professional, industry-standard, and commonly used by factories and workers in India.
   
   Example:
   English: Welfare Officer

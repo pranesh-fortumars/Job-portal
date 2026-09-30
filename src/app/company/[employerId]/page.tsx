@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: { params: { employerId: strin
   }
 
   return {
-    title: `${companyData.companyName || 'Company Profile'} - NexTirupur Jobs`,
-    description: companyData.aboutUs || `View verified jobs and company profile for ${companyData.companyName} on NexTirupur.`,
+    title: `${companyData.companyName || 'Company Profile'} - NexIndia Jobs`,
+    description: companyData.aboutUs || `View verified jobs and company profile for ${companyData.companyName} on NexIndia.`,
     openGraph: {
       images: [companyData.companyLogoUrl || ''],
     },
@@ -116,7 +116,7 @@ export default async function CompanyProfilePage({ params }: { params: { employe
                          )}
                       </h1>
                       <p className="text-muted-foreground font-medium flex items-center gap-2 mt-2">
-                         <MapPin className="w-4 h-4" /> {company.fullAddress || company.area || company.location || "Tirupur, Tamil Nadu"}
+                         <MapPin className="w-4 h-4" /> {company.fullAddress || company.area || company.location || "India, Tamil Nadu"}
                       </p>
                    </div>
                    <div className="flex flex-col items-end gap-2">
@@ -163,7 +163,7 @@ export default async function CompanyProfilePage({ params }: { params: { employe
                  </CardHeader>
                  <CardContent className="p-6">
                     <p className="text-slate-600 leading-relaxed font-medium">
-                       {company.aboutUs || "This employer has not provided a detailed description yet. They are a verified participant in the Tirupur industrial hub, actively hiring for various roles."}
+                       {company.aboutUs || "This employer has not provided a detailed description yet. They are a verified participant in the India industrial hub, actively hiring for various roles."}
                     </p>
                  </CardContent>
               </Card>
@@ -187,7 +187,7 @@ export default async function CompanyProfilePage({ params }: { params: { employe
                                    <div>
                                       <h4 className="font-bold text-lg text-primary group-hover:text-primary/80">{job.designation}</h4>
                                       <p className="text-sm font-medium text-slate-500 flex items-center gap-2 mt-1">
-                                         <MapPin className="w-3.5 h-3.5" /> {job.location || company.area || "Tirupur"}
+                                         <MapPin className="w-3.5 h-3.5" /> {job.location || company.area || "India"}
                                       </p>
                                    </div>
                                    <div className="text-right">
@@ -270,7 +270,7 @@ export default async function CompanyProfilePage({ params }: { params: { employe
                     {/* Placeholder for map */}
                     <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E")' }} />
                     <Button variant="secondary" className="font-bold shadow-lg gap-2 z-10" asChild>
-                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(company.fullAddress || company.area || company.location || company.companyName || "Tirupur")}`} target="_blank" rel="noopener noreferrer">
+                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(company.fullAddress || company.area || company.location || company.companyName || "India")}`} target="_blank" rel="noopener noreferrer">
                           <Navigation className="w-4 h-4" /> Open Maps
                        </a>
                     </Button>

@@ -64,7 +64,7 @@ export default function CommunitiesPage() {
                 </div>
                 <span className="text-[10px] font-black uppercase text-primary bg-primary/5 px-3 py-1 rounded-full border border-primary/10">Channel</span>
               </div>
-              <CardTitle className="text-xl font-black font-headline text-primary mb-2 line-clamp-2 leading-tight">NexTirupur {ch.name}</CardTitle>
+              <CardTitle className="text-xl font-black font-headline text-primary mb-2 line-clamp-2 leading-tight">NexIndia {ch.name}</CardTitle>
               <CardDescription className="text-sm font-medium leading-relaxed italic text-muted-foreground/80 line-clamp-2">
                 "{ch.desc}"
               </CardDescription>
@@ -99,7 +99,7 @@ export default function CommunitiesPage() {
               {t.whatsappCommunity}
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground font-medium">
-              Join Tirupur's biggest industrial network. Choose specialized feeds for instant job alerts matching your skills.
+              Join India's biggest industrial network. Choose specialized feeds for instant job alerts matching your skills.
             </p>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function CommunitiesPage() {
       </main>
 
       <div className="max-w-7xl mx-auto px-4 text-center text-muted-foreground/30 text-[10px] uppercase tracking-widest font-bold pb-12">
-        © {new Date().getFullYear()} NexTirupur.in Official Channels.
+        © {new Date().getFullYear()} NexIndia.in Official Channels.
       </div>
     </div>
   );

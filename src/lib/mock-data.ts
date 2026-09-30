@@ -137,13 +137,13 @@ export const DEMO_SEEKER_PROFILES: Record<'worker' | 'staff', JobSeekerProfile> 
         dob: '1998-05-14',
         age: '28',
         languages: ['Tamil', 'English'],
-        location: 'Avinashi Road, Tirupur',
+        location: 'Avinashi Road, India',
         mobile: '+919000000003',
         hasTwoWheeler: true,
         certificationAccepted: true
       },
       academic: [
-        { education: '10th Standard', degree: 'SSLC', institute: 'Government High School Tirupur', year: '2014' }
+        { education: '10th Standard', degree: 'SSLC', institute: 'Government High School India', year: '2014' }
       ],
       professional: {
         totalExperience: '5 Years',
@@ -177,13 +177,13 @@ export const DEMO_SEEKER_PROFILES: Record<'worker' | 'staff', JobSeekerProfile> 
         dob: '1994-08-20',
         age: '32',
         languages: ['Tamil', 'English', 'Hindi'],
-        location: 'KPN Colony, Tirupur',
+        location: 'KPN Colony, India',
         mobile: '+919000000004',
         hasTwoWheeler: true,
         certificationAccepted: true
       },
       academic: [
-        { education: 'Degree', degree: 'B.Sc Textile Fashion & Apparel', institute: 'NIFT TEA Tirupur', year: '2016' }
+        { education: 'Degree', degree: 'B.Sc Textile Fashion & Apparel', institute: 'NIFT TEA India', year: '2016' }
       ],
       professional: {
         totalExperience: '8 Years',
@@ -207,7 +207,7 @@ export const DEMO_SEEKER_PROFILES: Record<'worker' | 'staff', JobSeekerProfile> 
 export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
   {
     jobId: 'demo_job_1',
-    companyName: 'Royal Exports Tirupur Ltd',
+    companyName: 'Royal Exports India Ltd',
     jobTitle: 'Senior Sewing Machine Operator (Overlock / Flatlock)',
     category: 'Non-Technical',
     department: 'Stitching / Sewing',
@@ -217,7 +217,7 @@ export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
     salaryBasis: 'Monthly',
     salaryType: 'display_range',
     payoutSchedule: 'Monthly',
-    location: 'Veerapandi Industrial Estate, Tirupur',
+    location: 'Veerapandi Industrial Estate, India',
     latitude: 11.0825,
     longitude: 77.3488,
     openings: 12,
@@ -244,7 +244,7 @@ export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
   },
   {
     jobId: 'demo_job_2',
-    companyName: 'Royal Exports Tirupur Ltd',
+    companyName: 'Royal Exports India Ltd',
     jobTitle: 'Senior Garment Merchandiser - Knitwear Exports',
     category: 'Technical',
     department: 'Merchandising & Sales',
@@ -254,7 +254,7 @@ export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
     salaryBasis: 'Monthly',
     salaryType: 'display_range',
     payoutSchedule: 'Monthly',
-    location: 'Palladam Road, Tirupur',
+    location: 'Palladam Road, India',
     latitude: 11.0950,
     longitude: 77.3520,
     openings: 2,
@@ -292,7 +292,7 @@ export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
     salaryBasis: 'Monthly',
     salaryType: 'display_range',
     payoutSchedule: 'Monthly',
-    location: 'Mangalam Road, Tirupur',
+    location: 'Mangalam Road, India',
     latitude: 11.1010,
     longitude: 77.3390,
     openings: 4,
@@ -328,7 +328,7 @@ export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
     salaryBasis: 'Monthly',
     salaryType: 'display_range',
     payoutSchedule: 'Monthly',
-    location: 'Koolipalayam, Tirupur',
+    location: 'Koolipalayam, India',
     latitude: 11.1320,
     longitude: 77.3210,
     openings: 3,
@@ -364,7 +364,7 @@ export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
     salaryBasis: 'Monthly',
     salaryType: 'display_range',
     payoutSchedule: 'Monthly',
-    location: 'Dharapuram Road, Tirupur',
+    location: 'Dharapuram Road, India',
     latitude: 11.0850,
     longitude: 77.3620,
     openings: 2,
@@ -390,7 +390,7 @@ export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
   },
   {
     jobId: 'demo_job_6',
-    companyName: 'Royal Exports Tirupur Ltd',
+    companyName: 'Royal Exports India Ltd',
     jobTitle: 'Ironing & Packing Finishing Helper',
     category: 'Non-Technical',
     department: 'Finishing & Packing',
@@ -400,7 +400,7 @@ export const DEMO_JOBS_LIST: Partial<JobListing>[] = [
     salaryBasis: 'Monthly',
     salaryType: 'display_range',
     payoutSchedule: 'Monthly',
-    location: 'Veerapandi Industrial Estate, Tirupur',
+    location: 'Veerapandi Industrial Estate, India',
     latitude: 11.0825,
     longitude: 77.3488,
     openings: 8,
@@ -440,7 +440,7 @@ export const DEMO_APPLICATIONS_LIST: Partial<Application>[] = [
     seekerName: 'Kavitha Murugesan',
     experience: '5 Years',
     phone: '+919000000003',
-    companyName: 'Royal Exports Tirupur Ltd',
+    companyName: 'Royal Exports India Ltd',
     expectedSalary: '₹18,500 / month',
     preferredInterviewDate: '2026-08-16',
   },
@@ -457,7 +457,7 @@ export const DEMO_APPLICATIONS_LIST: Partial<Application>[] = [
     seekerName: 'Karthik Raja',
     experience: '8 Years',
     phone: '+919000000004',
-    companyName: 'Royal Exports Tirupur Ltd',
+    companyName: 'Royal Exports India Ltd',
     expectedSalary: '₹48,000 / month',
     preferredInterviewDate: '2026-08-18',
   }

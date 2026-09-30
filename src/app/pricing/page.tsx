@@ -184,7 +184,7 @@ export default function PricingPage() {
         key: public_key,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "NexTirupur.in",
+        name: "NexIndia.in",
         description: `Hiring Pack: ${plan.name}`,
         image: "/nextiruppur.png",
         order_id: orderData.order_id,
@@ -285,7 +285,7 @@ export default function PricingPage() {
              <div className="p-10 md:p-16 space-y-12">
                 <div className="text-center space-y-2">
                    <h2 className="text-lg md:text-xl font-black text-primary uppercase tracking-tight">{t.allPlansInclude}</h2>
-                   <p className="text-sm md:text-base text-muted-foreground font-medium">Get full access to Tirupur's most powerful hiring tools.</p>
+                   <p className="text-sm md:text-base text-muted-foreground font-medium">Get full access to India's most powerful hiring tools.</p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-12">

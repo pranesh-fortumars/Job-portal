@@ -53,7 +53,7 @@ export default function JobsMap({
   appliedJobIds: Set<string>;
   masterDesignations: any[];
 }) {
-  // Default to Tirupur center if no user coords
+  // Default to India center if no user coords
   const defaultCenter = { lat: 11.1085, lng: 77.3411 };
   const center = userCoords || defaultCenter;
 

@@ -1,46 +1,37 @@
 import os
-import re
 
-files_to_update = [
-    'd:/Job_Portal/src/app/seeker/profile/page.tsx',
-    'd:/Job_Portal/src/app/seeker/onboarding/page.tsx',
-    'd:/Job_Portal/src/app/employer/post-job/page.tsx',
-    'd:/Job_Portal/src/app/jobs/page.tsx',
-    'd:/Job_Portal/src/app/admin/dashboard/page.tsx'
-]
-
-import_statement = 'import { CLASSIFICATION } from "@/lib/constants";\n'
-
-for filepath in files_to_update:
+def replace_in_file(filepath):
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
-
-        # Regex to find `const CLASSIFICATION = { ... };` block
-        # It handles nested braces by simply matching until the end of the block.
-        # Given the structure, we can match from `const CLASSIFICATION = {` up to `};`
-        # Since it's a large block, let's use a robust pattern.
-        pattern = re.compile(r'const\s+CLASSIFICATION\s*=\s*\{.*?\n\s*\};\n', re.DOTALL)
         
-        if pattern.search(content):
-            new_content = pattern.sub('', content)
-            
-            # Find the last import statement to insert the new import after it
-            imports_end = new_content.rfind('import ')
-            if imports_end != -1:
-                newline_after_import = new_content.find('\n', imports_end)
-                if newline_after_import != -1:
-                    new_content = new_content[:newline_after_import+1] + import_statement + new_content[newline_after_import+1:]
-                else:
-                    new_content = import_statement + new_content
-            else:
-                new_content = import_statement + new_content
-                
+        new_content = content.replace('NexTirupur', 'NexIndia')
+        new_content = new_content.replace('nextirupur', 'nexindia')
+        new_content = new_content.replace('Tirupur', 'India')
+        new_content = new_content.replace('tirupur', 'india')
+        new_content = new_content.replace('TIRUPUR', 'INDIA')
+
+        if new_content != content:
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(new_content)
-            print(f'Successfully updated {filepath}')
-        else:
-            print(f'No match found in {filepath}')
-            
+            return True
     except Exception as e:
         print(f"Error processing {filepath}: {e}")
+    return False
+
+def main():
+    changed_files = 0
+    src_dir = os.path.join('d:\\', 'Job_Portal', 'src')
+    
+    for root, dirs, files in os.walk(src_dir):
+        for file in files:
+            if file.endswith(('.ts', '.tsx', '.json', '.md')):
+                filepath = os.path.join(root, file)
+                if replace_in_file(filepath):
+                    changed_files += 1
+                    print(f"Updated {filepath}")
+                    
+    print(f"Total files updated: {changed_files}")
+
+if __name__ == '__main__':
+    main()

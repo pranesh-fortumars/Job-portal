@@ -316,7 +316,7 @@ const PrintProfile = ({ user }: { user: any }) => {
 
         <div className="mt-10 pt-4 border-t border-dotted border-gray-400 text-center">
           <p className="text-[7pt] text-gray-500 uppercase tracking-widest">
-            Verified Administrative Audit • generated via NexTirupur.in • {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
+            Verified Administrative Audit • generated via NexIndia.in • {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
           </p>
         </div>
       </div>
@@ -827,7 +827,7 @@ export default function AdminDashboard() {
     if (!u) return;
     const url = u.latitude && u.longitude 
       ? `https://www.google.com/maps?q=${u.latitude},${u.longitude}`
-      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((u.fullAddress || u.area || "") + " Tirupur")}`;
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((u.fullAddress || u.area || "") + " India")}`;
     window.open(url, '_blank');
   };
 
@@ -1850,7 +1850,7 @@ export default function AdminDashboard() {
                               </div>
                               <div>
                                 {c.companyName || (c.role === 'employer' ? "Pending Brand Setup" : c.name)}
-                                <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{c.area || "Tirupur Hub"}</div>
+                                <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{c.area || "India Hub"}</div>
                               </div>
                             </div>
                           </TableCell>

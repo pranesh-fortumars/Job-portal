@@ -209,7 +209,7 @@ const PrintResume = ({ userData, formData, resumeData, t }: any) => {
 
         <div className="mt-10 pt-4 border-t border-dotted border-gray-400 text-center">
           <p className="text-[7pt] text-gray-500 uppercase tracking-widest">
-            Verified Industrial Profile • Generated via NexTirupur.in • {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
+            Verified Industrial Profile • Generated via NexIndia.in • {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
           </p>
         </div>
       </div>
@@ -282,7 +282,7 @@ export default function SeekerProfilePage() {
         designation: userData.designation || "",
         experience: userData.experience || "0",
         phone: userData.phone?.replace("+91", "") || "",
-        email: (userData.email && !userData.email.endsWith('@nextirupur.internal')) ? userData.email : "",
+        email: (userData.email && !userData.email.endsWith('@nexindia.internal')) ? userData.email : "",
         photo: userData.photo || "",
         declarationAccepted: userData.declarationAccepted || false,
         dob: userData.dob || ""

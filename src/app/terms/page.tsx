@@ -42,15 +42,15 @@ export default function TermsOfServicePage() {
       effectiveDate: "Effective June 2026",
       intro: {
         title: "Introduction",
-        desc: "By registering or using NexTirupur.in, you agree to these Terms. If you disagree, please do not use the Platform."
+        desc: "By registering or using NexIndia.in, you agree to these Terms. If you disagree, please do not use the Platform."
       },
       sections: [
         {
           id: "1",
           title: "The Platform",
-          desc: "NexTirupur.in is a trilingual (English, Tamil, Hindi) job portal connecting employers and workers in Tirupur's garment and knitwear industry.",
+          desc: "NexIndia.in is a trilingual (English, Tamil, Hindi) job portal connecting employers and workers in India's garment and knitwear industry.",
           features: ["Verified listings", "GPS radius matching", "Auto-broadcast job alerts", "Tamil-language interface"],
-          warning: "NexTirupur.in is a communication and matching platform only — not a recruitment agency or party to any employment contract."
+          warning: "NexIndia.in is a communication and matching platform only — not a recruitment agency or party to any employment contract."
         },
         {
           id: "2",
@@ -60,7 +60,7 @@ export default function TermsOfServicePage() {
             "Employers must hold valid business registration and relevant licences. GST registration details must be accurate where applicable.",
             "You must provide truthful information at registration and keep it current. One account per person or entity.",
             "Manual registration assistance may be provided for eligible users; users remain responsible for accuracy of information provided.",
-            "NexTirupur.in may verify eligibility at any time and suspend accounts that do not comply."
+            "NexIndia.in may verify eligibility at any time and suspend accounts that do not comply."
           ]
         },
         {
@@ -104,7 +104,7 @@ export default function TermsOfServicePage() {
           refundRules: [
             "Fees are non-refundable once listing is published or paid feature is activated.",
             "Refunds are considered only for duplicate payments or complete technical failure.",
-            "Refund requests must be submitted within 5 business days to nextirupur@gmail.com.",
+            "Refund requests must be submitted within 5 business days to nexindia@gmail.com.",
             "Approved refunds are processed within 7–10 business days."
           ]
         },
@@ -142,13 +142,13 @@ export default function TermsOfServicePage() {
             "Using bots, scripts, or automated tools to access platform data.",
             "Spam, phishing, malware, or illegal content."
           ],
-          warning: "NexTirupur.in may remove violating content without notice and report serious violations to industrial law enforcement."
+          warning: "NexIndia.in may remove violating content without notice and report serious violations to industrial law enforcement."
         },
         {
           id: "8",
           title: "Intellectual Property and Content",
           points: [
-            "All Platform IP — design, software, logo, brand name “NexTirupur.in” — belongs to NexTirupur Services. You may not copy, reproduce, or create derivative works without prior written consent.",
+            "All Platform IP — design, software, logo, brand name “NexIndia.in” — belongs to NexIndia Services. You may not copy, reproduce, or create derivative works without prior written consent.",
             "By submitting content, you grant us a non-exclusive, royalty-free licence to use and display it for Platform operation and marketing purposes."
           ],
           ownership: "You confirm that content you post is your own or that you have the right to post it and that it infringes no third-party rights."
@@ -157,9 +157,9 @@ export default function TermsOfServicePage() {
           id: "9",
           title: "Privacy and Data Protection",
           points: [
-            "NexTirupur collects personal data only to operate the Platform.",
+            "NexIndia collects personal data only to operate the Platform.",
             "Compliance with DPDP Act 2023 and IT Rules 2011.",
-            "NexTirupur does not sell user data."
+            "NexIndia does not sell user data."
           ]
         },
         {
@@ -188,8 +188,8 @@ export default function TermsOfServicePage() {
           title: "Governing Law and Disputes",
           points: [
             "These Terms are governed by Indian law.",
-            "Courts in Tirupur, Tamil Nadu have exclusive jurisdiction.",
-            "Disputes are subject to negotiation, then arbitration in Tirupur.",
+            "Courts in India, Tamil Nadu have exclusive jurisdiction.",
+            "Disputes are subject to negotiation, then arbitration in India.",
             "We may amend these Terms with 15 days' prior notice.",
             "English version prevails in case of any inconsistency."
           ]
@@ -207,15 +207,15 @@ export default function TermsOfServicePage() {
       effectiveDate: "ஜூன் 2026 முதல் நடைமுறைக்கு வருகிறது",
       intro: {
         title: "அறிமுகம்",
-        desc: "NexTirupur.in இல் பதிவு செய்வதன் மூலம் அல்லது பயன்படுத்துவதன் மூலம், இந்த விதிமுறைகளை நீங்கள் ஏற்றுக்கொள்கிறீர்கள். உங்களுக்கு உடன்பாடு இல்லை என்றால், தயவுசெய்து இந்தத் தளத்தைப் பயன்படுத்த வேண்டாம்."
+        desc: "NexIndia.in இல் பதிவு செய்வதன் மூலம் அல்லது பயன்படுத்துவதன் மூலம், இந்த விதிமுறைகளை நீங்கள் ஏற்றுக்கொள்கிறீர்கள். உங்களுக்கு உடன்பாடு இல்லை என்றால், தயவுசெய்து இந்தத் தளத்தைப் பயன்படுத்த வேண்டாம்."
       },
       sections: [
         {
           id: "1",
           title: "இந்த தளம்",
-          desc: "NexTirupur.in என்பது திருப்பூரின் ஆடை மற்றும் பின்னலாடைத் தொழிலில் முதலாளிகளையும் தொழிலாளர்களையும் இணைக்கும் ஒரு முமொழி (ஆங்கிலம், தமிழ், இந்தி) வேலைவாய்ப்பு போர்டல் ஆகும்.",
+          desc: "NexIndia.in என்பது திருப்பூரின் ஆடை மற்றும் பின்னலாடைத் தொழிலில் முதலாளிகளையும் தொழிலாளர்களையும் இணைக்கும் ஒரு முமொழி (ஆங்கிலம், தமிழ், இந்தி) வேலைவாய்ப்பு போர்டல் ஆகும்.",
           features: ["சரிபார்க்கப்பட்ட பட்டியல்கள்", "ஜிபிஎஸ் தொலைவு பொருத்தம்", "தானியங்கி வாட்ஸ்அப் அறிவிப்புகள்", "தமிழ் மொழி இடைமுகம்"],
-          warning: "NexTirupur.in என்பது ஒரு தகவல் தொடர்பு மற்றும் பொருத்தத் தளம் மட்டுமே - இது ஒரு வேலைவாய்ப்பு முகமை அல்ல."
+          warning: "NexIndia.in என்பது ஒரு தகவல் தொடர்பு மற்றும் பொருத்தத் தளம் மட்டுமே - இது ஒரு வேலைவாய்ப்பு முகமை அல்ல."
         },
         {
           id: "2",
@@ -269,7 +269,7 @@ export default function TermsOfServicePage() {
           refundRules: [
             "வேலை பதிவு வெளியிடப்பட்ட பிறகு கட்டணம் திரும்பப் பெறப்படாது.",
             "இரட்டைப் பணம் செலுத்துதல் அல்லது தொழில்நுட்பக் கோளாறு ஏற்பட்டால் மட்டுமே ரீஃபண்ட் பரிசீலிக்கப்படும்.",
-            "கோரிக்கைகளை 5 வேலை நாட்களுக்குள் nextirupur@gmail.com க்கு அனுப்ப வேண்டும்.",
+            "கோரிக்கைகளை 5 வேலை நாட்களுக்குள் nexindia@gmail.com க்கு அனுப்ப வேண்டும்.",
             "அனுமதிக்கப்பட்ட ரீஃபண்ட் 7–10 வேலை நாட்களுக்குள் வழங்கப்படும்."
           ]
         },
@@ -313,7 +313,7 @@ export default function TermsOfServicePage() {
           id: "8",
           title: "அறிவுசார் சொத்து",
           points: [
-            "தளத்தின் வடிவமைப்பு, மென்பொருள், லோகோ மற்றும் “NexTirupur.in” என்ற பெயர் எங்களின் சொத்து. முன் அனுமதியின்றி நகலெடுக்கக் கூடாது.",
+            "தளத்தின் வடிவமைப்பு, மென்பொருள், லோகோ மற்றும் “NexIndia.in” என்ற பெயர் எங்களின் சொத்து. முன் அனுமதியின்றி நகலெடுக்கக் கூடாது.",
             "நீங்கள் சமர்ப்பிக்கும் உள்ளடக்கத்தை சந்தைப்படுத்துதலுக்குப் பயன்படுத்த எங்களுக்கு உரிமை உண்டு."
           ],
           ownership: "நீங்கள் பதிவிடும் உள்ளடக்கம் உங்களுடையது அல்லது அதைப் பயன்படுத்த உங்களுக்கு உரிமை உண்டு என்பதை உறுதிப்படுத்துகிறீர்கள்."
@@ -372,15 +372,15 @@ export default function TermsOfServicePage() {
       effectiveDate: "जून 2026 से प्रभावी",
       intro: {
         title: "परिचय",
-        desc: "NexTirupur.in पर पंजीकरण या उपयोग करके, आप इन शर्तों से सहमत होते हैं। यदि आप असहमत हैं, तो कृपया प्लेटफॉर्म का उपयोग न करें।"
+        desc: "NexIndia.in पर पंजीकरण या उपयोग करके, आप इन शर्तों से सहमत होते हैं। यदि आप असहमत हैं, तो कृपया प्लेटफॉर्म का उपयोग न करें।"
       },
       sections: [
         {
           id: "1",
           title: "प्लेटफॉर्म",
-          desc: "NexTirupur.in एक त्रिभाषी (अंग्रेजी, तमिल, हिंदी) जॉब पोर्टल है जो तिरुपूर के परिधान और होजरी उद्योग में नियोक्ताओं और श्रमिकों को जोड़ता है।",
+          desc: "NexIndia.in एक त्रिभाषी (अंग्रेजी, तमिल, हिंदी) जॉब पोर्टल है जो तिरुपूर के परिधान और होजरी उद्योग में नियोक्ताओं और श्रमिकों को जोड़ता है।",
           features: ["सत्यापित सूचियाँ", "जीपीएस रेडियस मैचिंग", "स्वचालित व्हाट्सएप अलर्ट", "तमिल भाषा इंटरफेस"],
-          warning: "NexTirupur.in केवल एक संचार और मैचिंग प्लेटफॉर्म है - यह कोई भर्ती एजेंसी नहीं है।"
+          warning: "NexIndia.in केवल एक संचार और मैचिंग प्लेटफॉर्म है - यह कोई भर्ती एजेंसी नहीं है।"
         },
         {
           id: "2",
@@ -390,7 +390,7 @@ export default function TermsOfServicePage() {
             "नियोक्ताओं के पास वैध व्यवसाय पंजीकरण और लाइसेंस होने चाहिए। जीएसटी विवरण सटीक होने चाहिए।",
             "पंजीकरण के समय सही जानकारी प्रदान करें। प्रति व्यक्ति केवल एक खाता मान्य है।",
             "पात्र उपयोगकर्ताओं को पंजीकरण में सहायता दी जा सकती है; लेकिन जानकारी की सटीकता के लिए उपयोगकर्ता स्वयं जिम्मेदार हैं।",
-            "NexTirupur किसी भी समय पात्रता की जांच कर सकता है और नियमों का उल्लंघन करने वाले खातों को निलंबित कर सकता।"
+            "NexIndia किसी भी समय पात्रता की जांच कर सकता है और नियमों का उल्लंघन करने वाले खातों को निलंबित कर सकता।"
           ]
         },
         {
@@ -434,7 +434,7 @@ export default function TermsOfServicePage() {
           refundRules: [
             "नौकरी प्रकाशित होने के बाद शुल्क वापस नहीं किया जाएगा।",
             "केवल तकनीकी खराबी या दोहरे भुगतान के मामले में ही रिफंड पर विचार किया जाएगा।",
-            "अनुरोध 5 कार्य दिवसों के भीतर nextirupur@gmail.com पर भेजें।",
+            "अनुरोध 5 कार्य दिवसों के भीतर nexindia@gmail.com पर भेजें।",
             "स्वीकृत रिफंड 7-10 कार्य दिवसों में संसाधित किया जाएगा।"
           ]
         },
@@ -478,7 +478,7 @@ export default function TermsOfServicePage() {
           id: "8",
           title: "बौद्धिक संपदा",
           points: [
-            "प्लेटफॉर्म का डिज़ाइन, सॉफ्टवेयर, लोगो और “NexTirupur.in” नाम हमारी संपत्ति है। बिना अनुमति के नकल न करें।",
+            "प्लेटफॉर्म का डिज़ाइन, सॉफ्टवेयर, लोगो और “NexIndia.in” नाम हमारी संपत्ति है। बिना अनुमति के नकल न करें।",
             "आपके द्वारा सबमिट की गई सामग्री का उपयोग हम मार्केटिंग के लिए कर सकते हैं।"
           ],
           ownership: "आप पुष्टि करते हैं कि आपकी पोस्ट की गई सामग्री आपकी अपनी है या आपको इसे पोस्ट करने का अधिकार है।"
@@ -556,7 +556,7 @@ export default function TermsOfServicePage() {
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-muted-foreground font-bold uppercase text-[10px] tracking-[0.2em]">
               <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {currentContent.effectiveDate}</span>
               <span className="hidden md:inline text-primary/20">•</span>
-              <span className="flex items-center gap-1.5"><Building2 className="w-3.5 h-3.5" /> NexTirupur Services, Tirupur</span>
+              <span className="flex items-center gap-1.5"><Building2 className="w-3.5 h-3.5" /> NexIndia Services, India</span>
             </div>
           </div>
         </div>
@@ -873,7 +873,7 @@ export default function TermsOfServicePage() {
                   </div>
                   <CardContent className="p-6 text-center space-y-2 flex-grow">
                      <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">Official Email</p>
-                     <p className="text-lg font-black text-primary break-all">nextirupur@gmail.com</p>
+                     <p className="text-lg font-black text-primary break-all">nexindia@gmail.com</p>
                   </CardContent>
                </Card>
 
@@ -894,7 +894,7 @@ export default function TermsOfServicePage() {
                   </div>
                   <CardContent className="p-6 text-center space-y-2 flex-grow">
                      <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">Physical Address</p>
-                     <p className="text-sm font-black leading-snug">NexTirupur Services, Tirupur, Tamil Nadu.</p>
+                     <p className="text-sm font-black leading-snug">NexIndia Services, India, Tamil Nadu.</p>
                   </CardContent>
                </Card>
             </div>
@@ -918,9 +918,9 @@ export default function TermsOfServicePage() {
            <Separator className="bg-primary/10 max-w-sm mx-auto" />
            <div className="space-y-2">
               <p className="text-xs font-black text-muted-foreground uppercase tracking-[0.3em]">
-                © 2025 NexTirupur Services. All Rights Reserved.
+                © 2025 NexIndia Services. All Rights Reserved.
               </p>
-              <h3 className="text-lg font-bold font-headline text-primary">NexTirupur.in – Tirupur's Own Job Platform</h3>
+              <h3 className="text-lg font-bold font-headline text-primary">NexIndia.in – India's Own Job Platform</h3>
            </div>
         </div>
       </main>

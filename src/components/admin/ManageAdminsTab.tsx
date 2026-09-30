@@ -162,7 +162,7 @@ export function ManageAdminsTab({ db, liveUsers }: { db: any, liveUsers: any[] }
     confirmPassword: "",
     dob: "",
     gender: "male",
-    department: "Tirupur Hub Operations",
+    department: "India Hub Operations",
     designation: "Administrator"
   });
 
@@ -213,7 +213,7 @@ export function ManageAdminsTab({ db, liveUsers }: { db: any, liveUsers: any[] }
       setIsDialogOpen(false);
       setForm({
         name: "", email: "", phone: "", password: "", confirmPassword: "", 
-        dob: "", gender: "male", department: "Tirupur Hub Operations", designation: "Administrator"
+        dob: "", gender: "male", department: "India Hub Operations", designation: "Administrator"
       });
     } catch (err: any) {
       toast({ variant: "destructive", title: "Authorization Refused", description: err.message });
@@ -302,7 +302,7 @@ export function ManageAdminsTab({ db, liveUsers }: { db: any, liveUsers: any[] }
                   </div>
                   <div className="space-y-2">
                      <Label className="font-medium text-[10px] uppercase text-muted-foreground tracking-widest ml-1">Official Business Email *</Label>
-                     <Input required type="email" placeholder="admin@nextirupur.in" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="h-12 rounded-xl font-bold bg-muted/20 border-none" />
+                     <Input required type="email" placeholder="admin@nexindia.in" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="h-12 rounded-xl font-bold bg-muted/20 border-none" />
                   </div>
                   <div className="space-y-2">
                      <Label className="font-medium text-[10px] uppercase text-muted-foreground tracking-widest ml-1">Verified Mobile Number *</Label>

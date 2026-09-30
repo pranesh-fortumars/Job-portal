@@ -129,7 +129,7 @@ export default function SignupPage() {
           setFormData(prev => ({
             ...prev,
             name: data.name || prev.name,
-            email: data.email && !data.email.endsWith('@nextirupur.internal') ? data.email : prev.email,
+            email: data.email && !data.email.endsWith('@nexindia.internal') ? data.email : prev.email,
             phone: data.phone?.replace("+91", "") || prev.phone,
             gender: data.gender || prev.gender,
             dob: data.dob || prev.dob,
@@ -279,7 +279,7 @@ export default function SignupPage() {
         throw new Error("Security terminal not ready. Please refresh the page.");
       }
       
-      let authEmail = (formData.email || `${sanitizedPhone}@nextirupur.internal`).toLowerCase().trim();
+      let authEmail = (formData.email || `${sanitizedPhone}@nexindia.internal`).toLowerCase().trim();
 
       if (!activeUser) {
         try {
@@ -407,7 +407,7 @@ export default function SignupPage() {
 
       if (!userSnap.exists()) {
         const sanitizedPhone = formData.phone.replace(/\D/g, "").slice(-10);
-        const internalEmail = (formData.email || `${sanitizedPhone}@nextirupur.internal`).toLowerCase().trim();
+        const internalEmail = (formData.email || `${sanitizedPhone}@nexindia.internal`).toLowerCase().trim();
         
         await setDoc(userRef, {
           uid: user.uid,

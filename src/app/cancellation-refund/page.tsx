@@ -20,7 +20,7 @@ export default function CancellationRefundPage() {
       sections: [
         {
           title: "1. Job Credits",
-          text: "Hiring packs purchased on NexTirupur.in provide job credits that never expire. Once a credit is used to publish a job, it cannot be refunded or cancelled."
+          text: "Hiring packs purchased on NexIndia.in provide job credits that never expire. Once a credit is used to publish a job, it cannot be refunded or cancelled."
         },
         {
           title: "2. Eligibility for Refund",
@@ -43,7 +43,7 @@ export default function CancellationRefundPage() {
       sections: [
         {
           title: "1. வேலை கிரெடிட்கள்",
-          text: "NexTirupur.in இல் வாங்கப்பட்ட ஹையரிங் பேக்குகள் காலாவதியாகாத வேலை கிரெடிட்களை வழங்குகின்றன. ஒரு வேலைப் பதிவை வெளியிட ஒரு கிரெடிட் பயன்படுத்தப்பட்டால், அதை ரத்து செய்யவோ அல்லது பணத்தைத் திரும்பப் பெறவோ முடியாது."
+          text: "NexIndia.in இல் வாங்கப்பட்ட ஹையரிங் பேக்குகள் காலாவதியாகாத வேலை கிரெடிட்களை வழங்குகின்றன. ஒரு வேலைப் பதிவை வெளியிட ஒரு கிரெடிட் பயன்படுத்தப்பட்டால், அதை ரத்து செய்யவோ அல்லது பணத்தைத் திரும்பப் பெறவோ முடியாது."
         },
         {
           title: "2. ரீஃபண்ட் தகுதி",
@@ -66,7 +66,7 @@ export default function CancellationRefundPage() {
       sections: [
         {
           title: "1. जॉब क्रेडिट",
-          text: "NexTirupur.in पर खरीदे गए हायरिंग पैक जॉब क्रेडिट प्रदान करते हैं जो कभी समाप्त नहीं होते हैं। एक बार जब किसी नौकरी को प्रकाशित करने के लिए क्रेडिट का उपयोग कर लिया जाता है, तो उसे वापस या रद्द नहीं किया जा सकता है।"
+          text: "NexIndia.in पर खरीदे गए हायरिंग पैक जॉब क्रेडिट प्रदान करते हैं जो कभी समाप्त नहीं होते हैं। एक बार जब किसी नौकरी को प्रकाशित करने के लिए क्रेडिट का उपयोग कर लिया जाता है, तो उसे वापस या रद्द नहीं किया जा सकता है।"
         },
         {
           title: "2. धनवापसी के लिए पात्रता",

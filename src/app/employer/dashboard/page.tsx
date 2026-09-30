@@ -372,7 +372,7 @@ const PrintProfile = ({ user, app, t }: { user: any, app: any, t: any }) => {
 
         <div className="mt-10 pt-4 border-t border-dotted border-gray-400 text-center">
           <p className="text-[7pt] text-gray-500 uppercase tracking-widest">
-            Verified Industrial Audit Dossier • Generated via NexTirupur.in • {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
+            Verified Industrial Audit Dossier • Generated via NexIndia.in • {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
           </p>
         </div>
       </div>
@@ -995,7 +995,7 @@ export default function EmployerDashboard() {
             <CardContent className="p-8 md:p-12 space-y-8 text-center">
               <div className="space-y-4">
                 <p className="text-muted-foreground font-medium">
-                  To maintain the trust of Tirupur's labor market, we manually verify every factory's GST, GPS location, and entrance proof.
+                  To maintain the trust of India's labor market, we manually verify every factory's GST, GPS location, and entrance proof.
                 </p>
                 <div className="flex flex-col gap-3 max-w-sm mx-auto pt-4">
                   <div className="flex items-center gap-3 text-sm font-bold text-left bg-muted/30 p-4 rounded-2xl">
@@ -1817,7 +1817,7 @@ export default function EmployerDashboard() {
                   { title: "Multi-Channel Broadcast", icon: Globe, desc: "Job listings propagated to WhatsApp, Facebook, and Web." },
                   { title: "GPS Seeker Filtering", icon: Navigation, desc: "Filter workers by exact radial distance from your factory." },
                   { title: "Real-time Auditing", icon: ShieldCheck, desc: "Track listing views and application metrics in live mode." },
-                  { title: "Dedicated Support", icon: PhoneCall, desc: "Local Tirupur office support from 9 AM to 9 PM daily." }
+                  { title: "Dedicated Support", icon: PhoneCall, desc: "Local India office support from 9 AM to 9 PM daily." }
                ].map((feat, i) => (
                  <div key={i} className="flex gap-5 p-6 bg-white rounded-[2rem] border-2 border-primary/5 hover:border-primary/20 transition-all group">
                     <div className="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0 shadow-inner">
@@ -1894,7 +1894,7 @@ export default function EmployerDashboard() {
               </div>
               <div className="space-y-1">
                  <DialogTitle className="text-2xl font-medium font-headline uppercase tracking-tight">Report Candidate Misconduct</DialogTitle>
-                 <DialogDescription className="text-white/80 font-medium">Protect Tirupur's industrial labor market.</DialogDescription>
+                 <DialogDescription className="text-white/80 font-medium">Protect India's industrial labor market.</DialogDescription>
               </div>
            </div>
         </DialogHeader>

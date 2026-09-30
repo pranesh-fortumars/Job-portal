@@ -304,9 +304,9 @@ export function Header() {
                     <div className="px-2 mb-8">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-4 px-2">{t.exploreMore}</p>
                       <div className="grid grid-cols-4 gap-3">
-                         <a href="https://www.facebook.com/nextirupur" target="_blank" rel="noopener noreferrer" className="h-12 rounded-xl bg-white border flex items-center justify-center text-primary shadow-sm"><Facebook className="w-5 h-5" /></a>
-                         <a href="https://www.instagram.com/nextirupur" target="_blank" rel="noopener noreferrer" className="h-12 rounded-xl bg-white border flex items-center justify-center text-primary shadow-sm"><Instagram className="w-5 h-5" /></a>
-                         <a href="https://t.me/nextirupur" target="_blank" rel="noopener noreferrer" className="h-12 rounded-xl bg-white border flex items-center justify-center text-primary shadow-sm"><Send className="w-5 h-5" /></a>
+                         <a href="https://www.facebook.com/nexindia" target="_blank" rel="noopener noreferrer" className="h-12 rounded-xl bg-white border flex items-center justify-center text-primary shadow-sm"><Facebook className="w-5 h-5" /></a>
+                         <a href="https://www.instagram.com/nexindia" target="_blank" rel="noopener noreferrer" className="h-12 rounded-xl bg-white border flex items-center justify-center text-primary shadow-sm"><Instagram className="w-5 h-5" /></a>
+                         <a href="https://t.me/nexindia" target="_blank" rel="noopener noreferrer" className="h-12 rounded-xl bg-white border flex items-center justify-center text-primary shadow-sm"><Send className="w-5 h-5" /></a>
                          <a href="tel:+919025404014" className="h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shadow-sm"><Phone className="w-5 h-5" /></a>
                       </div>
                     </div>

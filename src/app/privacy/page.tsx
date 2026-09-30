@@ -14,14 +14,14 @@ export default function PrivacyPolicyPage() {
 
   const content = {
     English: {
-      title: "NexTirupur.in — Privacy Policy",
-      intro: "At NexTirupur.in, your privacy is our top priority. We built this platform to connect the Tirupur garment industry safely, and that means protecting your data from spam, agents, and misuse.",
+      title: "NexIndia.in — Privacy Policy",
+      intro: "At NexIndia.in, your privacy is our top priority. We built this platform to connect the India garment industry safely, and that means protecting your data from spam, agents, and misuse.",
       sections: [
         {
           id: "1",
           title: "What We Collect",
           workerTitle: "From Workers:",
-          workerDesc: "We collect your mobile number, age, current area in Tirupur, work experience, and job preferences.",
+          workerDesc: "We collect your mobile number, age, current area in India, work experience, and job preferences.",
           employerTitle: "From Employers:",
           employerDesc: "We collect your GST registration, factory address, GPS location, and official contact number to verify your business."
         },
@@ -39,7 +39,7 @@ export default function PrivacyPolicyPage() {
           workerPrivacy: "Worker Privacy",
           workerPrivacyDesc: "Your mobile number is hidden from the public. A verified employer can only see your contact details if you apply for their job or if you match their specific hiring filters.",
           employerPrivacy: "Employer Privacy",
-          employerPrivacyDesc: "Your official contact number is hidden from public job listings to prevent spam calls. Workers will contact you exclusively through the NexTirupur platform or automated system."
+          employerPrivacyDesc: "Your official contact number is hidden from public job listings to prevent spam calls. Workers will contact you exclusively through the NexIndia platform or automated system."
         },
         {
           id: "4",
@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
         {
           id: "5",
           title: "Employer Responsibility",
-          desc1: "NexTirupur is a digital matching platform.",
+          desc1: "NexIndia is a digital matching platform.",
           warning: "We do not digitally collect or store physical government IDs (like Aadhaar, PAN, or Voter IDs) of workers.",
           boldText: "Employers are solely responsible for physically verifying a worker's original government ID and age proof during the face-to-face interview."
         },
@@ -63,8 +63,8 @@ export default function PrivacyPolicyPage() {
       ]
     },
     Tamil: {
-      title: "NexTirupur.in — தனியுரிமைக் கொள்கை",
-      intro: "NexTirupur.in இல், உங்கள் தனியுரிமை எங்களின் முதன்மையான முன்னுரிமையாகும். திருப்பூர் ஆடைத் தொழிலை பாதுகாப்பாக இணைக்க இந்தத் தளத்தை உருவாக்கியுள்ளோம், அதாவது ஸ்பேம், ஏஜெண்டுகள் மற்றும் தவறான பயன்பாட்டிலிருந்து உங்கள் தரவைப் பாதுகாப்பதாகும்.",
+      title: "NexIndia.in — தனியுரிமைக் கொள்கை",
+      intro: "NexIndia.in இல், உங்கள் தனியுரிமை எங்களின் முதன்மையான முன்னுரிமையாகும். திருப்பூர் ஆடைத் தொழிலை பாதுகாப்பாக இணைக்க இந்தத் தளத்தை உருவாக்கியுள்ளோம், அதாவது ஸ்பேம், ஏஜெண்டுகள் மற்றும் தவறான பயன்பாட்டிலிருந்து உங்கள் தரவைப் பாதுகாப்பதாகும்.",
       sections: [
         {
           id: "1",
@@ -112,8 +112,8 @@ export default function PrivacyPolicyPage() {
       ]
     },
     Hindi: {
-      title: "NexTirupur.in — गोपनीयता नीति",
-      intro: "NexTirupur.in पर, आपकी गोपनीयता हमारी सर्वोच्च प्राथमिकता है। हमने तिरुपूर परिधान उद्योग को सुरक्षित रूप से जोड़ने के लिए इस प्लेटफॉर्म का निर्माण किया है, और इसका अर्थ है आपके डेटा को स्पैम, एजेंटों और दुरुपयोग से बचाना।",
+      title: "NexIndia.in — गोपनीयता नीति",
+      intro: "NexIndia.in पर, आपकी गोपनीयता हमारी सर्वोच्च प्राथमिकता है। हमने तिरुपूर परिधान उद्योग को सुरक्षित रूप से जोड़ने के लिए इस प्लेटफॉर्म का निर्माण किया है, और इसका अर्थ है आपके डेटा को स्पैम, एजेंटों और दुरुपयोग से बचाना।",
       sections: [
         {
           id: "1",
@@ -317,7 +317,7 @@ export default function PrivacyPolicyPage() {
                     <ShieldAlert className="w-8 h-8 text-red-600" />
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Report a Problem</p>
-                      <p className="text-xl font-black text-primary">nextirupur.in/support</p>
+                      <p className="text-xl font-black text-primary">nexindia.in/support</p>
                     </div>
                   </div>
                 </div>
@@ -329,7 +329,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="text-center py-8">
            <p className="text-xs font-bold text-muted-foreground uppercase tracking-[0.3em]">
-             © {new Date().getFullYear()} NexTirupur.in Legal Division
+             © {new Date().getFullYear()} NexIndia.in Legal Division
            </p>
         </div>
       </main>

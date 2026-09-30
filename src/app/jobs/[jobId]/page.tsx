@@ -230,7 +230,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
     if (!mounted) return "...";
     if (dynamicDistance !== null) return `${dynamicDistance} km`;
     if (!userCoords) return "Enable GPS";
-    return "Tirupur Hub";
+    return "India Hub";
   }, [dynamicDistance, mounted, userCoords]);
 
   useEffect(() => {
@@ -321,7 +321,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
       phone: currentUserProfile.phone || user.phoneNumber || "",
       experience: currentUserProfile.experience || currentUserProfile.digitalResume?.professional?.totalExperience || "0",
       gender: currentUserProfile.gender || "Not Specified",
-      location: currentUserProfile.location || "Tirupur Hub",
+      location: currentUserProfile.location || "India Hub",
     };
 
     if (job.category === 'Technical') {
@@ -475,7 +475,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
     }
     const url = job.latitude && job.longitude 
       ? `https://www.google.com/maps/search/?api=1&query=${job.latitude},${job.longitude}`
-      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((job.location || "") + " Tirupur")}`;
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((job.location || "") + " India")}`;
     window.open(url, '_blank');
   };
 
@@ -600,20 +600,20 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
       "@context": "https://schema.org",
       "@type": "JobPosting",
       "title": job.jobTitle || job.designation,
-      "description": job.description || "Hiring in Tirupur",
+      "description": job.description || "Hiring in India",
       "datePosted": job.createdAt ? new Date(job.createdAt).toISOString() : new Date().toISOString(),
       "validThrough": job.autoCloseDate ? new Date(job.autoCloseDate).toISOString() : new Date(Date.now() + 30*24*60*60*1000).toISOString(),
       "employmentType": job.workType === 'Part-time' ? 'PART_TIME' : 'FULL_TIME',
       "hiringOrganization": {
         "@type": "Organization",
-        "name": job.companyName || "Tirupur Factory",
+        "name": job.companyName || "India Factory",
         "logo": job.companyLogoUrl || ""
       },
       "jobLocation": {
         "@type": "Place",
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": job.location || "Tirupur",
+          "addressLocality": job.location || "India",
           "addressRegion": "TN",
           "addressCountry": "IN"
         }
@@ -725,7 +725,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
                               toast({ variant: "destructive", title: "Contact Unavailable", description: "This employer has not provided a WhatsApp contact." });
                               return;
                             }
-                            const msg = `Hi, I am interested in the ${job.jobTitle || job.designation} position at ${job.companyName}. I found this on NexTirupur.in.`;
+                            const msg = `Hi, I am interested in the ${job.jobTitle || job.designation} position at ${job.companyName}. I found this on NexIndia.in.`;
                             window.open(`https://wa.me/${employerData.phone.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank');
                           }}
                           className="flex-1 h-16 md:h-20 bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-2 transition-all active:scale-95 group"
@@ -986,7 +986,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
         <DialogContent className="max-w-md rounded-[2.5rem] border-none shadow-2xl p-0 overflow-hidden">
            <DialogHeader className="p-8 bg-red-600 text-white text-left">
               <div className="flex items-center gap-3 mb-2"><AlertTriangle className="w-6 h-6" /><DialogTitle className="text-xl font-black uppercase tracking-tight">{t.reportJob}</DialogTitle></div>
-              <DialogDescription className="text-white/80 font-medium">Help us keep Tirupur safe.</DialogDescription>
+              <DialogDescription className="text-white/80 font-medium">Help us keep India safe.</DialogDescription>
            </DialogHeader>
            <div className="p-8 space-y-6">
               <div className="space-y-2">

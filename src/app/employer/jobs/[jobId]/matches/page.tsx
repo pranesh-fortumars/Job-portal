@@ -207,7 +207,7 @@ export default function CandidateMatchesPage({ params }: { params: { jobId: stri
                           <Briefcase className="w-4 h-4" /> {seeker.department || "General Worker"}
                        </p>
                        <p className="text-sm text-slate-500 flex items-center gap-2">
-                          <MapPin className="w-4 h-4" /> {seeker.location || "Tirupur"}
+                          <MapPin className="w-4 h-4" /> {seeker.location || "India"}
                        </p>
 
                        <div className="flex flex-wrap gap-2 pt-2">

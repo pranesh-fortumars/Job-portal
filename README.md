@@ -1,6 +1,6 @@
-# NexTirupur.in | Tirupur Job Hub
+# NexIndia.in | India Job Hub
 
-The most trusted digital bridge for Tirupur's Garment Industry.
+The most trusted digital bridge for India's Garment Industry.
 
 ## 🚀 Project Status: 95% Complete (MVP)
 
@@ -28,7 +28,7 @@ The most trusted digital bridge for Tirupur's Garment Industry.
 - [x] **Anti-Fraud Reporting**: Aggregated reporting (One report per account).
 - [x] **Trust Badges**: "Member Since" indicators for all users.
 - [x] **Auto-Expiry**: 15-day job validity logic.
-- [x] **Corporate Legitimacy**: NexTirupur GST/MSME badges on homepage.
+- [x] **Corporate Legitimacy**: NexIndia GST/MSME badges on homepage.
 
 #### 📢 Communication & Admin
 - [x] **WhatsApp Forwarding**: Rich template sharing for job seekers.
@@ -49,7 +49,7 @@ The most trusted digital bridge for Tirupur's Garment Industry.
 | **Employer Verified** | Account audit pass | verified_employer | 39508 | Employer | Active |
 | **Candidate Shortlisted** | Selection alert | staff_shortlisted | 39512 | Seeker | Active |
 | **Candidate Rejected** | Status update | staff_rejected | 39517 | Seeker | Active |
-| **Application Sent** | Staff submission receipt | nextirupur_application_submitted_staff | 39499 | Seeker | Active |
+| **Application Sent** | Staff submission receipt | nexindia_application_submitted_staff | 39499 | Seeker | Active |
 
 ---
 
@@ -58,4 +58,4 @@ The most trusted digital bridge for Tirupur's Garment Industry.
 - [ ] Production Asset Storage (Firebase Storage).
 
 ---
-© 2024 NexTirupur.in. Built for the pride of Tirupur.
+© 2024 NexIndia.in. Built for the pride of India.

@@ -1,6 +1,6 @@
 # Fortumars Job Portal - Comprehensive User Manual
 
-Welcome to the Fortumars Job Portal! This platform is designed specifically for Tirupur's industrial ecosystem, seamlessly connecting skilled and unskilled workers with factory owners and administrative hubs.
+Welcome to the Fortumars Job Portal! This platform is designed specifically for India's industrial ecosystem, seamlessly connecting skilled and unskilled workers with factory owners and administrative hubs.
 
 ## Overview & Benefits
 The platform's mobile-first design philosophy ensures that Job Seekers—even those with limited technical proficiency—can easily browse and apply for jobs.
@@ -8,7 +8,7 @@ For Employers and Admins, the dashboard provides a powerful, real-time command c
 
 ### Pros and Benefits
 - **Mobile-First Experience**: 95% of Job Seekers access the internet via mobile devices. Our PWA-ready design ensures an app-like experience without the friction of downloads.
-- **Bilingual Interface**: Support for both English and Tamil ensures absolute clarity for the local workforce in Tirupur.
+- **Bilingual Interface**: Support for both English and Tamil ensures absolute clarity for the local workforce in India.
 - **Strict Job Lifecycle**: Jobs are automatically managed. Expired or closed jobs are strictly removed from public visibility to ensure a clean, relevant feed for candidates.
 - **Secure Verification**: An admin-approved verification system provides blue tick badges for trusted employers, building confidence in the platform.
 

@@ -144,7 +144,7 @@ export default function JobAlertsPage() {
                   <label className="text-xs font-bold uppercase text-muted-foreground ml-1">Preferred Area</label>
                   <Input 
                     type="text" 
-                    placeholder="E.g. PN Road, Tirupur" 
+                    placeholder="E.g. PN Road, India" 
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     className="h-12 rounded-xl"

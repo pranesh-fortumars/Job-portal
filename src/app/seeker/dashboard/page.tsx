@@ -364,7 +364,7 @@ export default function SeekerDashboard() {
   const handleOpenMaps = (job: any) => {
     const url = job.latitude && job.longitude 
       ? `https://www.google.com/maps/search/?api=1&query=${job.latitude},${job.longitude}`
-      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(job.location + " Tirupur")}`;
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(job.location + " India")}`;
     window.open(url, '_blank');
   };
 
@@ -655,7 +655,7 @@ export default function SeekerDashboard() {
                                             onClick={() => {
                                               const url = employerInfo.latitude && employerInfo.longitude 
                                                 ? `https://www.google.com/maps/search/?api=1&query=${employerInfo.latitude},${employerInfo.longitude}`
-                                                : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((employerInfo.fullAddress || employerInfo.area || "") + " Tirupur")}`;
+                                                : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((employerInfo.fullAddress || employerInfo.area || "") + " India")}`;
                                               window.open(url, '_blank');
                                             }}
                                           >
@@ -783,7 +783,7 @@ export default function SeekerDashboard() {
                  <ShieldCheck className="w-6 h-6 text-green-600" /> Safe Hiring
                </div>
                <p className="text-xs text-green-800/70 font-medium leading-relaxed">
-                 All jobs on NexTirupur are verified with GST and Photo proof. Genuine work is always free.
+                 All jobs on NexIndia are verified with GST and Photo proof. Genuine work is always free.
                </p>
                <Link href="/safety" className="text-xs font-bold text-green-700 hover:underline inline-flex items-center gap-1">
                  {t.readSafetyTips} <ChevronRight className="w-3 h-3" />
@@ -801,7 +801,7 @@ export default function SeekerDashboard() {
               <div className="space-y-1">
                 <h3 className="font-black text-red-900 text-lg uppercase tracking-tight">{t.reportIncident}</h3>
                 <p className="text-sm text-red-800/70 font-medium max-w-md leading-relaxed">
-                  Found something suspicious or facing an issue with a listing? Help us keep NexTirupur 100% genuine and safe.
+                  Found something suspicious or facing an issue with a listing? Help us keep NexIndia 100% genuine and safe.
                 </p>
               </div>
             </div>
@@ -824,7 +824,7 @@ export default function SeekerDashboard() {
                  <DialogTitle className="text-xl font-black uppercase tracking-tight">{t.reportIncident}</DialogTitle>
               </div>
               <DialogDescription className="text-white/80 font-medium">
-                 Help keep Tirupur safe. What issue are you facing today?
+                 Help keep India safe. What issue are you facing today?
               </DialogDescription>
            </DialogHeader>
            <div className="p-8 space-y-6">

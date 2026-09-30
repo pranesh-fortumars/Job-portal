@@ -143,7 +143,7 @@ export default function SafetyTipsPage() {
               <div className="p-8 bg-green-50 rounded-3xl border border-dashed border-green-200 text-center space-y-4">
                  <Smartphone className="w-10 h-10 text-green-600 mx-auto" />
                  <h4 className="font-bold text-green-900">Need On-Site Support?</h4>
-                 <p className="text-xs text-green-800/70 font-medium">Our field agents visit Tirupur factories every day to help with worker verification.</p>
+                 <p className="text-xs text-green-800/70 font-medium">Our field agents visit India factories every day to help with worker verification.</p>
                  <Link href="/support">
                   <Button variant="outline" size="sm" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-bold rounded-xl">Contact Field Support</Button>
                  </Link>
@@ -201,7 +201,7 @@ export default function SafetyTipsPage() {
                       <div className="bg-white/20 p-4 rounded-xl flex items-center gap-3 hover:bg-white/30 transition-colors">
                         <ExternalLink className="w-5 h-5" />
                         <p className="text-xs font-bold uppercase tracking-wider">
-                          {mounted ? t.reportLink : "nextirupur.in/support"}
+                          {mounted ? t.reportLink : "nexindia.in/support"}
                         </p>
                       </div>
                     </Link>
@@ -232,7 +232,7 @@ export default function SafetyTipsPage() {
         </div>
 
         <div className="text-center text-muted-foreground/30 text-[10px] uppercase tracking-widest font-bold">
-          © {new Date().getFullYear()} NexTirupur.in Trust & Safety Team. Tirupur, TN.
+          © {new Date().getFullYear()} NexIndia.in Trust & Safety Team. India, TN.
         </div>
       </main>
     </div>

@@ -16,7 +16,7 @@ export default function StyleGuidePage() {
       <main className="flex-grow p-4 md:p-12 max-w-5xl mx-auto w-full space-y-16">
         <div className="space-y-4">
           <h1 className="text-4xl font-extrabold font-headline text-primary">Design System & Assets</h1>
-          <p className="text-xl text-muted-foreground">The visual foundation for NexTirupur.in - clean, professional, and accessible.</p>
+          <p className="text-xl text-muted-foreground">The visual foundation for NexIndia.in - clean, professional, and accessible.</p>
         </div>
 
         {/* Typography Section */}
@@ -34,7 +34,7 @@ export default function StyleGuidePage() {
             <div className="space-y-2">
               <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Body Font (Inter Regular)</p>
               <p className="text-lg leading-relaxed">
-                NexTirupur is built using the Inter font family. It is designed for high legibility and a modern aesthetic, making it perfect for both industrial dashboards and consumer job feeds.
+                NexIndia is built using the Inter font family. It is designed for high legibility and a modern aesthetic, making it perfect for both industrial dashboards and consumer job feeds.
               </p>
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function StyleGuidePage() {
         <section className="bg-muted p-8 rounded-3xl text-center space-y-4 border">
           <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto" />
           <h2 className="text-2xl font-bold font-headline">Ready for Deployment</h2>
-          <p className="text-muted-foreground max-w-md mx-auto">This template ensures consistency across the entire NexTirupur platform.</p>
+          <p className="text-muted-foreground max-w-md mx-auto">This template ensures consistency across the entire NexIndia platform.</p>
         </section>
       </main>
     </div>

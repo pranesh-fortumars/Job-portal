@@ -1,4 +1,4 @@
-# **App Name**: NexTirupur.in
+# **App Name**: NexIndia.in
 
 ## Core Features:
 

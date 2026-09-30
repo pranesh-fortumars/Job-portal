@@ -458,7 +458,7 @@ export default function EmployerProfilePage() {
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div className="space-y-2">
                   <CardTitle className="text-3xl md:text-5xl font-extrabold font-headline">{profileData.companyName || "Factory Dossier"}</CardTitle>
-                  <CardDescription className="text-primary-foreground/80 font-medium">Verify your industrial footprint in the Tirupur hub.</CardDescription>
+                  <CardDescription className="text-primary-foreground/80 font-medium">Verify your industrial footprint in the India hub.</CardDescription>
                 </div>
                 <div 
                   className="w-24 h-24 md:w-32 md:h-32 bg-white/10 backdrop-blur-md rounded-[2rem] border-4 border-white/20 flex items-center justify-center overflow-hidden cursor-pointer group relative shadow-2xl shrink-0"
