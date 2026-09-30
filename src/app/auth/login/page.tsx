@@ -438,7 +438,7 @@ function LoginContent() {
                 </div>
                 <p className="text-xs text-muted-foreground font-medium">One-click login with pre-loaded India mock data:</p>
 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <Button
                     type="button"
                     variant="outline"
