@@ -491,9 +491,28 @@ export default function SeekerDashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
           <div className="lg:col-span-2 space-y-6">
-            <h2 className="text-xl font-bold font-headline flex items-center gap-2 px-1">
+            
+            {/* AI Resume Builder Promo Card */}
+            <Card className="rounded-2xl border-none shadow-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-fuchsia-500 overflow-hidden relative group cursor-pointer" onClick={() => window.location.href = '/seeker/resume-builder'}>
+              <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay"></div>
+              <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+              <CardContent className="p-6 md:p-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="space-y-3 text-white text-center md:text-left">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 rounded-full text-xs font-bold uppercase tracking-widest backdrop-blur-md border border-white/20">
+                    <Zap className="w-3.5 h-3.5 text-yellow-300" /> New Feature
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-black tracking-tight leading-tight">Dynamic Resume Builder</h3>
+                  <p className="text-white/80 text-sm max-w-md">Generate a beautifully formatted, ATS-friendly PDF resume in minutes. Stand out to employers instantly.</p>
+                </div>
+                <Button className="shrink-0 bg-white text-indigo-600 hover:bg-white/90 font-bold shadow-lg rounded-xl h-12 px-8" onClick={(e) => { e.stopPropagation(); window.location.href = '/seeker/resume-builder'; }}>
+                  <FileText className="w-4 h-4 mr-2" /> Build Resume
+                </Button>
+              </CardContent>
+            </Card>
+
+            <h2 className="text-xl font-bold font-headline flex items-center gap-2 px-1 pt-2">
               <FileText className="w-5 h-5 text-primary" /> {t.appliedFor}
             </h2>
             
