@@ -76,23 +76,45 @@ function LoginContent() {
     setDemoLoading(roleKey);
     try {
       toast({
-        title: "⚡ Initializing Demo Mode",
-        description: `Authenticating Demo ${roleKey.toUpperCase()} & seeding Tirupur mock data...`,
+        title: "⚡ Initializing Direct Login",
+        description: `Authenticating Demo ${roleKey.toUpperCase()}...`,
       });
-      const result = await loginAsDemoUser(roleKey, auth, db);
-      if (result.success) {
-        toast({
-          title: "✅ Demo Login Successful",
-          description: `Welcome to Demo ${roleKey.toUpperCase()} mode!`,
-        });
-        router.push(result.redirectUrl);
+
+      let email = "";
+      if (roleKey === 'admin') email = 'admin@nextirupur.demo';
+      else if (roleKey === 'employer') email = 'employer@nextirupur.demo';
+      else if (roleKey === 'staff') email = 'staff@nextirupur.demo';
+      else email = 'worker@nextirupur.demo'; // 'worker'
+
+      // Direct Auth Login bypassing pre-login Firestore queries
+      await signInWithEmailAndPassword(auth, email, "123456");
+      
+      // Post-login, Firestore permissions should now allow read/write
+      // Now we can safely trigger the original mock data seeding!
+      try {
+        await loginAsDemoUser(roleKey, auth, db);
+      } catch (seedError) {
+        console.warn("Mock data seeding skipped or failed post-login:", seedError);
       }
+      
+      const userDoc = await getDoc(doc(db, "Users", auth.currentUser!.uid));
+      
+      if (userDoc.exists()) {
+         completeLogin(userDoc.data());
+      } else {
+         completeLogin({ role: roleKey === 'admin' ? 'admin' : roleKey === 'employer' ? 'employer' : 'job_seeker', onboarded: true });
+      }
+
+      toast({
+        title: "✅ Login Successful",
+        description: `Welcome to Demo ${roleKey.toUpperCase()} mode!`,
+      });
     } catch (error: any) {
-      console.error("Demo login error:", error);
+      console.error("Direct login error:", error);
       toast({
         variant: "destructive",
-        title: "Demo Login Failed",
-        description: error.message || "Failed to initialize demo mode.",
+        title: "Login Failed",
+        description: error.message || "Failed to initialize login mode.",
       });
     } finally {
       setDemoLoading(null);
@@ -215,25 +237,31 @@ function LoginContent() {
     }
 
     try {
-      const formattedPhone = `+91${sanitizedPhone}`;
+      // Formulate the default internal auth email for the phone number
+      const defaultAuthEmail = `${sanitizedPhone}@nextirupur.internal`.toLowerCase();
+
+      console.log("[Auth Audit] Attempting password login via formulated email:", { phone: sanitizedPhone });
+
+      // Try logging in directly to bypass unauthenticated Firestore permission rules
+      try {
+        await signInWithEmailAndPassword(auth, defaultAuthEmail, password);
+      } catch (authErr: any) {
+        // If the default internal email fails, it might be a legacy account that registered with a real email.
+        // But without backend Admin SDK we can't look up email by phone unauthenticated. 
+        // For standard flow, this defaultAuthEmail approach works.
+        throw authErr;
+      }
       
-      const usersRef = collection(db, "Users");
-      const q = query(usersRef, where("phone", "==", formattedPhone), limit(1));
-      const snap = await getDocs(q);
+      // Now that we are authenticated, we have permission to read our own user document
+      const userSnap = await getDoc(doc(db, "Users", auth.currentUser!.uid));
       
-      if (snap.empty) {
-        toast({ variant: "destructive", title: "Identity Error", description: "Mobile number not found in our industrial registry." });
+      if (!userSnap.exists()) {
+        toast({ variant: "destructive", title: "Identity Error", description: "Mobile number authenticated, but profile missing in our industrial registry." });
         setLoading(false);
         return;
       }
 
-      const userData = snap.docs[0].data();
-      // Ensure character-perfect email matching with trim and lowercase
-      const authEmail = (userData.email || `${sanitizedPhone}@nextirupur.internal`).toLowerCase().trim();
-
-      console.log("[Auth Audit] Attempting password login:", { authEmail, phone: sanitizedPhone });
-
-      await signInWithEmailAndPassword(auth, authEmail, password);
+      const userData = userSnap.data();
       
       if (userData.role) {
         completeLogin(userData);
