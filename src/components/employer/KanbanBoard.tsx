@@ -24,6 +24,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
+import { InterviewSchedulerModal } from "./InterviewSchedulerModal";
 import { Eye, MapPin, Briefcase, Phone, IndianRupee, MessageCircle, GripVertical, Calendar, Sparkles } from "lucide-react";
 import { translateLocation } from "@/lib/utils";
 
@@ -51,6 +52,7 @@ export function KanbanBoard({
   t: any;
 }) {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [interviewModalApp, setInterviewModalApp] = useState<any | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -123,6 +125,7 @@ export function KanbanBoard({
             items={columns[col.id]}
             onViewProfile={onViewProfile}
             onWhatsAppContact={onWhatsAppContact}
+            onScheduleClick={(app: any) => setInterviewModalApp(app)}
             t={t}
           />
         ))}
@@ -139,11 +142,24 @@ export function KanbanBoard({
           />
         ) : null}
       </DragOverlay>
+
+      {interviewModalApp && (
+        <InterviewSchedulerModal
+          isOpen={!!interviewModalApp}
+          onClose={() => setInterviewModalApp(null)}
+          candidateName={interviewModalApp.seekerName || "Candidate"}
+          jobTitle={interviewModalApp.jobTitle || "Job Role"}
+          onSchedule={(details) => {
+            onStatusChange(interviewModalApp, "interview_scheduled");
+            setInterviewModalApp(null);
+          }}
+        />
+      )}
     </DndContext>
   );
 }
 
-function KanbanColumn({ col, items, onViewProfile, onWhatsAppContact, t }: any) {
+function KanbanColumn({ col, items, onViewProfile, onWhatsAppContact, onScheduleClick, t }: any) {
   const { setNodeRef } = useSortable({
     id: col.id,
     data: { type: "Column", col }
@@ -172,6 +188,7 @@ function KanbanColumn({ col, items, onViewProfile, onWhatsAppContact, t }: any) 
                 t={t}
                 onViewProfile={onViewProfile}
                 onWhatsAppContact={onWhatsAppContact}
+                onScheduleClick={onScheduleClick}
               />
             ))}
             {items.length === 0 && (
@@ -205,7 +222,7 @@ function KanbanSortableCard(props: any) {
   );
 }
 
-function KanbanCard({ app, t, onViewProfile, onWhatsAppContact, isOverlay, attributes, listeners }: any) {
+function KanbanCard({ app, t, onViewProfile, onWhatsAppContact, onScheduleClick, isOverlay, attributes, listeners }: any) {
   return (
     <Card className={cn(
       "p-3 rounded-xl shadow-sm border border-slate-200 bg-white group hover:border-primary/30 transition-colors cursor-grab relative",
@@ -250,7 +267,7 @@ function KanbanCard({ app, t, onViewProfile, onWhatsAppContact, isOverlay, attri
            <Button variant="outline" size="icon" title="View Profile" className="h-7 w-7 rounded-lg shadow-none border-blue-200 text-blue-600 hover:bg-blue-50" onClick={(e) => { e.stopPropagation(); onViewProfile(app); }}>
              <Eye className="w-3.5 h-3.5" />
            </Button>
-           <Button variant="outline" size="icon" title="Schedule Interview" className="h-7 w-7 rounded-lg shadow-none border-indigo-200 text-indigo-600 hover:bg-indigo-50" onClick={(e) => { e.stopPropagation(); /* Additive logic for scheduling modal */ alert('Interview Scheduler Modal will open here.'); }}>
+           <Button variant="outline" size="icon" title="Schedule Interview" className="h-7 w-7 rounded-lg shadow-none border-indigo-200 text-indigo-600 hover:bg-indigo-50" onClick={(e) => { e.stopPropagation(); onScheduleClick(app); }}>
              <Calendar className="w-3.5 h-3.5" />
            </Button>
            <Button variant="outline" size="icon" title="WhatsApp Candidate" className="h-7 w-7 rounded-lg shadow-none border-green-200 text-green-600 hover:bg-green-50" onClick={(e) => { e.stopPropagation(); onWhatsAppContact(app); }}>
