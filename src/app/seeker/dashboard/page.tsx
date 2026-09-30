@@ -425,6 +425,11 @@ export default function SeekerDashboard() {
           </div>
           
           <div className="flex gap-2 w-full md:w-auto">
+            <Link href="/seeker/assessments" className="flex-1 md:flex-none">
+              <Button variant="outline" className="w-full border-green-200 text-green-700 bg-green-50 hover:bg-green-100 hover:text-green-800 font-bold h-11 px-4 rounded-xl transition-all active:scale-95">
+                <ShieldCheck className="mr-2 w-4 h-4 md:w-5 md:h-5" /> Badges
+              </Button>
+            </Link>
             <Link href="/seeker/alerts" className="flex-1 md:flex-none">
               <Button variant="outline" className="w-full border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 hover:text-amber-800 font-bold h-11 px-4 rounded-xl transition-all active:scale-95">
                 <Bell className="mr-2 w-4 h-4 md:w-5 md:h-5" /> Job Alerts
