@@ -39,9 +39,10 @@ function LoginContent() {
   const auth = useAuth();
   const db = useFirestore();
   
-  const [loginMethod, setLoginMethod] = useState<"otp" | "password">("otp");
+  const [loginMethod, setLoginMethod] = useState<"otp" | "password" | "email">("otp");
   const [step, setStep] = useState<"phone" | "otp" | "reconcile" | "role-select">("phone");
   const [phone, setPhone] = useState("");
+  const [emailInput, setEmailInput] = useState("");
   const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -273,6 +274,60 @@ function LoginContent() {
       let errorMessage = "Incorrect mobile number or password. Please verify and try again.";
       if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
         errorMessage = "Incorrect mobile number or password. Please verify and try again.";
+      }
+      toast({ variant: "destructive", title: "Login Failed", description: errorMessage });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailInput || !password) return;
+
+    setLoading(true);
+
+    try {
+      await signInWithEmailAndPassword(auth, emailInput.toLowerCase().trim(), password);
+      
+      // Align with mock login: Trigger data seeding if a demo account was used
+      const demoEmailMap: Record<string, any> = {
+        'admin@nexindia.demo': 'admin',
+        'employer@nexindia.demo': 'employer',
+        'staff@nexindia.demo': 'staff',
+        'worker@nexindia.demo': 'worker'
+      };
+      
+      const roleKey = demoEmailMap[emailInput.toLowerCase().trim()];
+      if (roleKey) {
+        try {
+          console.log(`[Demo Sync] Triggering mock seeding for ${roleKey} via Email Login`);
+          await loginAsDemoUser(roleKey, auth, db);
+        } catch (seedError) {
+          console.warn("Mock data seeding skipped or failed post-login:", seedError);
+        }
+      }
+
+      const userSnap = await getDoc(doc(db, "Users", auth.currentUser!.uid));
+      
+      if (!userSnap.exists()) {
+        toast({ variant: "destructive", title: "Identity Error", description: "Email authenticated, but profile missing in our registry." });
+        setLoading(false);
+        return;
+      }
+
+      const userData = userSnap.data();
+      
+      if (userData.role) {
+        completeLogin(userData);
+      } else {
+        setStep("role-select");
+      }
+    } catch (error: any) {
+      console.error("Email Auth Error:", error);
+      let errorMessage = "Incorrect email or password. Please verify and try again.";
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+        errorMessage = "Incorrect email or password. Please verify and try again.";
       }
       toast({ variant: "destructive", title: "Login Failed", description: errorMessage });
     } finally {
@@ -577,9 +632,10 @@ function LoginContent() {
               </form>
             ) : (
               <Tabs value={loginMethod} onValueChange={(v: any) => setLoginMethod(v)} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 h-12 bg-muted/40 rounded-xl p-1 mb-8">
+                <TabsList className="grid w-full grid-cols-3 h-12 bg-muted/40 rounded-xl p-1 mb-8">
                   <TabsTrigger value="otp" className="rounded-lg font-semibold text-xs uppercase data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all">Via OTP</TabsTrigger>
                   <TabsTrigger value="password" className="rounded-lg font-semibold text-xs uppercase data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all">Via Password</TabsTrigger>
+                  <TabsTrigger value="email" className="rounded-lg font-semibold text-xs uppercase data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all">Via Email</TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="otp" className="space-y-5 m-0 animate-in fade-in slide-in-from-left-2 duration-300">
@@ -631,6 +687,44 @@ function LoginContent() {
                       </div>
                     </div>
                     <Button type="submit" className="w-full h-12 bg-primary text-white font-medium rounded-xl shadow-lg" disabled={phone.replace(/\D/g, "").slice(-10).length !== 10 || !password || loading}>
+                      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Secure Login"}
+                    </Button>
+                  </form>
+                </TabsContent>
+
+                <TabsContent value="email" className="space-y-5 m-0 animate-in fade-in slide-in-from-right-2 duration-300">
+                  <form onSubmit={handleEmailLogin} className="space-y-5">
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label className="font-medium text-xs uppercase text-muted-foreground ml-1">Email Address</Label>
+                        <div className="relative">
+                          <Input type="email" placeholder="name@company.com" className="pl-4 h-12 text-lg font-semibold rounded-xl border-primary/20" value={emailInput} onChange={(e) => setEmailInput(e.target.value)} required />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="font-medium text-xs uppercase text-muted-foreground ml-1">Password</Label>
+                        <div className="relative">
+                          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                          <Input 
+                            type={showPassword ? "text" : "password"} 
+                            placeholder="••••••••" 
+                            className="pl-10 pr-10 h-12 rounded-xl font-medium border-primary/20" 
+                            value={password} 
+                            onChange={e => setPassword(e.target.value)} 
+                            required 
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
+                            aria-label={showPassword ? "Hide password" : "Show password"}
+                          >
+                            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <Button type="submit" className="w-full h-12 bg-primary text-white font-medium rounded-xl shadow-lg" disabled={!emailInput || !password || loading}>
                       {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Secure Login"}
                     </Button>
                   </form>
