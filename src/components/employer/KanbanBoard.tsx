@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
 import { InterviewSchedulerModal } from "./InterviewSchedulerModal";
-import { Eye, MapPin, Briefcase, Phone, IndianRupee, MessageCircle, GripVertical, Calendar, Sparkles } from "lucide-react";
+import { Eye, MapPin, Briefcase, Phone, IndianRupee, MessageCircle, GripVertical, Calendar, Sparkles, MessageSquare } from "lucide-react";
 import { translateLocation } from "@/lib/utils";
 
 // Kanban Columns Mapping

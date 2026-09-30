@@ -20,7 +20,8 @@ import {
   Facebook,
   Instagram,
   Send,
-  Phone
+  Phone,
+  MessageSquare
 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";

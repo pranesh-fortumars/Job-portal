@@ -78,7 +78,8 @@ import {
   BadgeInfo,
   EyeOff,
   Database,
-  CalendarClock
+  CalendarClock,
+  Crown
 } from "lucide-react";
 import { 
   Dialog, 
@@ -1050,6 +1051,26 @@ export default function EmployerDashboard() {
              </Button>
           </div>
         </div>
+
+        {/* Phase 4 Monetization: Top Up Banner */}
+        {counts.drafts >= 0 && (
+          <Card className="rounded-[2.5rem] border-none shadow-xl bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 overflow-hidden relative cursor-pointer group" onClick={() => router.push('/pricing')}>
+            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-white/20 to-transparent"></div>
+            <CardContent className="p-6 md:p-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="space-y-2 text-white">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/20 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-md">
+                  <Zap className="w-3.5 h-3.5 text-yellow-300" /> Premium Hiring
+                </div>
+                <h3 className="text-xl md:text-2xl font-black tracking-tight">Need to hire fast? Get more Job Posts.</h3>
+                <p className="text-white/90 text-sm font-medium">Buy a job pack to access Resdex, Candidate Chat, and unlimited applicant management.</p>
+              </div>
+              <Button className="shrink-0 bg-white text-orange-600 hover:bg-white/90 font-black shadow-lg rounded-xl h-12 px-8" onClick={(e) => { e.stopPropagation(); router.push('/pricing'); }}>
+                Buy Job Pack <ChevronRight className="w-4 h-4 ml-2" />
+              </Button>
+            </CardContent>
+          </Card>
+        )}
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
           <div className="w-full overflow-x-auto pb-4 pt-2 -mx-4 px-4 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
