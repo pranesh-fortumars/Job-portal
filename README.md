@@ -66,6 +66,19 @@ You can use the following credentials to bypass OTP and log into different roles
 
 ---
 
+### 🔑 Demo Login Credentials
+
+For testing and demonstration, use the following pre-configured accounts:
+
+| Role | Email | Password | Phone |
+|:---|:---|:---|:---|
+| **Super Admin** | admin@nextindia.demo | demo123password | 9000000001 |
+| **Employer** | employer@nextindia.demo | demo123password | 9000000002 |
+| **Worker (Seeker)**| worker@nextindia.demo | demo123password | 9000000003 |
+| **Staff (Seeker)** | staff@nextindia.demo | demo123password | 9000000004 |
+
+---
+
 ### ⏳ Pending (Final Polish)
 - [ ] Production Database Integration (Firestore).
 - [ ] Production Asset Storage (Firebase Storage).
