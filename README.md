@@ -53,6 +53,19 @@ The most trusted digital bridge for India's Garment Industry.
 
 ---
 
+### 🔑 Demo Login Credentials
+
+You can use the following credentials to bypass OTP and log into different roles directly via the `/auth/login` route.
+
+| Role | Email | Password |
+|:---|:---|:---|
+| **Super Admin** | `admin@nextindia.demo` | `demo123password` |
+| **Employer** | `employer@nextindia.demo` | `demo123password` |
+| **Job Seeker (Worker)** | `worker@nextindia.demo` | `demo123password` |
+| **Job Seeker (Staff)** | `staff@nextindia.demo` | `demo123password` |
+
+---
+
 ### ⏳ Pending (Final Polish)
 - [ ] Production Database Integration (Firestore).
 - [ ] Production Asset Storage (Firebase Storage).
