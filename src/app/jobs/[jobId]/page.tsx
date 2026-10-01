@@ -563,37 +563,6 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
     return typeMap[job.salaryType] || "Salary Not Disclosed";
   }, [job?.salaryType, job?.salaryMin, job?.salaryMax, isPieceRate, t]);
 
-  if (jobLoading) return <div className="min-h-screen flex items-center justify-center font-bold"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>;
-  if (!job) return <div className="min-h-screen flex items-center justify-center font-bold">Job Not Found</div>;
-
-  const b = job.benefits || {};
-  const isJobSeeker = currentUserProfile?.role === 'job_seeker';
-  const showApplicationForm = user && isJobSeeker && !applied && !isClosed && currentUserProfile?.onboarded;
-
-  const benefitsList = [
-    { id: 'esi', label: 'ESI & EPF', icon: <ShieldCheck className="w-5 h-5" /> },
-    { id: 'attendance_incentive', label: 'Attendance Incentive', icon: <Timer className="w-5 h-5" /> },
-    { id: 'overtime_pay', label: 'Overtime Pay (OT)', icon: <Clock className="w-5 h-5" /> },
-    { id: 'production_incentive', label: 'Production Incentive', icon: <Zap className="w-5 h-5" /> },
-    { id: 'referral_bonus', label: 'Referral Bonus', icon: <Users className="w-5 h-5" /> },
-    { id: 'transport', label: t.transport, icon: <Bus className="w-5 h-5" /> },
-    { id: 'bachelor_accommodation', label: 'Bachelor Accommodation', icon: <Home className="w-5 h-5" /> },
-    { id: 'family_accommodation', label: 'Family Accommodation', icon: <Home className="w-5 h-5" /> },
-    { id: 'food', label: 'Free Meals', icon: <ShoppingBag className="w-5 h-5" /> },
-    { id: 'mobile_allowance', label: 'Mobile Allowance', icon: <Smartphone className="w-5 h-5" /> },
-    { id: 'petrol_allowance', label: 'Petrol Allowance', icon: <Navigation className="w-5 h-5" /> },
-    { id: 'skill_training', label: 'Skill Training', icon: <GraduationCap className="w-5 h-5" /> },
-    { id: 'teaCash', label: t.teaCash, icon: <Coffee className="w-5 h-5" /> },
-    { id: 'bonusEnabled', label: t.bonus, icon: <Gift className="w-5 h-5" /> },
-    { id: 'accommodation', label: t.accommodation, icon: <Home className="w-5 h-5" /> },
-  ];
-
-  const getSalaryUnit = (basis?: string) => {
-    if (basis === 'shift') return t.perShift;
-    if (basis === 'piece') return t.perPiece;
-    return t.perMonth;
-  };
-
   const jsonLd = useMemo(() => {
     if (!job) return null;
     return {
@@ -629,6 +598,37 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
       }
     };
   }, [job]);
+
+  if (jobLoading) return <div className="min-h-screen flex items-center justify-center font-bold"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>;
+  if (!job) return <div className="min-h-screen flex items-center justify-center font-bold">Job Not Found</div>;
+
+  const b = job.benefits || {};
+  const isJobSeeker = currentUserProfile?.role === 'job_seeker';
+  const showApplicationForm = user && isJobSeeker && !applied && !isClosed && currentUserProfile?.onboarded;
+
+  const benefitsList = [
+    { id: 'esi', label: 'ESI & EPF', icon: <ShieldCheck className="w-5 h-5" /> },
+    { id: 'attendance_incentive', label: 'Attendance Incentive', icon: <Timer className="w-5 h-5" /> },
+    { id: 'overtime_pay', label: 'Overtime Pay (OT)', icon: <Clock className="w-5 h-5" /> },
+    { id: 'production_incentive', label: 'Production Incentive', icon: <Zap className="w-5 h-5" /> },
+    { id: 'referral_bonus', label: 'Referral Bonus', icon: <Users className="w-5 h-5" /> },
+    { id: 'transport', label: t.transport, icon: <Bus className="w-5 h-5" /> },
+    { id: 'bachelor_accommodation', label: 'Bachelor Accommodation', icon: <Home className="w-5 h-5" /> },
+    { id: 'family_accommodation', label: 'Family Accommodation', icon: <Home className="w-5 h-5" /> },
+    { id: 'food', label: 'Free Meals', icon: <ShoppingBag className="w-5 h-5" /> },
+    { id: 'mobile_allowance', label: 'Mobile Allowance', icon: <Smartphone className="w-5 h-5" /> },
+    { id: 'petrol_allowance', label: 'Petrol Allowance', icon: <Navigation className="w-5 h-5" /> },
+    { id: 'skill_training', label: 'Skill Training', icon: <GraduationCap className="w-5 h-5" /> },
+    { id: 'teaCash', label: t.teaCash, icon: <Coffee className="w-5 h-5" /> },
+    { id: 'bonusEnabled', label: t.bonus, icon: <Gift className="w-5 h-5" /> },
+    { id: 'accommodation', label: t.accommodation, icon: <Home className="w-5 h-5" /> },
+  ];
+
+  const getSalaryUnit = (basis?: string) => {
+    if (basis === 'shift') return t.perShift;
+    if (basis === 'piece') return t.perPiece;
+    return t.perMonth;
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
