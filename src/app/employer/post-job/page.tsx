@@ -43,7 +43,11 @@ import {
   ChevronRight,
   RefreshCw,
   Navigation,
-  GraduationCap
+  GraduationCap,
+  PhoneCall,
+  MessageCircle,
+  Bike,
+  Flame
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -206,6 +210,21 @@ export default function PostJobPage() {
   const [auditExperience, setAuditExperience] = useState("");
   const [certifications, setCertifications] = useState("");
 
+  // Job Hai Specific Employer Parameters
+  const [allowDirectCalls, setAllowDirectCalls] = useState(true);
+  const [callingContactNumber, setCallingContactNumber] = useState("");
+  const [callingWindowStart, setCallingWindowStart] = useState("10:00");
+  const [callingWindowEnd, setCallingWindowEnd] = useState("18:30");
+  const [allowWhatsApp, setAllowWhatsApp] = useState(true);
+  const [isUrgentHiring, setIsUrgentHiring] = useState(false);
+  const [hireIn48Hours, setHireIn48Hours] = useState(true);
+  const [assetsRequired, setAssetsRequired] = useState({
+    twoWheeler: false,
+    drivingLicense: false,
+    smartphone: true,
+    laptop: false
+  });
+
   useEffect(() => {
     if (salaryBasis === 'piece') {
       setSalaryMin("N/A");
@@ -225,8 +244,11 @@ export default function PostJobPage() {
       if (!location) setLocation(profileLocation);
       if (latitude === null && userData.latitude) setLatitude(userData.latitude);
       if (longitude === null && userData.longitude) setLongitude(userData.longitude);
+      if (!callingContactNumber) {
+        setCallingContactNumber(userData.contactNumber || userData.phone || "");
+      }
     }
-  }, [userData, draftId, location, latitude, longitude]);
+  }, [userData, draftId, location, latitude, longitude, callingContactNumber]);
 
   const masterDesignationsQuery = useMemo(() => db ? query(collection(db, "Designations")) : null, [db]);
   const { data: masterDesignations } = useCollection<any>(masterDesignationsQuery);
@@ -257,6 +279,16 @@ export default function PostJobPage() {
           setInterviewEndDate(data.interviewEndDate || null);
           setShiftTiming(data.shiftTiming || data.interviewTimings || "");
           setAutoCloseDate(data.autoCloseDate || null);
+          if (data.allowDirectCalls !== undefined) setAllowDirectCalls(data.allowDirectCalls);
+          if (data.callingContactNumber) setCallingContactNumber(data.callingContactNumber);
+          if (data.callingWindow) {
+            setCallingWindowStart(data.callingWindow.start || "10:00");
+            setCallingWindowEnd(data.callingWindow.end || "18:30");
+          }
+          if (data.allowWhatsApp !== undefined) setAllowWhatsApp(data.allowWhatsApp);
+          if (data.isUrgentHiring !== undefined) setIsUrgentHiring(data.isUrgentHiring);
+          if (data.hireIn48Hours !== undefined) setHireIn48Hours(data.hireIn48Hours);
+          if (data.assetsRequired) setAssetsRequired({ ...assetsRequired, ...data.assetsRequired });
           if (data.benefits) setBenefits({ ...benefits, ...data.benefits });
           if (data.category === 'Technical') {
             setCoreSkills(data.coreSkills || []);
@@ -326,6 +358,17 @@ export default function PostJobPage() {
     autoCloseDate, benefits,
     isEmployerVerified: userData?.status === 'approved',
     status, createdAt: new Date().toISOString(),
+    // Job Hai Attributes
+    allowDirectCalls,
+    callingContactNumber: callingContactNumber || userData?.phone || userData?.contactNumber || "",
+    callingWindow: {
+      start: callingWindowStart,
+      end: callingWindowEnd
+    },
+    allowWhatsApp,
+    isUrgentHiring,
+    hireIn48Hours,
+    assetsRequired,
     ...(category === 'Technical' ? { coreSkills, buyersHandled, auditExperience, certifications } : {})
   });
 
@@ -633,7 +676,139 @@ export default function PostJobPage() {
                        )}
                     </section>
 
-                    <section className="space-y-8">
+                    
+                     {/* Job Hai Specific: Candidate Direct Communication & Frontline Criteria */}
+                     <section className="space-y-8 bg-blue-50/50 p-6 sm:p-8 rounded-[2.5rem] border-2 border-blue-200/80">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-blue-200/80 pb-4">
+                           <h3 className="text-xl font-bold text-blue-950 flex items-center gap-2">
+                              <PhoneCall className="w-6 h-6 text-blue-600" /> Candidate Direct Contact & Frontline Requirements
+                           </h3>
+                           <Badge className="w-fit bg-blue-600 text-white font-bold text-xs uppercase px-3 py-1">
+                              Job Hai Mode
+                           </Badge>
+                        </div>
+
+                        <div className="space-y-6">
+                           <div className="flex items-start sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-blue-200/80 shadow-sm">
+                              <div className="space-y-1">
+                                 <div className="flex items-center gap-2 font-bold text-sm text-foreground">
+                                    <PhoneCall className="w-4 h-4 text-emerald-600" /> Allow Candidates to Call You Directly
+                                 </div>
+                                 <p className="text-xs text-muted-foreground">
+                                    Qualified candidates can call you directly on your verified number during your calling window.
+                                 </p>
+                              </div>
+                              <input 
+                                 type="checkbox"
+                                 id="allowDirectCalls"
+                                 checked={allowDirectCalls}
+                                 onChange={(e) => setAllowDirectCalls(e.target.checked)}
+                                 className="w-5 h-5 accent-blue-600 rounded cursor-pointer mt-1 sm:mt-0"
+                              />
+                           </div>
+
+                           {allowDirectCalls && (
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-5 rounded-2xl bg-white/90 border border-blue-200 animate-in fade-in duration-200">
+                                 <div className="space-y-2">
+                                    <Label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                                       Direct Calling Number
+                                    </Label>
+                                    <Input 
+                                       value={callingContactNumber}
+                                       onChange={(e) => setCallingContactNumber(e.target.value)}
+                                       placeholder="e.g. 9876543210"
+                                       className="h-11 rounded-xl font-semibold bg-white border-blue-200"
+                                    />
+                                 </div>
+                                 <div className="space-y-2">
+                                    <Label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                                       Calling Window Start
+                                    </Label>
+                                    <Input 
+                                       type="time"
+                                       value={callingWindowStart}
+                                       onChange={(e) => setCallingWindowStart(e.target.value)}
+                                       className="h-11 rounded-xl font-semibold bg-white border-blue-200"
+                                    />
+                                 </div>
+                                 <div className="space-y-2">
+                                    <Label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                                       Calling Window End
+                                    </Label>
+                                    <Input 
+                                       type="time"
+                                       value={callingWindowEnd}
+                                       onChange={(e) => setCallingWindowEnd(e.target.value)}
+                                       className="h-11 rounded-xl font-semibold bg-white border-blue-200"
+                                    />
+                                 </div>
+                                 <p className="sm:col-span-3 text-[11px] text-muted-foreground italic">
+                                    * Callers outside this window will be told direct calling is closed and prompted to send an application instead.
+                                 </p>
+                              </div>
+                           )}
+
+                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              <div 
+                                 onClick={() => setAllowWhatsApp(!allowWhatsApp)}
+                                 className={cn(
+                                    "flex items-center gap-3 p-4 rounded-2xl border-2 transition-all cursor-pointer",
+                                    allowWhatsApp ? "bg-emerald-50 border-emerald-400 text-emerald-950 shadow-sm" : "bg-white border-muted text-muted-foreground opacity-60"
+                                 )}
+                              >
+                                 <MessageCircle className="w-5 h-5 text-emerald-600" />
+                                 <div className="text-xs">
+                                    <span className="font-bold block uppercase tracking-tight">Allow WhatsApp Chats</span>
+                                    <span className="text-[11px] text-muted-foreground">Receive instant candidate WhatsApp intros</span>
+                                 </div>
+                              </div>
+
+                              <div 
+                                 onClick={() => setHireIn48Hours(!hireIn48Hours)}
+                                 className={cn(
+                                    "flex items-center gap-3 p-4 rounded-2xl border-2 transition-all cursor-pointer",
+                                    hireIn48Hours ? "bg-amber-50 border-amber-400 text-amber-950 shadow-sm" : "bg-white border-muted text-muted-foreground opacity-60"
+                                 )}
+                              >
+                                 <Flame className="w-5 h-5 text-amber-600" />
+                                 <div className="text-xs">
+                                    <span className="font-bold block uppercase tracking-tight">Hire in 48 Hours Badge</span>
+                                    <span className="text-[11px] text-muted-foreground">Highlights listing as fast-track urgent hiring</span>
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div className="space-y-3 pt-2">
+                              <Label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                                 Mandatory Candidate Assets (Frontline / Field Requirements):
+                              </Label>
+                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                 {[
+                                    { key: 'twoWheeler', label: '2-Wheeler / Bike', icon: <Bike className="w-4 h-4 text-blue-600" /> },
+                                    { key: 'drivingLicense', label: 'Driving License', icon: <Navigation className="w-4 h-4 text-purple-600" /> },
+                                    { key: 'smartphone', label: 'Smartphone', icon: <Smartphone className="w-4 h-4 text-emerald-600" /> },
+                                    { key: 'laptop', label: 'Laptop / PC', icon: <Briefcase className="w-4 h-4 text-indigo-600" /> },
+                                 ].map((asset) => (
+                                    <div
+                                       key={asset.key}
+                                       onClick={() => setAssetsRequired({ ...assetsRequired, [asset.key]: !(assetsRequired as any)[asset.key] })}
+                                       className={cn(
+                                          "flex items-center gap-2 p-3 rounded-xl border transition-all cursor-pointer select-none",
+                                          (assetsRequired as any)[asset.key]
+                                             ? "bg-white border-blue-500 text-foreground font-bold shadow-sm"
+                                             : "bg-white/50 border-gray-200 text-muted-foreground opacity-60 hover:opacity-100"
+                                       )}
+                                    >
+                                       {asset.icon}
+                                       <span className="text-xs">{asset.label}</span>
+                                    </div>
+                                 ))}
+                              </div>
+                           </div>
+                        </div>
+                     </section>
+
+<section className="space-y-8">
                        <h3 className="text-xl font-semibold text-primary flex items-center gap-2 border-b-2 border-primary/10 pb-2">
                           <FileText className="w-6 h-6" /> Job Dossier
                        </h3>
