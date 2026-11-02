@@ -847,6 +847,27 @@ export default function EmployerDashboard() {
     }
   };
 
+  const handleCallDisposition = async (app: any, disposition: string) => {
+    if (!db) return;
+    try {
+      const appRef = doc(db, "Applications", app.id);
+      await updateDoc(appRef, {
+        callDisposition: disposition,
+        lastContactedAt: new Date().toISOString()
+      });
+      const labelMap: Record<string, string> = {
+        connected_interview_scheduled: "Interview Scheduled",
+        did_not_pick_up: "No Answer / Did Not Pick Up",
+        call_later: "Call Back Later",
+        not_interested: "Candidate Not Interested"
+      };
+      toast({ title: "Call Outcome Logged", description: labelMap[disposition] || disposition });
+    } catch (err) {
+      console.error("Error updating call disposition:", err);
+      toast({ variant: "destructive", title: "Update Failed", description: "Could not log call outcome." });
+    }
+  };
+
   const handleReportCandidate = (app: any) => {
     setReportingCandidate(app);
     setReportReason("");
@@ -1117,6 +1138,7 @@ export default function EmployerDashboard() {
                  applications={liveApps} 
                  onStatusChange={handleUpdateStatus}
                  onViewProfile={setSelectedApp}
+                 onCallDispositionChange={handleCallDisposition}
                  onWhatsAppContact={(app: any) => {
                     if (app.phone) {
                       window.open(`https://wa.me/91${app.phone.replace(/\D/g, "")}?text=${encodeURIComponent(generateCandidateShortlistMessage(app))}`, '_blank');
