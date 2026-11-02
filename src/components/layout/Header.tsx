@@ -21,7 +21,8 @@ import {
   Instagram,
   Send,
   Phone,
-  MessageSquare
+  MessageSquare,
+  Briefcase
 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
@@ -190,6 +191,13 @@ export function Header() {
              </Button>
           </Link>
 
+          {/* Job Hai Employer Funnel CTA */}
+          <Link href="/hire" className="hidden lg:flex items-center justify-center">
+             <Button className="bg-blue-600 hover:bg-blue-700 text-white font-black px-3.5 h-10 text-xs rounded-xl shadow-md transition-all active:scale-95 gap-1.5">
+                 <Briefcase className="w-3.5 h-3.5" /> Hire Staff (48h)
+             </Button>
+          </Link>
+
           {isLoggedIn ? (
             <div className="flex items-center gap-1 sm:gap-2">
               <Link href={getDashboardLink()}>
@@ -277,6 +285,7 @@ export function Header() {
                       {isLoggedIn && <NavItem href={getDashboardLink()} icon={LayoutDashboard} label={t.dashboard} pathname={pathname} />}
                       {isLoggedIn && <NavItem href={getProfileLink()} icon={User} label={t.profile} pathname={pathname} />}
                       <NavItem href="/jobs" icon={Search} label={t.findJobs} pathname={pathname} />
+                      <NavItem href="/hire" icon={Briefcase} label="Hire Staff (Free)" pathname={pathname} />
                       <NavItem href="/communities" icon={MessageCircle} label={t.whatsappCommunity} pathname={pathname} />
                       {showEmployerOptions && (
                         <>

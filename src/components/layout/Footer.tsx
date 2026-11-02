@@ -27,7 +27,7 @@ export function Footer() {
   return (
     <footer className="bg-muted/30 border-t pt-16 pb-8 px-4">
       <div className="max-w-7xl mx-auto w-full space-y-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand Identity */}
           <div className="space-y-6">
             <AppLogo width={160} height={60} />
@@ -47,13 +47,23 @@ export function Footer() {
             </div>
           </div>
 
+          {/* For Employers & Recruiters (Job Hai Funnel) */}
+          <div className="space-y-6">
+            <h4 className="font-semibold uppercase text-[11px] tracking-widest text-blue-600">For Recruiters</h4>
+            <ul className="space-y-4">
+              <li><Link href="/hire" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" /> Hire Staff (48 Hours)</Link></li>
+              <li><Link href="/employer/post-job" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" /> Post a Free Job</Link></li>
+              <li><Link href="/employer/resdex" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" /> Search Candidates (Resdex)</Link></li>
+              <li><Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" /> Employer Pricing Plans</Link></li>
+            </ul>
+          </div>
+
           {/* Industrial & IT Hub */}
           <div className="space-y-6">
             <h4 className="font-semibold uppercase text-[11px] tracking-widest text-primary">Job & Career Hub</h4>
             <ul className="space-y-4">
               <li><Link href="/jobs" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" /> {t.findJobs}</Link></li>
               <li><Link href="/communities" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" /> {t.whatsappCommunity}</Link></li>
-              <li><Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" /> {t.plans}</Link></li>
               <li><Link href="/cancellation-refund" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" /> {t.cancellationPolicy}</Link></li>
             </ul>
           </div>
