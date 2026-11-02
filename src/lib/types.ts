@@ -195,6 +195,22 @@ export interface JobListing {
   autoCloseDate?: string | null;
   closedBy?: 'employer' | 'admin' | 'auto' | null;
   closedAt?: string | null;
+  // Job Hai Specific Employer & Candidate Interaction Attributes
+  allowDirectCalls?: boolean;
+  callingContactNumber?: string;
+  callingWindow?: {
+    start: string; // e.g. "09:00"
+    end: string;   // e.g. "19:00"
+  };
+  allowWhatsApp?: boolean;
+  isUrgentHiring?: boolean;
+  hireIn48Hours?: boolean;
+  assetsRequired?: {
+    twoWheeler?: boolean;
+    drivingLicense?: boolean;
+    smartphone?: boolean;
+    laptop?: boolean;
+  };
 }
 
 export interface Application {
@@ -213,7 +229,9 @@ export interface Application {
   phone?: string;
   companyName?: string;
   preferredInterviewDate?: string | null;
-  expectedSalary?: string | null; 
+  expectedSalary?: string | null;
+  callDisposition?: 'connected_interview_scheduled' | 'did_not_pick_up' | 'call_later' | 'not_interested' | null;
+  lastContactedAt?: string | null;
 }
 
 export interface Payment {
