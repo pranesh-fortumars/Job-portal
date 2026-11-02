@@ -15,6 +15,8 @@ import {
   ArrowRight,
   ShieldCheck,
   Phone,
+  PhoneCall,
+  Bike,
   MessageCircle,
   Flag,
   Calendar as CalendarIcon,
@@ -197,6 +199,35 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
     if (interviewEndDateStr && isBefore(addDays(startOfDay(new Date(interviewEndDateStr)), 1), now)) return true;
     return false;
   }, [job]);
+
+  // Job Hai Direct Calling Status
+  const directCallingInfo = useMemo(() => {
+    if (!job || !job.allowDirectCalls) return null;
+    const phone = job.callingContactNumber || employerData?.phone || employerData?.contactNumber;
+    if (!phone) return null;
+
+    const start = job.callingWindow?.start || "10:00";
+    const end = job.callingWindow?.end || "18:30";
+
+    const now = new Date();
+    const currentHours = now.getHours();
+    const currentMins = now.getMinutes();
+    const currentVal = currentHours * 60 + currentMins;
+
+    const [sH, sM] = start.split(':').map(Number);
+    const [eH, eM] = end.split(':').map(Number);
+    const startVal = (sH || 10) * 60 + (sM || 0);
+    const endVal = (eH || 18) * 60 + (eM || 30);
+
+    const isOpenNow = currentVal >= startVal && currentVal <= endVal;
+
+    return {
+      phone,
+      start,
+      end,
+      isOpenNow
+    };
+  }, [job, employerData]);
 
   const isClosed = useMemo(() => {
     if (!job) return false;
@@ -669,6 +700,16 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
                     <div className="flex items-center gap-3 flex-wrap">
                       <Badge variant="secondary" className="bg-primary/10 text-primary font-black px-4 py-1.5 rounded-lg border-none">{job.category}</Badge>
                       <Badge variant="outline" className="border-primary/20 text-primary font-bold px-4 py-1.5 rounded-lg">{job.workType}</Badge>
+                      {job.hireIn48Hours && (
+                        <Badge className="bg-amber-500 hover:bg-amber-600 text-white font-black px-4 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm text-xs">
+                          <Zap className="w-3.5 h-3.5 fill-current" /> Hire in 48 Hours
+                        </Badge>
+                      )}
+                      {job.allowDirectCalls && (
+                        <Badge className="bg-blue-600 hover:bg-blue-700 text-white font-black px-4 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm text-xs">
+                          <PhoneCall className="w-3.5 h-3.5" /> Direct Calling Available
+                        </Badge>
+                      )}
                       <Badge variant="outline" className="border-primary/10 text-muted-foreground font-black px-4 py-1.5 rounded-lg bg-muted/5 flex items-center gap-1.5 uppercase text-[10px]">
                         <CalendarIcon className="w-3.5 h-3.5" /> Posted: {formattedPostedDate}
                       </Badge>
@@ -715,24 +756,49 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
                          {isSuspended ? "Recruitment Halted" : (isInterviewPassed ? "🔒 Interview Passed" : t.expired)}
                       </Button>
                     ) : (
-                      <div className="flex flex-col sm:flex-row gap-4 w-full">
-                        <Button disabled={applying} onClick={handleApply} className="flex-1 h-16 md:h-20 bg-accent hover:bg-accent/90 text-accent-foreground font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 group">
-                          {applying ? <Loader2 className="w-6 h-6 animate-spin" /> : <>{t.applyNow} <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" /></>}
-                        </Button>
-                        <Button 
-                          onClick={() => {
-                            if (!employerData?.phone) {
-                              toast({ variant: "destructive", title: "Contact Unavailable", description: "This employer has not provided a WhatsApp contact." });
-                              return;
-                            }
-                            const msg = `Hi, I am interested in the ${job.jobTitle || job.designation} position at ${job.companyName}. I found this on NexIndia.in.`;
-                            window.open(`https://wa.me/${employerData.phone.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank');
-                          }}
-                          className="flex-1 h-16 md:h-20 bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-2 transition-all active:scale-95 group"
-                        >
-                          <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform" /> WhatsApp Apply
-                        </Button>
-                      </div>
+                      <>
+                        {directCallingInfo && !isClosed && !isSuspended && (
+                          <div className="mb-4 p-4 rounded-2xl bg-blue-50 border-2 border-blue-200 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-bold text-blue-900 flex items-center gap-1.5">
+                                <PhoneCall className="w-4 h-4 text-blue-600" /> Direct Calling to Recruiter
+                              </span>
+                              <Badge className={directCallingInfo.isOpenNow ? "bg-emerald-600 text-white text-[10px]" : "bg-amber-500 text-white text-[10px]"}>
+                                {directCallingInfo.isOpenNow ? "Calling Open Now" : `Calling Hours: ${directCallingInfo.start} - ${directCallingInfo.end}`}
+                              </Badge>
+                            </div>
+                            {directCallingInfo.isOpenNow ? (
+                              <a href={`tel:${directCallingInfo.phone.replace(/\D/g, '')}`} className="block">
+                                <Button className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-2">
+                                  <PhoneCall className="w-4 h-4" /> Call Recruiter Directly Now
+                                </Button>
+                              </a>
+                            ) : (
+                              <p className="text-[11px] text-blue-800 italic">
+                                * Recruiter accepts calls between {directCallingInfo.start} and {directCallingInfo.end}. Please apply online below in the meantime.
+                              </p>
+                            )}
+                          </div>
+                        )}
+                        <div className="flex flex-col sm:flex-row gap-4 w-full">
+                          <Button disabled={applying} onClick={handleApply} className="flex-1 h-16 md:h-20 bg-accent hover:bg-accent/90 text-accent-foreground font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 group">
+                            {applying ? <Loader2 className="w-6 h-6 animate-spin" /> : <>{t.applyNow} <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" /></>}
+                          </Button>
+                          <Button 
+                            onClick={() => {
+                              if (!employerData?.phone) {
+                                toast({ variant: "destructive", title: "Contact Unavailable", description: "This employer has not provided a WhatsApp contact." });
+                                return;
+                              }
+                              const msg = `Hi, I am interested in the ${job.jobTitle || job.designation} position at ${job.companyName}. I found this on NexIndia.in.`;
+                              window.open(`https://wa.me/${employerData.phone.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank');
+                            }}
+                            className="flex-1 h-16 md:h-20 bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-xl md:text-2xl rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-2 transition-all active:scale-95 group"
+                          >
+                            <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform" /> WhatsApp Apply
+                          </Button>
+                        </div>
+                      </>
                     )}
                   </div>
                 </div>
@@ -774,6 +840,36 @@ export default function JobDetailsPage({ params }: { params: Promise<{ jobId: st
                        </div>
                      </div>
                    </Card>
+                )}
+
+                {job.assetsRequired && Object.values(job.assetsRequired).some(Boolean) && (
+                  <Card className="rounded-[2.5rem] shadow-xl border-none p-8 bg-blue-50/50 border-l-8 border-blue-500 space-y-4">
+                    <h3 className="text-lg font-black text-blue-950 uppercase tracking-tight flex items-center gap-2">
+                      <Briefcase className="w-5 h-5 text-blue-600" /> Mandatory Assets Required for This Job
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {job.assetsRequired.twoWheeler && (
+                        <div className="p-3 bg-white rounded-xl border border-blue-200 flex items-center gap-2 font-bold text-xs text-blue-900 shadow-sm">
+                          <Bike className="w-4 h-4 text-blue-600 shrink-0" /> 2-Wheeler / Bike
+                        </div>
+                      )}
+                      {job.assetsRequired.drivingLicense && (
+                        <div className="p-3 bg-white rounded-xl border border-blue-200 flex items-center gap-2 font-bold text-xs text-blue-900 shadow-sm">
+                          <Navigation className="w-4 h-4 text-purple-600 shrink-0" /> Driving License
+                        </div>
+                      )}
+                      {job.assetsRequired.smartphone && (
+                        <div className="p-3 bg-white rounded-xl border border-blue-200 flex items-center gap-2 font-bold text-xs text-blue-900 shadow-sm">
+                          <Smartphone className="w-4 h-4 text-emerald-600 shrink-0" /> Smartphone
+                        </div>
+                      )}
+                      {job.assetsRequired.laptop && (
+                        <div className="p-3 bg-white rounded-xl border border-blue-200 flex items-center gap-2 font-bold text-xs text-blue-900 shadow-sm">
+                          <Briefcase className="w-4 h-4 text-indigo-600 shrink-0" /> Laptop / PC
+                        </div>
+                      )}
+                    </div>
+                  </Card>
                 )}
 
                 <Card className="rounded-[2.5rem] shadow-xl border-none p-8 md:p-10 bg-white">
